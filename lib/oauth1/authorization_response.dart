@@ -6,11 +6,11 @@ class AuthorizationResponse {
 
   AuthorizationResponse(this._credentials, this._optionalParameters);
   factory AuthorizationResponse.fromMap(Map<String, String> parameters) {
-    Map<String, String> paramsCopy = new Map<String, String>.from(parameters);
-    Credentials cred = new Credentials.fromMap(paramsCopy);
+    Map<String, String> paramsCopy = Map<String, String>.from(parameters);
+    Credentials cred = Credentials.fromMap(paramsCopy);
     paramsCopy.remove('oauth_token');
     paramsCopy.remove('oauth_token_secret');
-    return new AuthorizationResponse(cred, paramsCopy);
+    return AuthorizationResponse(cred, paramsCopy);
   }
 
   Credentials get credentials => _credentials;

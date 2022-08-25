@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
 
-typedef String Sign(String key, String text);
+typedef Sign = String Function(String key, String text);
 
 class SignatureMethod {
   final String _name;
@@ -19,8 +19,7 @@ class SignatureMethod {
 
 abstract class SignatureMethods {
   /// http://tools.ietf.org/html/rfc5849#section-3.4.2
-  static final SignatureMethod HMAC_SHA1 =
-      SignatureMethod("HMAC-SHA1", (key, text) {
+  static final SignatureMethod hmacSha1 = SignatureMethod("HMAC-SHA1", (key, text) {
     Hmac hmac = Hmac(sha1, key.codeUnits);
     List<int> bytes = hmac.convert(text.codeUnits).bytes;
 
@@ -32,8 +31,7 @@ abstract class SignatureMethods {
 
   /// http://tools.ietf.org/html/rfc5849#section-3.4.3
   /// http://tools.ietf.org/html/rfc5849#section-3.4.4
-  static final SignatureMethod PLAINTEXT =
-      SignatureMethod("PLAINTEXT", (key, text) {
+  static final SignatureMethod plaintext = SignatureMethod("PLAINTEXT", (key, text) {
     return key;
   });
 }

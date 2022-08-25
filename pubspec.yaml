@@ -1,7 +1,9 @@
+publish_to: none
+
 name: flutter_fibricheck_sdk
-description: A new Flutter package project.
+description: This package serves as a JavaScript wrapper around all FibriCheck cloud services.
 version: 0.0.1
-homepage:
+homepage: https://docs.fibricheck.com/
 
 environment:
   sdk: ">=2.17.6 <3.0.0"
@@ -14,6 +16,10 @@ dependencies:
   crypto: ^3.0.2
   convert: ^3.0.2
   uuid: any
+  json_serializable: ^6.3.1
+  build_runner: any
+  package_info_plus: ^1.0.6
+  device_info_plus: ^4.1.2
 
 dev_dependencies:
   flutter_test:

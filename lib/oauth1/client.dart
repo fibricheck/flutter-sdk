@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'signature_method.dart';
@@ -13,8 +12,7 @@ class Client extends http.BaseClient {
   final Credentials? _credentials;
   final http.Client _httpClient;
 
-  Client(this._signatureMethod, this._clientCredentials, this._credentials,
-      [http.BaseClient? httpClient])
+  Client(this._signatureMethod, this._clientCredentials, this._credentials, [http.BaseClient? httpClient])
       : _httpClient = httpClient ?? http.Client();
 
   @override
@@ -40,18 +38,18 @@ class Client extends http.BaseClient {
   }
 
   static Map parseUrlEncoded(String content, [bool printErrors = true]) {
-    if (content.length <= 0) {
+    if (content.isEmpty) {
       return {};
     }
     List<String> segments = content.split("&");
     Map parsed = {};
 
     for (String segment in segments) {
-      if (segment.length <= 0) {
+      if (segment.isEmpty) {
         continue;
       }
       List<String> pair = segment.split('=');
-      if (pair[0].length <= 0) {
+      if (pair[0].isEmpty) {
         continue;
       }
       parsed[pair[0]] = (pair.toList().length == 2) ? _urlDecode(pair[1]) : '';
@@ -59,6 +57,5 @@ class Client extends http.BaseClient {
     return parsed;
   }
 
-  static String _urlDecode(String encoded) =>
-      Uri.decodeComponent(encoded.replaceAll("+", " "));
+  static String _urlDecode(String encoded) => Uri.decodeComponent(encoded.replaceAll("+", " "));
 }

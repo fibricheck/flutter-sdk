@@ -1,5 +1,3 @@
-import 'package:uuid/uuid.dart';
-
 import 'signature_method.dart';
 import 'client_credentials.dart';
 import 'credentials.dart';
@@ -12,19 +10,16 @@ class AuthorizationHeader {
   final String _url;
   final Map<String, String> _additionalParameters;
 
-  static final _uuid = Uuid();
-
-  AuthorizationHeader(this._signatureMethod, this._clientCredentials,
-      this._credentials, this._method, this._url, this._additionalParameters);
+  AuthorizationHeader(this._signatureMethod, this._clientCredentials, this._credentials, this._method, this._url,
+      this._additionalParameters);
 
   @override
   String toString() {
-    Map<String, String> params = Map();
+    Map<String, String> params = {};
 
     params['oauth_nonce'] = DateTime.now().millisecondsSinceEpoch.toString();
     params['oauth_signature_method'] = _signatureMethod.name;
-    params['oauth_timestamp'] =
-        (DateTime.now().millisecondsSinceEpoch / 1000).floor().toString();
+    params['oauth_timestamp'] = (DateTime.now().millisecondsSinceEpoch / 1000).floor().toString();
     params['oauth_consumer_key'] = _clientCredentials.token;
     params['oauth_version'] = '1.0';
     if (_credentials != null) {
@@ -41,12 +36,9 @@ class AuthorizationHeader {
     return authHeader;
   }
 
-  /**
-   * Create signature in ways referred from
-   *   https://dev.twitter.com/docs/auth/creating-signature.
-   */
-  String _createSignature(
-      String method, String url, Map<String, String> params) {
+  /// Create signature in ways referred from
+  ///   https://dev.twitter.com/docs/auth/creating-signature.
+  String _createSignature(String method, String url, Map<String, String> params) {
     // Referred from https://dev.twitter.com/docs/auth/creating-signature
     if (params.isEmpty) {
       throw ArgumentError("params is empty.");
@@ -59,7 +51,7 @@ class AuthorizationHeader {
 
     // 1. Percent encode every key and value
     //    that will be signed.
-    Map<String, String> encodedParams = Map<String, String>();
+    Map<String, String> encodedParams = <String, String>{};
     params.forEach((k, v) {
       encodedParams[Uri.encodeComponent(k)] = Uri.encodeComponent(v);
     });
@@ -78,9 +70,13 @@ class AuthorizationHeader {
     // 6. Append the encoded value to the output string.
     // 7. If there are more key/value pairs remaining,
     //    append a '&' character to the output string.
-    String baseParams = sortedEncodedKeys.map((k) {
-      return '$k=${encodedParams[k]}';
-    }).join('&');
+    String baseParams = sortedEncodedKeys
+        .map((k) {
+          return '$k=${encodedParams[k]}';
+        })
+        .join('&')
+        .replaceAll(r'(', "%28")
+        .replaceAll(r')', "%29");
 
     //
     // Creating the signature base string
@@ -113,14 +109,14 @@ class AuthorizationHeader {
     // secret, followed by an ampersand character '&',
     // followed by the percent encoded token secret:
     String consumerSecret = Uri.encodeComponent(_clientCredentials.tokenSecret);
-    String tokenSecret = _credentials != null
-        ? Uri.encodeComponent(_credentials?.tokenSecret ?? "")
-        : "";
+    String tokenSecret = _credentials != null ? Uri.encodeComponent(_credentials?.tokenSecret ?? "") : "";
     String signingKey = "$consumerSecret&$tokenSecret";
 
     //
     // Calculating the signature
     //
-    return _signatureMethod.sign(signingKey, base.toString());
+    var signString = base.toString();
+    var signature = _signatureMethod.sign(signingKey, signString);
+    return signature;
   }
 }

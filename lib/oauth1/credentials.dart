@@ -12,8 +12,7 @@ class Credentials {
     if (!parameters.containsKey('oauth_token_secret')) {
       throw ArgumentError("params doesn't have a key 'oauth_token_secret'");
     }
-    return Credentials(parameters['oauth_token'] ?? "",
-        parameters['oauth_token_secret'] ?? "");
+    return Credentials(parameters['oauth_token'] ?? "", parameters['oauth_token_secret'] ?? "");
   }
   factory Credentials.fromJSON(String json) {
     return Credentials.fromMap(jsonDecode(json));
@@ -22,6 +21,7 @@ class Credentials {
   String get token => _token;
   String get tokenSecret => _tokenSecret;
 
+  @override
   String toString() {
     return 'oauth_token=$token&oauth_token_secret=$tokenSecret';
   }

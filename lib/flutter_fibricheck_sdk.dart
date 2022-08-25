@@ -1,76 +1,88 @@
 library flutter_fibricheck_sdk;
 
 import 'dart:convert';
+import 'dart:io';
 
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_fibricheck_sdk/api/httpclient.dart';
+import 'package:flutter_fibricheck_sdk/measurement.dart';
+import 'package:flutter_fibricheck_sdk/paged_results.dart';
+import 'package:flutter_fibricheck_sdk/profiledata.dart';
+import 'package:flutter_fibricheck_sdk/report.dart';
 import 'package:http/http.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:device_info_plus/device_info_plus.dart';
+
+import 'sdk_errors.dart';
+import 'userdata.dart';
 
 enum Env {
   dev,
   production,
 }
 
-List<String> requiredDocuments = ["privacy_policy", "terms_of_use"];
+List<String> _requiredDocuments = ["privacy_policy", "terms_of_use"];
 
 class FLFibriCheckSdk {
+  final String dataKey = "data";
+
   late OAuth1Client _client;
 
   FLFibriCheckSdk(OAuth1Client oAuth1Client) {
     _client = oAuth1Client;
   }
 
-  /// Takes in a consumerKey, consumerSecret and optionally an env specification
-  ///  and returns a FLFibriCheckSdk object that can access the various sdk methods
-  static FLFibriCheckSdk client(String consumerKey, String consumerSecret,
-      {Env? env = Env.production}) {
+  /// Create an instance of the FibriCheck SDK based on a [consumerKey],
+  /// [consumerSecret] and optionally an environment specification
+  static FLFibriCheckSdk client(String consumerKey, String consumerSecret, {Env? env = Env.production}) {
     return FLFibriCheckSdk(
       OAuth1Client(
-        host: env == Env.dev
-            ? "https://api.dev.fibricheck.com"
-            : "https://api.fibricheck.com",
+        host: env == Env.dev ? "https://api.dev.fibricheck.com" : "https://api.fibricheck.com",
         consumerKey: consumerKey,
         consumerSecret: consumerSecret,
       ),
     );
   }
 
-  /// Use password authentication.
-  /// As second parameter you need to pass in callback function that is fired when the user needs to sign updated legal documents
-  /// see https://docs.fibricheck.com/examples#legal-documents-updated
-  Future<Response> register(UserRegisterData data) {
-    return _client.register(data);
+  /// Create an account based on a [UserRegisterData] object
+  /// and returns [UserData] of the created user
+  ///
+  /// can throw [EmailUsedError]
+  Future<UserData> register(UserRegisterData data) async {
+    var res = await _client.register(data);
+    _throwErrorsFromResponseIfNeeded(res);
+
+    var userData = UserData.fromJson(jsonDecode(res.body));
+
+    return userData;
   }
 
-  Future<Response> authenticate(ParamsOauth1WithEmail credentials,
-      void Function(List<Consent> consents) onConsentNeeded) async {
-    var res = await _client.createOAuth1Token(credentials);
+  /// Authenticate with an [ParamsOauth1WithEmail] object and returns a
+  /// [TokenDataOauth1] object
+  ///
+  /// can throw [ApplicationNotAuthenticatedError], [AuthenticationError],
+  ///  [LoginTimeoutError], [LoginFreezeError], [TooManyFailedAttemptsError], [MfaRequiredError]
+  Future<TokenDataOauth1> authenticateWithEmail(
+      ParamsOauth1WithEmail credentials, void Function(List<Consent> consents) onConsentNeeded) async {
+    var res = await _client.createOAuth1TokenWithEmail(credentials);
+    _throwErrorsFromResponseIfNeeded(res);
 
-    // get general config
     var resGeneralConfig = await _client.getGeneralConfiguration();
+    _throwErrorsFromResponseIfNeeded(resGeneralConfig);
     var resGeneralConfigObj = jsonDecode(resGeneralConfig.body);
-    var liveDocuments = resGeneralConfigObj["data"]?["documents"];
+    var liveDocuments = resGeneralConfigObj[dataKey]?["documents"];
 
-    // get user config
     var resUserConfig = await _client.getUserConfiguration();
+    _throwErrorsFromResponseIfNeeded(resUserConfig);
     var resUserConfigObj = jsonDecode(resUserConfig.body);
-    var userDocuments = resUserConfigObj["data"]?["documents"];
+    var userDocuments = resUserConfigObj[dataKey]?["documents"];
 
-    // required documents: privacyPolicy, termsOfUse
     List<Consent> consents = <Consent>[];
-    // check for each required document if there is a live document.
-    for (var doc in requiredDocuments) {
+    for (var doc in _requiredDocuments) {
       if (liveDocuments[doc] != null) {
         var liveVersion = liveDocuments[doc]["version"];
 
-        if (userDocuments == null ||
-            userDocuments[doc] == null ||
-            userDocuments[doc]["version"] != liveVersion) {
-          consents.add(Consent(
-              legalDocumentKey: doc,
-              version: liveVersion,
-              url: liveDocuments[doc]["url"]));
+        if (userDocuments == null || userDocuments[doc] == null || userDocuments[doc]["version"] != liveVersion) {
+          consents.add(Consent(legalDocumentKey: doc, version: liveVersion, url: liveDocuments[doc]["url"]));
         }
       }
     }
@@ -79,218 +91,322 @@ class FLFibriCheckSdk {
       onConsentNeeded(consents);
     }
 
-    return res;
+    var resJson = jsonDecode(res.body);
+
+    var tokenData = TokenDataOauth1(
+      userId: resJson["userId"],
+      applicationId: resJson["applicationId"],
+      token: resJson["token"],
+      tokenSecret: resJson["tokenSecret"],
+      updateTimestamp: DateTime.parse(resJson["updateTimestamp"]).millisecondsSinceEpoch,
+      creationTimestamp: DateTime.parse(resJson["creationTimestamp"]).millisecondsSinceEpoch,
+      key: _client.consumerKey,
+      secret: _client.consumerSecret,
+      id: resJson["id"],
+    );
+
+    return tokenData;
   }
 
+  /// Authenticate with an [ParamsOauth1WithToken] object and returns a
+  /// [TokenDataOauth1] object
+  ///
+  /// can throw [ApplicationNotAuthenticatedError], [AuthenticationError],
+  ///  [LoginTimeoutError], [LoginFreezeError], [TooManyFailedAttemptsError], [MfaRequiredError]
+  Future<TokenDataOauth1> authenticateWithToken(
+      ParamsOauth1WithToken credentials, void Function(List<Consent> consents) onConsentNeeded) async {
+    var res = await _client.createOAuth1TokenWithToken(credentials);
+    _throwErrorsFromResponseIfNeeded(res);
+
+    // get general config
+    var resGeneralConfig = await _client.getGeneralConfiguration();
+    _throwErrorsFromResponseIfNeeded(resGeneralConfig);
+    var resGeneralConfigObj = jsonDecode(resGeneralConfig.body);
+    var liveDocuments = resGeneralConfigObj[dataKey]?["documents"];
+
+    // get user config
+    var resUserConfig = await _client.getUserConfiguration();
+    _throwErrorsFromResponseIfNeeded(resUserConfig);
+    var resUserConfigObj = jsonDecode(resUserConfig.body);
+    var userDocuments = resUserConfigObj[dataKey]?["documents"];
+
+    // required documents: privacyPolicy, termsOfUse
+    List<Consent> consents = <Consent>[];
+    // check for each required document if there is a live document.
+    for (var doc in _requiredDocuments) {
+      if (liveDocuments[doc] != null) {
+        var liveVersion = liveDocuments[doc]["version"];
+
+        if (userDocuments == null || userDocuments[doc] == null || userDocuments[doc]["version"] != liveVersion) {
+          consents.add(Consent(legalDocumentKey: doc, version: liveVersion, url: liveDocuments[doc]["url"]));
+        }
+      }
+    }
+
+    if (consents.isNotEmpty) {
+      onConsentNeeded(consents);
+    }
+    var resJson = jsonDecode(res.body);
+
+    var tokenData = TokenDataOauth1(
+        userId: resJson["id"],
+        applicationId: null,
+        token: credentials.token,
+        tokenSecret: credentials.tokenSecret,
+        updateTimestamp: resJson["update_timestamp"],
+        creationTimestamp: resJson["creation_timestamp"],
+        key: _client.consumerKey,
+        secret: _client.consumerSecret,
+        id: null);
+
+    return tokenData;
+  }
+
+  /// Clears oauth session data
   bool logout() {
     return _client.logout();
+  }
+
+  /// Gives consent based on a [Consent] object
+  /// Returns the number of affectedd records
+  Future<int> giveConsent(Consent consent) async {
+    var b =
+        '{"data": { "documents": { "${consent.legalDocumentKey}": { "version": "${consent.version}", "timestamp": "${DateTime.now().toIso8601String()}" } } } }';
+
+    var res = await _client.updateUserConfig(b);
+    _throwErrorsFromResponseIfNeeded(res);
+
+    Map<String, dynamic> resultObj = jsonDecode(res.body);
+
+    int affectedRecords = resultObj["affectedRecords"];
+
+    return affectedRecords;
+  }
+
+  /// Send a measurement to the cloud
+  Future<Measurement> postMeasurement(MeasurementCreationData measurementCreationData, String cameraSdkVersion) async {
+    var isMeasurementAllowed = await canPerformMeasurement();
+    if (!isMeasurementAllowed) {
+      throw NoActivePrescriptionError();
+    }
+
+    var packageInfo = await PackageInfo.fromPlatform();
+    measurementCreationData.app = App(
+      build: num.parse(packageInfo.buildNumber),
+      name: "mobile-spot-check",
+      version: packageInfo.version,
+      fibricheckSdkVersion: "1.0.0",
+      cameraSdkVersion: cameraSdkVersion,
+    );
+
+    var deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo androidInfo;
+    IosDeviceInfo iosInfo;
+
+    String? os;
+    String? model;
+    String? manufacturer;
+
+    if (Platform.isAndroid) {
+      androidInfo = await deviceInfo.androidInfo;
+      os = androidInfo.version.baseOS;
+      model = androidInfo.model;
+      manufacturer = androidInfo.manufacturer;
+    } else if (Platform.isIOS) {
+      iosInfo = await deviceInfo.iosInfo;
+      os = iosInfo.systemVersion;
+      model = iosInfo.localizedModel;
+      manufacturer = 'Apple';
+    } else {
+      throw SdkError(errorBody: "Platform not supported");
+    }
+
+    measurementCreationData.device = Device(
+      os: os,
+      model: model,
+      manufacturer: manufacturer,
+      type: Platform.isAndroid ? DeviceType.android : DeviceType.ios,
+    );
+    measurementCreationData.tags = ['FibriCheck-sdk'];
+
+    var res = await _client.postMeasurement(jsonEncode(measurementCreationData));
+    _throwErrorsFromResponseIfNeeded(res);
+
+    Map<String, dynamic> resultObj = jsonDecode(res.body);
+    Measurement m = Measurement.fromJson(resultObj);
+
+    return m;
   }
 
   /// Check if the user is entitled to perform a measurement
   Future<bool> canPerformMeasurement() async {
     var res = await _client.getDocuments();
+    _throwErrorsFromResponseIfNeeded(res);
 
     Map<String, dynamic> resultObj = jsonDecode(res.body);
 
-    bool? canPerformMeasurement =
-        resultObj["data"]?[0]?["data"]?["canPerformMeasurement"];
+    bool? canPerformMeasurement = resultObj[dataKey]?[0]?[dataKey]?["canPerformMeasurement"];
 
     return canPerformMeasurement == true;
   }
 
-  Future<Response> giveConsent(Consent consent) async {
-    var b =
-        '{"data": { "documents": { "${consent.legalDocumentKey}": { "version": "${consent.version}", "timestamp": "${DateTime.now().toIso8601String()}" } } } }';
+  /// Updates the measurement context for a given measurement id
+  Future<int> updateMeasurementContext(String measurementId, MeasurementContext measurementContext) async {
+    var res = await _client.upateMeasurementContext(measurementId, '{"context": ${jsonEncode(measurementContext)} }');
+    _throwErrorsFromResponseIfNeeded(res);
 
-    var res = await _client.updateUser(b);
-
-    return res;
+    Map<String, dynamic> resultObj = jsonDecode(res.body);
+    int affectedRecords = resultObj["affectedRecords"];
+    return affectedRecords;
   }
-}
 
-//TODO move
-class UserRegisterData {
-  final String firstName;
-  final String lastName;
-  final String email;
-  final String password;
-  final String phoneNumber;
-  final String language;
-  final String? timeZone;
+  /// Get all measurements of the current user
+  Future<PagedMeasurementResult> getMeasurements(bool newestFirst) async {
+    var res = await _client.getMeasurements(newestFirst);
+    _throwErrorsFromResponseIfNeeded(res);
 
-  UserRegisterData({
-    required this.firstName,
-    required this.lastName,
-    required this.email,
-    required this.password,
-    required this.phoneNumber,
-    required this.language,
-    this.timeZone,
-  });
+    Map<String, dynamic> resultObj = jsonDecode(res.body);
+    var measurements = resultObj[dataKey];
 
-  Map toJson() => {
-        "first_name": firstName,
-        "last_name": lastName,
-        "email": email,
-        "password": password,
-        "phone_number": phoneNumber,
-        "language": language,
-        "time_zone": timeZone,
-      };
-}
+    var page = Page();
+    page.limit = resultObj["page"]["limit"];
+    page.offset = resultObj["page"]["offset"];
+    page.total = resultObj["page"]["total"];
 
-class ParamsOauth1WithEmail {
-  final String email;
-  final String password;
+    List<Measurement> measurementList = <Measurement>[];
+    for (var m in measurements) {
+      measurementList.add(Measurement.fromJson(m));
+    }
 
-  ParamsOauth1WithEmail({
-    required this.email,
-    required this.password,
-  });
+    var pagedResult = PagedMeasurementResult(
+      result: measurementList,
+      page: page,
+      client: _client,
+      newestFirst: newestFirst,
+    );
 
-  Map toJson() => {
-        "email": email,
-        "password": password,
-      };
-}
+    return pagedResult;
+  }
 
-class ParamsOauth1WithToken {
-  final String token;
-  final String tokenSecret;
+  /// Get a measurement based on a [measurementId]
+  Future<Measurement> getMeasurement(String measurementId) async {
+    var res = await _client.getMeasurement(measurementId);
+    _throwErrorsFromResponseIfNeeded(res);
 
-  ParamsOauth1WithToken({
-    required this.token,
-    required this.tokenSecret,
-  });
+    Map<String, dynamic> resultObj = jsonDecode(res.body);
+    var data = resultObj[dataKey][0];
+    Measurement m = Measurement.fromJson(data);
 
-  Map toJson() => {
-        "token": token,
-        "token_secret": tokenSecret,
-      };
-}
+    return m;
+  }
 
-class UserData {
-  final String id;
-  final String firstName;
-  final String lastName;
-  final String languageCode;
-  final String timeZone;
-  final String email;
-  final String phoneNumber;
-  final bool activation;
-  final List<PatientEnlistment> patientEnlistments;
-  final List<Role> roles;
-  final List<StaffEnlistment> staffEnlistments;
-  final DateTime lastFailedTimestamp;
-  final int failedCount;
-  final String profileImage;
-  final DateTime creationTimestamp;
-  final DateTime updateTimestamp;
+  Future activatePrescription(String hash) async {
+    var resPresc = await _client.getPrescription(hash);
+    Map<String, dynamic> resultObj = jsonDecode(resPresc.body);
 
-  UserData({
-    required this.id,
-    required this.firstName,
-    required this.lastName,
-    required this.languageCode,
-    required this.timeZone,
-    required this.email,
-    required this.phoneNumber,
-    required this.activation,
-    required this.patientEnlistments,
-    required this.roles,
-    required this.staffEnlistments,
-    required this.lastFailedTimestamp,
-    required this.failedCount,
-    required this.profileImage,
-    required this.creationTimestamp,
-    required this.updateTimestamp,
-  });
-}
+    var status = resultObj[dataKey]?[0]?["status"];
+    String? presUserId;
+    switch (status) {
+      case 'ACTIVATED':
+        throw AlreadyActivatedError();
+      case 'NOT_PAID':
+        throw NotPaidError();
+      case 'PAID_BY_USER':
+      case 'PAID_BY_GROUP':
+      case 'FREE':
+      default:
+        presUserId = resultObj[dataKey]?[0]?["userId"];
+        break;
+    }
+    if (presUserId == null) {
+      await _client.linkPrescription(hash);
+    }
+    await _client.activatePrescription(hash);
+  }
 
-class PatientEnlistment {
-  final String groupId;
-  final DateTime expiryTimestamp;
-  final bool expired;
-  final DateTime creationTimestamp;
+  /// Update the user profile of the [userId] provided
+  /// with the given [ProfileData] and returns the number of affected records
+  Future<int> updateProfile(String userId, ProfileData updateData) async {
+    var jsonUpdateData = jsonEncode(updateData);
 
-  PatientEnlistment({
-    required this.groupId,
-    required this.expiryTimestamp,
-    required this.expired,
-    required this.creationTimestamp,
-  });
-}
+    var res = await _client.updateUserProfile(userId, jsonUpdateData);
+    _throwErrorsFromResponseIfNeeded(res);
 
-class Role {
-  final String id;
-  final String name;
-  final String description;
-  final List<Permission> permissions;
-  final DateTime creationTimestamp;
-  final DateTime updateTimestamp;
+    Map<String, dynamic> resultObj = jsonDecode(res.body);
 
-  Role({
-    required this.id,
-    required this.name,
-    required this.description,
-    required this.permissions,
-    required this.creationTimestamp,
-    required this.updateTimestamp,
-  });
-}
+    int affectedRecords = resultObj["records_affected"];
 
-class Permission {
-  final String name;
-  final String description;
+    return affectedRecords;
+  }
 
-  Permission({
-    required this.name,
-    required this.description,
-  });
-}
+  Future<String> getPeriodicReportPdf(String reportId) async {
+    var res = await _client.getPeriodicReportPdf(reportId);
 
-class StaffEnlistment {
-  final String groupId;
-  final List<GroupRole> roles;
-  final DateTime creationTimestamp;
-  final DateTime updateTimestamp;
+    var pdf = res.body;
 
-  StaffEnlistment({
-    required this.groupId,
-    required this.roles,
-    required this.creationTimestamp,
-    required this.updateTimestamp,
-  });
-}
+    return pdf;
+  }
 
-class GroupRole {
-  final String id;
-  final String groupId;
-  final String name;
-  final String description;
-  final List<String> permissions;
-  final DateTime creationTimestamp;
-  final DateTime updateTimestamp;
+  Future<PagedPeriodicReportsResult> getPeriodicReports(bool newestFirst) async {
+    var res = await _client.getPeriodicReports(newestFirst);
+    _throwErrorsFromResponseIfNeeded(res);
 
-  GroupRole({
-    required this.id,
-    required this.groupId,
-    required this.name,
-    required this.description,
-    required this.permissions,
-    required this.creationTimestamp,
-    required this.updateTimestamp,
-  });
-}
+    Map<String, dynamic> resultObj = jsonDecode(res.body);
+    var reports = resultObj[dataKey];
+    List<PeriodicReport> reportsList = <PeriodicReport>[];
+    for (var r in reports) {
+      reportsList.add(PeriodicReport.fromJson(r));
+    }
 
-class Consent {
-  String legalDocumentKey; // -> LegalDocumentKey type?
-  String version;
-  String url;
+    var page = Page();
+    page.limit = resultObj["page"]["limit"];
+    page.offset = resultObj["page"]["offset"];
+    page.total = resultObj["page"]["total"];
 
-  Consent({
-    required this.legalDocumentKey,
-    required this.version,
-    required this.url,
-  });
+    var pagedResult = PagedPeriodicReportsResult(
+      result: reportsList,
+      page: page,
+      client: _client,
+      newestFirst: newestFirst,
+    );
+
+    return pagedResult;
+  }
+
+  /// Returns a measurement report url for the given measurement id
+  /// or creates one if it not yet exists.
+  Future<String> getMeasurementReportUrl(String measurementId) async {
+    var res = await _client.getMeasurementReportUrl(measurementId);
+    _throwErrorsFromResponseIfNeeded(res);
+
+    Map<String, dynamic> resultObj = jsonDecode(res.body);
+    var data = resultObj[dataKey];
+
+    if (!data.isEmpty && data[0]['status'] == 'rendered') {
+      var url = "${_client.host}/files/v1/${data[0]?['data']['readFileToken']}/file";
+      return url;
+    } else {
+      var creationRes = await _client.createMeasurementReportUrl(measurementId);
+      _throwErrorsFromResponseIfNeeded(creationRes);
+      Map<String, dynamic> creationObj = jsonDecode(creationRes.body);
+      var creationData = creationObj[dataKey];
+      var creationUrl = "${_client.host}/files/v1/${creationData[0]?[dataKey]['readFileToken']}/file";
+      return creationUrl;
+    }
+  }
+
+  void _throwErrorsFromResponseIfNeeded(Response res) {
+    if (res.statusCode != 200) {
+      if (jsonDecode(res.body)["code"] == 101) throw ApplicationNotAuthenticatedError(errorBody: res.body);
+      if (jsonDecode(res.body)["code"] == 106) throw AuthenticationError(errorBody: res.body);
+      if (jsonDecode(res.body)["code"] == 129) throw MfaRequiredError(errorBody: res.body);
+
+      if (jsonDecode(res.body)["code"] == 203) throw EmailUsedError(errorBody: res.body);
+      if (jsonDecode(res.body)["code"] == 211) throw LoginTimeoutError(errorBody: res.body);
+      if (jsonDecode(res.body)["code"] == 212) throw LoginFreezeError(errorBody: res.body);
+      if (jsonDecode(res.body)["code"] == 213) throw TooManyFailedAttemptsError(errorBody: res.body);
+
+      if (jsonDecode(res.body)["code"] == 415) throw LockedDocumentError(errorBody: res.body);
+    }
+  }
 }
