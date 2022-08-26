@@ -6,14 +6,16 @@ part of 'report.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-PeriodicReport _$PeriodicReportFromJson(Map<String, dynamic> json) => PeriodicReport(
+PeriodicReport _$PeriodicReportFromJson(Map<String, dynamic> json) =>
+    PeriodicReport(
       json['id'] as String,
       json['status'] as String,
       $enumDecode(_$ReportTriggerEnumMap, json['trigger']),
       json['creation_timestamp'] as num,
     );
 
-Map<String, dynamic> _$PeriodicReportToJson(PeriodicReport instance) => <String, dynamic>{
+Map<String, dynamic> _$PeriodicReportToJson(PeriodicReport instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'status': instance.status,
       'trigger': _$ReportTriggerEnumMap[instance.trigger]!,

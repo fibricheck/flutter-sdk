@@ -37,6 +37,10 @@ dependencies:
   permission_handler: ^10.0.0
   flutter_fibricheck_sdk:
     path: ../
+  # camera_sdk:
+  #   git:
+  #     url: https://{TOKEN}@github.com/fibricheck/flutter-camera-sdk
+  #     ref: v0.0.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

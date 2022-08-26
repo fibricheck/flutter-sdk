@@ -5,6 +5,7 @@ import 'package:flutter_fibricheck_sdk_example/5_ui/widgets/fc_primarybutton.dar
 import 'package:intl/intl.dart';
 
 import '../0_design_system/fc_colors.dart';
+import 'camera.dart';
 import 'detail.dart';
 
 class DashBoard extends StatefulWidget {
@@ -101,12 +102,13 @@ class _DashBoardState extends State<DashBoard> {
   Future<void> postMeasurement(BuildContext context) async {
     var canPostMeasurement = await widget.sdk.canPerformMeasurement();
     if (canPostMeasurement) {
-      // Navigator.push(
-      //     context,
-      //     MaterialPageRoute(
-      //         builder: (context) => CameraScreen(
-      //               sdk: widget.sdk,
-      //             )));
+      // ignore: use_build_context_synchronously
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => CameraScreen(
+                    sdk: widget.sdk,
+                  )));
     } else {
       showDialog(
           context: context,

@@ -209,13 +209,13 @@ class FLFibriCheckSdk {
 
     if (Platform.isAndroid) {
       androidInfo = await deviceInfo.androidInfo;
-      os = androidInfo.version.baseOS;
+      os = androidInfo.version.release;
       model = androidInfo.model;
       manufacturer = androidInfo.manufacturer;
     } else if (Platform.isIOS) {
       iosInfo = await deviceInfo.iosInfo;
       os = iosInfo.systemVersion;
-      model = iosInfo.localizedModel;
+      model = iosInfo.localizedModel; // => check input
       manufacturer = 'Apple';
     } else {
       throw SdkError(errorBody: "Platform not supported");
@@ -227,7 +227,7 @@ class FLFibriCheckSdk {
       manufacturer: manufacturer,
       type: Platform.isAndroid ? DeviceType.android : DeviceType.ios,
     );
-    measurementCreationData.tags = ['FibriCheck-sdk'];
+    measurementCreationData.tags = ['FibriCheck-flutter-sdk'];
 
     var res = await _client.postMeasurement(jsonEncode(measurementCreationData));
     _throwErrorsFromResponseIfNeeded(res);

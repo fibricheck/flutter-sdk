@@ -59,19 +59,22 @@ class Yuv {
   Map<String, dynamic> toJson() => _$YuvToJson(this);
 }
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
 class TechnicalDetails {
   @JsonKey(name: 'camera_exposure_time')
-  final int cameraExposureTime;
+  final int? cameraExposureTime;
   @JsonKey(name: 'camera_hardware_level')
-  final String cameraHardwareLevel;
+  final String? cameraHardwareLevel;
   @JsonKey(name: 'camera_iso')
-  final int cameraIso;
+  final int? cameraIso;
+  @JsonKey(name: 'camera_resolution')
+  final String? cameraResolution;
 
   TechnicalDetails({
     required this.cameraExposureTime,
     required this.cameraHardwareLevel,
     required this.cameraIso,
+    required this.cameraResolution,
   });
 
   factory TechnicalDetails.fromJson(Map<String, dynamic> json) => _$TechnicalDetailsFromJson(json);
@@ -131,7 +134,7 @@ class CameraData {
 }
 
 enum Symptoms {
-  @JsonValue('bad_signal_quality')
+  @JsonValue('no_symptoms')
   noSymptoms,
   lightheaded,
   confused,

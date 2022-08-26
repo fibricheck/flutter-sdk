@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_fibricheck_sdk/flutter_fibricheck_sdk.dart';
 import 'package:flutter_fibricheck_sdk/measurement.dart';
@@ -80,8 +82,13 @@ class _DetailState extends State<Detail> {
   }
 
   Future<void> _launchUrl() async {
-    if (!await launchUrl(Uri.parse(reportUrl))) {
-      throw 'Could not launch $reportUrl';
+    debugPrint(reportUrl);
+
+    final url = Platform.isAndroid ? "https://docs.google.com/viewer?url=$reportUrl" : reportUrl;
+    if (await canLaunchUrl(Uri.parse(url))) {
+      if (!await launchUrl(Uri.parse(url))) {
+        throw 'Could not launch $reportUrl';
+      }
     }
   }
 
