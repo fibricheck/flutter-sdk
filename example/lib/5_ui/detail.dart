@@ -80,8 +80,10 @@ class _DetailState extends State<Detail> {
   }
 
   Future<void> _launchUrl() async {
-    if (!await launchUrl(Uri.parse(reportUrl))) {
-      throw 'Could not launch $reportUrl';
+    if (await canLaunchUrl(Uri.parse(reportUrl))) {
+      if (!await launchUrl(Uri.parse(reportUrl))) {
+        throw 'Could not launch $reportUrl';
+      }
     }
   }
 

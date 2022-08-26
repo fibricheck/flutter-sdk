@@ -169,6 +169,7 @@ class _MyAppState extends State<MyApp> {
             cameraExposureTime: 19990000,
             cameraHardwareLevel: "camera2 - full",
             cameraIso: 250,
+            cameraResolution: "176x144",
           ),
           time: <num>[1, 2, 3],
           yList: <num>[1, 2, 3],
