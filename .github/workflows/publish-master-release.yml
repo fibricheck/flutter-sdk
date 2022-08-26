@@ -1,0 +1,27 @@
+name: Flutter SDK - Build/Analyze/Test/Tag
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - run: flutter --version
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter build apk --release
+        working-directory: example
+      - id: read-version
+        uses: NiklasLehnfeld/flutter-version-number-action@main
+      - name: Output flutter version
+        run: echo 'version_number:' ${{ steps.read-version.outputs.version-number }}
+      - run: git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com" && git config --global user.name "$GITHUB_ACTOR"
+      - run: git tag -a v${{steps.read-version.outputs.version-number}} -m "Tagging v${{steps.read-version.outputs.version-number}}"
+      - run: git push --tags && git push

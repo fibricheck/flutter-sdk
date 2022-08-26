@@ -45,5 +45,11 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>https://api.dev.fibricheck.com</string>
+	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>This application wants to use your camera in order to monitor your heart rate.</string>
 </dict>
 </plist>
