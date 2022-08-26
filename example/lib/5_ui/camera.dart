@@ -1,6 +1,8 @@
+// ignore_for_file: prefer_final_fields, unused_import, unused_field, unused_element
+
 import 'dart:convert';
 
-import 'package:camera_sdk/fibri_check_view.dart';
+// import 'package:camera_sdk/fibri_check_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fibricheck_sdk/flutter_fibricheck_sdk.dart';
 import 'package:flutter_fibricheck_sdk/measurement.dart';
@@ -70,59 +72,59 @@ class _CameraScreenState extends State<CameraScreen> {
                           ),
                         ),
                         height: 200,
-                        child: FibriCheckView(
-                          fibriCheckViewProperties: FibriCheckViewProperties(
-                            flashEnabled: true,
-                            lineThickness: 4,
-                          ),
-                          onCalibrationReady: () => {
-                            debugPrint("Flutter onCalibrationReady"),
-                            setState(() {
-                              _status = "Recording heartbeat...";
-                            }),
-                          },
-                          onFingerDetected: () => {
-                            Wakelock.enable(),
-                            debugPrint("Flutter onFingerDetected"),
-                            setState(() {
-                              _status = "Detecting pulse...";
-                            }),
-                          },
-                          onFingerDetectionTimeExpired: () => debugPrint("Flutter onFingerDetectionTimeExpired"),
-                          onFingerRemoved: () => {
-                            Wakelock.disable(),
-                            debugPrint("Flutter onFingerRemoved"),
-                          },
-                          onHeartBeat: (heartbeat) => {
-                            debugPrint("Flutter onHeartBeat $heartbeat"),
-                            setState(() {
-                              _heartBeat = heartbeat.toString();
-                            }),
-                          },
-                          onMeasurementFinished: () => {
-                            debugPrint("Flutter onMeasurementFinished"),
-                            setState(() {
-                              _status = "Measurement finished!";
-                            }),
-                          },
-                          onMeasurementProcessed: (measurement) async => {
-                            await _onMeasurementFinished(measurement),
-                            debugPrint("Flutter onMeasurementProcessed $measurement"),
-                            if (Navigator.canPop(context)) Navigator.pop(context),
-                          },
-                          onPulseDetected: () => {
-                            debugPrint("Flutter onPulseDetected"),
-                            setState(() {
-                              _status = "Calibrating...";
-                            }),
-                          },
-                          onTimeRemaining: (seconds) => {
-                            debugPrint("Flutter onTimeRemaining $seconds"),
-                            setState(() {
-                              _timeRemaining = seconds.toString();
-                            }),
-                          },
-                        ),
+                        // child: FibriCheckView(
+                        //   fibriCheckViewProperties: FibriCheckViewProperties(
+                        //     flashEnabled: true,
+                        //     lineThickness: 4,
+                        //   ),
+                        //   onCalibrationReady: () => {
+                        //     debugPrint("Flutter onCalibrationReady"),
+                        //     setState(() {
+                        //       _status = "Recording heartbeat...";
+                        //     }),
+                        //   },
+                        //   onFingerDetected: () => {
+                        //     Wakelock.enable(),
+                        //     debugPrint("Flutter onFingerDetected"),
+                        //     setState(() {
+                        //       _status = "Detecting pulse...";
+                        //     }),
+                        //   },
+                        //   onFingerDetectionTimeExpired: () => debugPrint("Flutter onFingerDetectionTimeExpired"),
+                        //   onFingerRemoved: () => {
+                        //     Wakelock.disable(),
+                        //     debugPrint("Flutter onFingerRemoved"),
+                        //   },
+                        //   onHeartBeat: (heartbeat) => {
+                        //     debugPrint("Flutter onHeartBeat $heartbeat"),
+                        //     setState(() {
+                        //       _heartBeat = heartbeat.toString();
+                        //     }),
+                        //   },
+                        //   onMeasurementFinished: () => {
+                        //     debugPrint("Flutter onMeasurementFinished"),
+                        //     setState(() {
+                        //       _status = "Measurement finished!";
+                        //     }),
+                        //   },
+                        //   onMeasurementProcessed: (measurement) async => {
+                        //     await _onMeasurementFinished(measurement),
+                        //     debugPrint("Flutter onMeasurementProcessed $measurement"),
+                        //     if (Navigator.canPop(context)) Navigator.pop(context),
+                        //   },
+                        //   onPulseDetected: () => {
+                        //     debugPrint("Flutter onPulseDetected"),
+                        //     setState(() {
+                        //       _status = "Calibrating...";
+                        //     }),
+                        //   },
+                        //   onTimeRemaining: (seconds) => {
+                        //     debugPrint("Flutter onTimeRemaining $seconds"),
+                        //     setState(() {
+                        //       _timeRemaining = seconds.toString();
+                        //     }),
+                        //   },
+                        // ),
                       ),
                       DemoMetricsWidget(timeRemaining: _timeRemaining, heartBeat: _heartBeat),
                     ],

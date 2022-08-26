@@ -32,6 +32,11 @@ to `/example` folder.
 const like = 'sample';
 ```
 
+## Example App Instructions
+
+- uncomment the camera_sdk in 'pubspec.yaml' and add a valid GitHub token
+- uncomment the commented lines in camera.dart
+
 ## Additional information
 
 TODO: Tell users more about the package: where to find more information, how to 
