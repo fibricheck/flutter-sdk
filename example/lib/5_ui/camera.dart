@@ -13,6 +13,7 @@ import 'widgets/fc_title.dart';
 
 class CameraScreen extends StatefulWidget {
   const CameraScreen({super.key, required this.sdk});
+
   final FLFibriCheckSdk sdk;
 
   @override
@@ -107,7 +108,7 @@ class _CameraScreenState extends State<CameraScreen> {
                           onMeasurementProcessed: (measurement) async => {
                             await _onMeasurementFinished(measurement),
                             debugPrint("Flutter onMeasurementProcessed $measurement"),
-                            Navigator.pop(context),
+                            if (Navigator.canPop(context)) Navigator.pop(context),
                           },
                           onPulseDetected: () => {
                             debugPrint("Flutter onPulseDetected"),
