@@ -26,13 +26,13 @@ class PagedMeasurementResult {
   }) : _client = client;
 
   Future<PagedMeasurementResult> getNextMeasurements() async {
-    var res = await _client.getNextMeasurements(this.page, newestFirst);
+    var res = await _client.getNextMeasurements(page, newestFirst);
     _extractObjectData(res);
     return this;
   }
 
   Future<PagedMeasurementResult> getPreviousMeasurements() async {
-    var res = await _client.getPreviousMeasurements(this.page, newestFirst);
+    var res = await _client.getPreviousMeasurements(page, newestFirst);
     _extractObjectData(res);
     return this;
   }
@@ -70,13 +70,13 @@ class PagedPeriodicReportsResult {
   }) : _client = client;
 
   Future<PagedPeriodicReportsResult> getNextPagedPeriodicReportsResult() async {
-    var res = await _client.getNextPeriodicReports(this.page, newestFirst);
+    var res = await _client.getNextPeriodicReports(page, newestFirst);
     _extractObjectData(res);
     return this;
   }
 
   Future<PagedPeriodicReportsResult> getPreviousPagedPeriodicReportsResult() async {
-    var res = await _client.getPreviousPeriodicReports(this.page, newestFirst);
+    var res = await _client.getPreviousPeriodicReports(page, newestFirst);
     _extractObjectData(res);
     return this;
   }
