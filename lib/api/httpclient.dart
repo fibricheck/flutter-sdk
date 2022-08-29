@@ -184,7 +184,7 @@ class OAuth1Client {
   }
 
   Future<http.Response> getDocuments() async {
-    var uri = Uri.parse('$host/data/v1/feature-algo/documents');
+    var uri = Uri.parse('$host/data/v1/feature-algo/documents/?eq(data.userId,$userId)');
 
     var authHeader = AuthorizationHeader(SignatureMethods.hmacSha1, ClientCredentials(consumerKey, consumerSecret),
         Credentials(oAuthToken!, oAuthTokenSecret!), "GET", uri.toString(), <String, String>{});

@@ -228,7 +228,7 @@ class _MyAppState extends State<MyApp> {
               app: App(version: "1.0.0"),
               device: Device(
                 manufacturer: "Apple",
-                type: DeviceType.ios,
+                type: "ios",
                 model: "iPhone 13 Pro",
                 os: "15.5",
               ),

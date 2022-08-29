@@ -188,17 +188,12 @@ class MeasurementContext {
   Map<String, dynamic> toJson() => _$MeasurementContextToJson(this);
 }
 
-enum DeviceType {
-  android,
-  ios,
-}
-
 @JsonSerializable(explicitToJson: true)
 class Device {
   final String? manufacturer;
   final String? model;
   final String? os;
-  final DeviceType? type;
+  final String? type;
 
   Device({
     this.manufacturer,
@@ -392,7 +387,7 @@ enum Indicator {
 enum AlgoAnalysis {
   premium,
   essential,
-  @JsonValue('semi_continuous')
+  @JsonValue('semicontinuous')
   semiContinuous,
 }
 
