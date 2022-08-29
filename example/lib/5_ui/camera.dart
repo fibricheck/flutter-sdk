@@ -41,99 +41,97 @@ class _CameraScreenState extends State<CameraScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: FCColors.brokenWhite,
-        appBar: AppBar(
-          backgroundColor: FCColors.green,
-          title: const Text('Camera'),
-        ),
-        body: Column(
-          children: [
-            Expanded(
-              child: FutureBuilder(
-                future: _requestCameraPermission,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const DemoTitleWidget(title: "Requiring camera permission");
-                  }
+    return Scaffold(
+      backgroundColor: FCColors.brokenWhite,
+      appBar: AppBar(
+        backgroundColor: FCColors.green,
+        title: const Text('Camera'),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: FutureBuilder(
+              future: _requestCameraPermission,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const DemoTitleWidget(title: "Requiring camera permission");
+                }
 
-                  if (!_hasCameraPermission) {
-                    return const DemoTitleWidget(title: "Camera permission not granted");
-                  }
-                  return Column(
-                    children: [
-                      DemoTitleWidget(title: _status),
-                      Container(
-                        decoration: const BoxDecoration(
-                          border: Border(
-                            top: BorderSide(color: FCColors.lightGray, width: 1),
-                            bottom: BorderSide(color: FCColors.lightGray, width: 1),
-                          ),
+                if (!_hasCameraPermission) {
+                  return const DemoTitleWidget(title: "Camera permission not granted");
+                }
+                return Column(
+                  children: [
+                    DemoTitleWidget(title: _status),
+                    Container(
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          top: BorderSide(color: FCColors.lightGray, width: 1),
+                          bottom: BorderSide(color: FCColors.lightGray, width: 1),
                         ),
-                        height: 200,
-                        // child: FibriCheckView(
-                        //   fibriCheckViewProperties: FibriCheckViewProperties(
-                        //     flashEnabled: true,
-                        //     lineThickness: 4,
-                        //   ),
-                        //   onCalibrationReady: () => {
-                        //     debugPrint("Flutter onCalibrationReady"),
-                        //     setState(() {
-                        //       _status = "Recording heartbeat...";
-                        //     }),
-                        //   },
-                        //   onFingerDetected: () => {
-                        //     Wakelock.enable(),
-                        //     debugPrint("Flutter onFingerDetected"),
-                        //     setState(() {
-                        //       _status = "Detecting pulse...";
-                        //     }),
-                        //   },
-                        //   onFingerDetectionTimeExpired: () => debugPrint("Flutter onFingerDetectionTimeExpired"),
-                        //   onFingerRemoved: () => {
-                        //     Wakelock.disable(),
-                        //     debugPrint("Flutter onFingerRemoved"),
-                        //   },
-                        //   onHeartBeat: (heartbeat) => {
-                        //     debugPrint("Flutter onHeartBeat $heartbeat"),
-                        //     setState(() {
-                        //       _heartBeat = heartbeat.toString();
-                        //     }),
-                        //   },
-                        //   onMeasurementFinished: () => {
-                        //     debugPrint("Flutter onMeasurementFinished"),
-                        //     setState(() {
-                        //       _status = "Measurement finished!";
-                        //     }),
-                        //   },
-                        //   onMeasurementProcessed: (measurement) async => {
-                        //     await _onMeasurementFinished(measurement),
-                        //     debugPrint("Flutter onMeasurementProcessed $measurement"),
-                        //     if (Navigator.canPop(context)) Navigator.pop(context),
-                        //   },
-                        //   onPulseDetected: () => {
-                        //     debugPrint("Flutter onPulseDetected"),
-                        //     setState(() {
-                        //       _status = "Calibrating...";
-                        //     }),
-                        //   },
-                        //   onTimeRemaining: (seconds) => {
-                        //     debugPrint("Flutter onTimeRemaining $seconds"),
-                        //     setState(() {
-                        //       _timeRemaining = seconds.toString();
-                        //     }),
-                        //   },
-                        // ),
                       ),
-                      DemoMetricsWidget(timeRemaining: _timeRemaining, heartBeat: _heartBeat),
-                    ],
-                  );
-                },
-              ),
+                      height: 200,
+                      // child: FibriCheckView(
+                      //   fibriCheckViewProperties: FibriCheckViewProperties(
+                      //     flashEnabled: true,
+                      //     lineThickness: 4,
+                      //   ),
+                      //   onCalibrationReady: () => {
+                      //     debugPrint("Flutter onCalibrationReady"),
+                      //     setState(() {
+                      //       _status = "Recording heartbeat...";
+                      //     }),
+                      //   },
+                      //   onFingerDetected: () => {
+                      //     Wakelock.enable(),
+                      //     debugPrint("Flutter onFingerDetected"),
+                      //     setState(() {
+                      //       _status = "Detecting pulse...";
+                      //     }),
+                      //   },
+                      //   onFingerDetectionTimeExpired: () => debugPrint("Flutter onFingerDetectionTimeExpired"),
+                      //   onFingerRemoved: () => {
+                      //     Wakelock.disable(),
+                      //     debugPrint("Flutter onFingerRemoved"),
+                      //   },
+                      //   onHeartBeat: (heartbeat) => {
+                      //     debugPrint("Flutter onHeartBeat $heartbeat"),
+                      //     setState(() {
+                      //       _heartBeat = heartbeat.toString();
+                      //     }),
+                      //   },
+                      //   onMeasurementFinished: () => {
+                      //     debugPrint("Flutter onMeasurementFinished"),
+                      //     setState(() {
+                      //       _status = "Measurement finished!";
+                      //     }),
+                      //   },
+                      //   onMeasurementProcessed: (measurement) async => {
+                      //     await _onMeasurementFinished(measurement),
+                      //     debugPrint("Flutter onMeasurementProcessed $measurement"),
+                      //     if (Navigator.canPop(context)) Navigator.pop(context),
+                      //   },
+                      //   onPulseDetected: () => {
+                      //     debugPrint("Flutter onPulseDetected"),
+                      //     setState(() {
+                      //       _status = "Calibrating...";
+                      //     }),
+                      //   },
+                      //   onTimeRemaining: (seconds) => {
+                      //     debugPrint("Flutter onTimeRemaining $seconds"),
+                      //     setState(() {
+                      //       _timeRemaining = seconds.toString();
+                      //     }),
+                      //   },
+                      // ),
+                    ),
+                    DemoMetricsWidget(timeRemaining: _timeRemaining, heartBeat: _heartBeat),
+                  ],
+                );
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
