@@ -225,7 +225,7 @@ class FLFibriCheckSdk {
       os: os,
       model: model,
       manufacturer: manufacturer,
-      type: Platform.isAndroid ? DeviceType.android : DeviceType.ios,
+      type: Platform.isAndroid ? "android" : "ios",
     );
     measurementCreationData.tags = ['FibriCheck-flutter-sdk'];
 
