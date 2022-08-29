@@ -1,44 +1,40 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Getting Started
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
+This package serves as a Flutter wrapper around all [FibriCheck](https://www.fibricheck.com) cloud services.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
+To get started with the FibriCheck SDK you'll need to install it, and then get credentials which will allow you to access the backend.
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+## Installation
 
-## Features
+In your project you can add the package below to the pubspec.yaml file. Replace {TOKEN} with your personal access token. You can get a new one at [here](https://github.com/settings/tokens/new). Make sure you enable the `read:packages` scope.
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+```
+   flutter_fibricheck_sdk:
+     git:
+       url: https://{TOKEN}@github.com/fibricheck/flutter-sdk
+       ref: v0.0.1
+```
 
-## Getting started
+## Documentation
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+You can find the latest documentation and examples on [https://docs.fibricheck.com](https://docs.fibricheck.com/).
 
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+## Quick Start
 
 ```dart
-const like = 'sample';
+import 'package:flutter_fibricheck_sdk/flutter_fibricheck_sdk.dart';
+
+_sdk = FLFibriCheckSdk.client("consumerKey", "consumerSecret");
+
+await _sdk.authenticateWithEmail(
+      ParamsOauth1WithEmail(email: "email", password: "password"),
+      (consents) {
+        _onConsentNeeded(consents);
+      },
+    );
 ```
 
 ## Example App Instructions
 
 - uncomment the camera_sdk in 'pubspec.yaml' and add a valid GitHub token
 - uncomment the commented lines in camera.dart
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
