@@ -75,6 +75,10 @@ class _CameraScreenState extends State<CameraScreen> {
                       //   fibriCheckViewProperties: FibriCheckViewProperties(
                       //     flashEnabled: true,
                       //     lineThickness: 4,
+                      //     accEnabled: true,
+                      //     gravEnabled: true,
+                      //     gyroEnabled: true,
+                      //     rotationEnabled: true,
                       //   ),
                       //   onCalibrationReady: () => {
                       //     debugPrint("Flutter onCalibrationReady"),
