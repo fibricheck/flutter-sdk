@@ -7,12 +7,13 @@ part of 'measurement.dart';
 // **************************************************************************
 
 MotionData _$MotionDataFromJson(Map<String, dynamic> json) => MotionData(
-      x: (json['x'] as List<dynamic>).map((e) => e as int).toList(),
-      y: (json['y'] as List<dynamic>).map((e) => e as int).toList(),
-      z: (json['z'] as List<dynamic>).map((e) => e as int).toList(),
+      x: (json['x'] as List<dynamic>).map((e) => e as num).toList(),
+      y: (json['y'] as List<dynamic>).map((e) => e as num).toList(),
+      z: (json['z'] as List<dynamic>).map((e) => e as num).toList(),
     );
 
-Map<String, dynamic> _$MotionDataToJson(MotionData instance) => <String, dynamic>{
+Map<String, dynamic> _$MotionDataToJson(MotionData instance) =>
+    <String, dynamic>{
       'x': instance.x,
       'y': instance.y,
       'z': instance.z,
@@ -32,7 +33,8 @@ Map<String, dynamic> _$YuvToJson(Yuv instance) => <String, dynamic>{
       'y': instance.y,
     };
 
-TechnicalDetails _$TechnicalDetailsFromJson(Map<String, dynamic> json) => TechnicalDetails(
+TechnicalDetails _$TechnicalDetailsFromJson(Map<String, dynamic> json) =>
+    TechnicalDetails(
       cameraExposureTime: json['camera_exposure_time'] as int?,
       cameraHardwareLevel: json['camera_hardware_level'] as String?,
       cameraIso: json['camera_iso'] as int?,
@@ -59,34 +61,51 @@ CameraData _$CameraDataFromJson(Map<String, dynamic> json) => CameraData(
       heartrate: json['heartrate'] as num?,
       measurementTimestamp: json['measurement_timestamp'] as num?,
       quadrants: (json['quadrants'] as List<dynamic>?)
-          ?.map((e) => (e as List<dynamic>).map((e) => Yuv.fromJson(e as Map<String, dynamic>)).toList())
+          ?.map((e) => (e as List<dynamic>)
+              .map((e) => Yuv.fromJson(e as Map<String, dynamic>))
+              .toList())
           .toList(),
       technicalDetails: json['technical_details'] == null
           ? null
-          : TechnicalDetails.fromJson(json['technical_details'] as Map<String, dynamic>),
+          : TechnicalDetails.fromJson(
+              json['technical_details'] as Map<String, dynamic>),
       time: (json['time'] as List<dynamic>?)?.map((e) => e as num).toList(),
       yList: (json['yList'] as List<dynamic>?)?.map((e) => e as num).toList(),
-      abnormalities:
-          (json['abnormalities'] as List<dynamic>?)?.map((e) => $enumDecode(_$AbnormalitiesEnumMap, e)).toList(),
+      abnormalities: (json['abnormalities'] as List<dynamic>?)
+          ?.map((e) => $enumDecode(_$AbnormalitiesEnumMap, e))
+          .toList(),
       attempts: json['attempts'] as num?,
-      acc: json['acc'] == null ? null : MotionData.fromJson(json['acc'] as Map<String, dynamic>),
-      rotation: json['rotation'] == null ? null : MotionData.fromJson(json['rotation'] as Map<String, dynamic>),
-      grav: json['grav'] == null ? null : MotionData.fromJson(json['grav'] as Map<String, dynamic>),
-      gyro: json['gyro'] == null ? null : MotionData.fromJson(json['gyro'] as Map<String, dynamic>),
+      acc: json['acc'] == null
+          ? null
+          : MotionData.fromJson(json['acc'] as Map<String, dynamic>),
+      rotation: json['rotation'] == null
+          ? null
+          : MotionData.fromJson(json['rotation'] as Map<String, dynamic>),
+      grav: json['grav'] == null
+          ? null
+          : MotionData.fromJson(json['grav'] as Map<String, dynamic>),
+      gyro: json['gyro'] == null
+          ? null
+          : MotionData.fromJson(json['gyro'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$CameraDataToJson(CameraData instance) => <String, dynamic>{
+Map<String, dynamic> _$CameraDataToJson(CameraData instance) =>
+    <String, dynamic>{
       'acc': instance.acc?.toJson(),
       'rotation': instance.rotation?.toJson(),
       'grav': instance.grav?.toJson(),
       'gyro': instance.gyro?.toJson(),
       'heartrate': instance.heartrate,
       'measurement_timestamp': instance.measurementTimestamp,
-      'quadrants': instance.quadrants?.map((e) => e.map((e) => e.toJson()).toList()).toList(),
+      'quadrants': instance.quadrants
+          ?.map((e) => e.map((e) => e.toJson()).toList())
+          .toList(),
       'technical_details': instance.technicalDetails?.toJson(),
       'time': instance.time,
       'yList': instance.yList,
-      'abnormalities': instance.abnormalities?.map((e) => _$AbnormalitiesEnumMap[e]!).toList(),
+      'abnormalities': instance.abnormalities
+          ?.map((e) => _$AbnormalitiesEnumMap[e]!)
+          .toList(),
       'attempts': instance.attempts,
     };
 
@@ -99,10 +118,14 @@ const _$AbnormalitiesEnumMap = {
   Abnormalities.fingerNotFound: 'finger_not_found',
 };
 
-MeasurementContext _$MeasurementContextFromJson(Map<String, dynamic> json) => MeasurementContext(
-      symptoms: (json['symptoms'] as List<dynamic>?)?.map((e) => $enumDecode(_$SymptomsEnumMap, e)).toList(),
+MeasurementContext _$MeasurementContextFromJson(Map<String, dynamic> json) =>
+    MeasurementContext(
+      symptoms: (json['symptoms'] as List<dynamic>?)
+          ?.map((e) => $enumDecode(_$SymptomsEnumMap, e))
+          .toList(),
       activity: $enumDecodeNullable(_$ActivityEnumMap, json['activity']),
-      symptomSeverity: $enumDecodeNullable(_$SymptomSeverityEnumMap, json['symptomSeverity']),
+      symptomSeverity: $enumDecodeNullable(
+          _$SymptomSeverityEnumMap, json['symptomSeverity']),
     );
 
 Map<String, dynamic> _$MeasurementContextToJson(MeasurementContext instance) {
@@ -114,9 +137,11 @@ Map<String, dynamic> _$MeasurementContextToJson(MeasurementContext instance) {
     }
   }
 
-  writeNotNull('symptoms', instance.symptoms?.map((e) => _$SymptomsEnumMap[e]!).toList());
+  writeNotNull('symptoms',
+      instance.symptoms?.map((e) => _$SymptomsEnumMap[e]!).toList());
   writeNotNull('activity', _$ActivityEnumMap[instance.activity]);
-  writeNotNull('symptomSeverity', _$SymptomSeverityEnumMap[instance.symptomSeverity]);
+  writeNotNull(
+      'symptomSeverity', _$SymptomSeverityEnumMap[instance.symptomSeverity]);
   return val;
 }
 
@@ -192,8 +217,8 @@ Map<String, dynamic> _$AppToJson(App instance) {
 }
 
 Location _$LocationFromJson(Map<String, dynamic> json) => Location(
-      latitude: json['latitude'] as int,
-      longitude: json['longitude'] as int,
+      latitude: json['latitude'] as num,
+      longitude: json['longitude'] as num,
     );
 
 Map<String, dynamic> _$LocationToJson(Location instance) => <String, dynamic>{
@@ -206,7 +231,8 @@ SignalValue _$SignalValueFromJson(Map<String, dynamic> json) => SignalValue(
       data: (json['data'] as List<dynamic>).map((e) => e as int).toList(),
     );
 
-Map<String, dynamic> _$SignalValueToJson(SignalValue instance) => <String, dynamic>{
+Map<String, dynamic> _$SignalValueToJson(SignalValue instance) =>
+    <String, dynamic>{
       'time': instance.time,
       'data': instance.data,
     };
@@ -221,33 +247,59 @@ Map<String, dynamic> _$SignalToJson(Signal instance) => <String, dynamic>{
       'value': instance.value.toJson(),
     };
 
-MeasurementCreationData _$MeasurementCreationDataFromJson(Map<String, dynamic> json) => MeasurementCreationData(
+MeasurementCreationData _$MeasurementCreationDataFromJson(
+        Map<String, dynamic> json) =>
+    MeasurementCreationData(
       heartrate: json['heartrate'] as num?,
       measurementTimestamp: json['measurement_timestamp'] as num?,
       quadrants: (json['quadrants'] as List<dynamic>?)
-          ?.map((e) => (e as List<dynamic>).map((e) => Yuv.fromJson(e as Map<String, dynamic>)).toList())
+          ?.map((e) => (e as List<dynamic>)
+              .map((e) => Yuv.fromJson(e as Map<String, dynamic>))
+              .toList())
           .toList(),
       technicalDetails: json['technical_details'] == null
           ? null
-          : TechnicalDetails.fromJson(json['technical_details'] as Map<String, dynamic>),
+          : TechnicalDetails.fromJson(
+              json['technical_details'] as Map<String, dynamic>),
       time: (json['time'] as List<dynamic>?)?.map((e) => e as num).toList(),
       yList: (json['yList'] as List<dynamic>?)?.map((e) => e as num).toList(),
-      abnormalities:
-          (json['abnormalities'] as List<dynamic>?)?.map((e) => $enumDecode(_$AbnormalitiesEnumMap, e)).toList(),
+      abnormalities: (json['abnormalities'] as List<dynamic>?)
+          ?.map((e) => $enumDecode(_$AbnormalitiesEnumMap, e))
+          .toList(),
       attempts: json['attempts'] as num?,
-      acc: json['acc'] == null ? null : MotionData.fromJson(json['acc'] as Map<String, dynamic>),
-      rotation: json['rotation'] == null ? null : MotionData.fromJson(json['rotation'] as Map<String, dynamic>),
-      grav: json['grav'] == null ? null : MotionData.fromJson(json['grav'] as Map<String, dynamic>),
-      gyro: json['gyro'] == null ? null : MotionData.fromJson(json['gyro'] as Map<String, dynamic>),
-      context: json['context'] == null ? null : MeasurementContext.fromJson(json['context'] as Map<String, dynamic>),
-      device: json['device'] == null ? null : Device.fromJson(json['device'] as Map<String, dynamic>),
-      location: json['location'] == null ? null : Location.fromJson(json['location'] as Map<String, dynamic>),
-      signals: (json['signals'] as List<dynamic>?)?.map((e) => Signal.fromJson(e as Map<String, dynamic>)).toList(),
-      app: json['app'] == null ? null : App.fromJson(json['app'] as Map<String, dynamic>),
+      acc: json['acc'] == null
+          ? null
+          : MotionData.fromJson(json['acc'] as Map<String, dynamic>),
+      rotation: json['rotation'] == null
+          ? null
+          : MotionData.fromJson(json['rotation'] as Map<String, dynamic>),
+      grav: json['grav'] == null
+          ? null
+          : MotionData.fromJson(json['grav'] as Map<String, dynamic>),
+      gyro: json['gyro'] == null
+          ? null
+          : MotionData.fromJson(json['gyro'] as Map<String, dynamic>),
+      context: json['context'] == null
+          ? null
+          : MeasurementContext.fromJson(
+              json['context'] as Map<String, dynamic>),
+      device: json['device'] == null
+          ? null
+          : Device.fromJson(json['device'] as Map<String, dynamic>),
+      location: json['location'] == null
+          ? null
+          : Location.fromJson(json['location'] as Map<String, dynamic>),
+      signals: (json['signals'] as List<dynamic>?)
+          ?.map((e) => Signal.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      app: json['app'] == null
+          ? null
+          : App.fromJson(json['app'] as Map<String, dynamic>),
       tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
     );
 
-Map<String, dynamic> _$MeasurementCreationDataToJson(MeasurementCreationData instance) {
+Map<String, dynamic> _$MeasurementCreationDataToJson(
+    MeasurementCreationData instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -262,11 +314,16 @@ Map<String, dynamic> _$MeasurementCreationDataToJson(MeasurementCreationData ins
   writeNotNull('gyro', instance.gyro?.toJson());
   writeNotNull('heartrate', instance.heartrate);
   writeNotNull('measurement_timestamp', instance.measurementTimestamp);
-  writeNotNull('quadrants', instance.quadrants?.map((e) => e.map((e) => e.toJson()).toList()).toList());
+  writeNotNull(
+      'quadrants',
+      instance.quadrants
+          ?.map((e) => e.map((e) => e.toJson()).toList())
+          .toList());
   writeNotNull('technical_details', instance.technicalDetails?.toJson());
   writeNotNull('time', instance.time);
   writeNotNull('yList', instance.yList);
-  writeNotNull('abnormalities', instance.abnormalities?.map((e) => _$AbnormalitiesEnumMap[e]!).toList());
+  writeNotNull('abnormalities',
+      instance.abnormalities?.map((e) => _$AbnormalitiesEnumMap[e]!).toList());
   writeNotNull('attempts', instance.attempts);
   writeNotNull('signals', instance.signals?.map((e) => e.toJson()).toList());
   writeNotNull('context', instance.context?.toJson());
@@ -279,12 +336,15 @@ Map<String, dynamic> _$MeasurementCreationDataToJson(MeasurementCreationData ins
 
 Diagnosis _$DiagnosisFromJson(Map<String, dynamic> json) => Diagnosis(
       text: json['text'] as String,
-      label: (json['label'] as List<dynamic>).map((e) => $enumDecode(_$MeasurementDiagnosisEnumMap, e)).toList(),
+      label: (json['label'] as List<dynamic>)
+          .map((e) => $enumDecode(_$MeasurementDiagnosisEnumMap, e))
+          .toList(),
     );
 
 Map<String, dynamic> _$DiagnosisToJson(Diagnosis instance) => <String, dynamic>{
       'text': instance.text,
-      'label': instance.label.map((e) => _$MeasurementDiagnosisEnumMap[e]!).toList(),
+      'label':
+          instance.label.map((e) => _$MeasurementDiagnosisEnumMap[e]!).toList(),
     };
 
 const _$MeasurementDiagnosisEnumMap = {
@@ -315,49 +375,83 @@ const _$MeasurementDiagnosisEnumMap = {
   MeasurementDiagnosis.noDiagnosis: 'atrial_fibrillation',
 };
 
-MeasurementResponseData _$MeasurementResponseDataFromJson(Map<String, dynamic> json) => MeasurementResponseData(
+MeasurementResponseData _$MeasurementResponseDataFromJson(
+        Map<String, dynamic> json) =>
+    MeasurementResponseData(
       heartrate: json['heartrate'] as num?,
       measurementTimestamp: json['measurement_timestamp'] as num?,
       quadrants: (json['quadrants'] as List<dynamic>?)
-          ?.map((e) => (e as List<dynamic>).map((e) => Yuv.fromJson(e as Map<String, dynamic>)).toList())
+          ?.map((e) => (e as List<dynamic>)
+              .map((e) => Yuv.fromJson(e as Map<String, dynamic>))
+              .toList())
           .toList(),
       technicalDetails: json['technical_details'] == null
           ? null
-          : TechnicalDetails.fromJson(json['technical_details'] as Map<String, dynamic>),
+          : TechnicalDetails.fromJson(
+              json['technical_details'] as Map<String, dynamic>),
       time: (json['time'] as List<dynamic>?)?.map((e) => e as num).toList(),
       yList: (json['yList'] as List<dynamic>?)?.map((e) => e as num).toList(),
-      abnormalities:
-          (json['abnormalities'] as List<dynamic>?)?.map((e) => $enumDecode(_$AbnormalitiesEnumMap, e)).toList(),
+      abnormalities: (json['abnormalities'] as List<dynamic>?)
+          ?.map((e) => $enumDecode(_$AbnormalitiesEnumMap, e))
+          .toList(),
       attempts: json['attempts'] as num?,
-      acc: json['acc'] == null ? null : MotionData.fromJson(json['acc'] as Map<String, dynamic>),
-      rotation: json['rotation'] == null ? null : MotionData.fromJson(json['rotation'] as Map<String, dynamic>),
-      grav: json['grav'] == null ? null : MotionData.fromJson(json['grav'] as Map<String, dynamic>),
-      gyro: json['gyro'] == null ? null : MotionData.fromJson(json['gyro'] as Map<String, dynamic>),
-      context: json['context'] == null ? null : MeasurementContext.fromJson(json['context'] as Map<String, dynamic>),
-      device: json['device'] == null ? null : Device.fromJson(json['device'] as Map<String, dynamic>),
-      location: json['location'] == null ? null : Location.fromJson(json['location'] as Map<String, dynamic>),
-      signals: (json['signals'] as List<dynamic>?)?.map((e) => Signal.fromJson(e as Map<String, dynamic>)).toList(),
-      app: json['app'] == null ? null : App.fromJson(json['app'] as Map<String, dynamic>),
+      acc: json['acc'] == null
+          ? null
+          : MotionData.fromJson(json['acc'] as Map<String, dynamic>),
+      rotation: json['rotation'] == null
+          ? null
+          : MotionData.fromJson(json['rotation'] as Map<String, dynamic>),
+      grav: json['grav'] == null
+          ? null
+          : MotionData.fromJson(json['grav'] as Map<String, dynamic>),
+      gyro: json['gyro'] == null
+          ? null
+          : MotionData.fromJson(json['gyro'] as Map<String, dynamic>),
+      context: json['context'] == null
+          ? null
+          : MeasurementContext.fromJson(
+              json['context'] as Map<String, dynamic>),
+      device: json['device'] == null
+          ? null
+          : Device.fromJson(json['device'] as Map<String, dynamic>),
+      location: json['location'] == null
+          ? null
+          : Location.fromJson(json['location'] as Map<String, dynamic>),
+      signals: (json['signals'] as List<dynamic>?)
+          ?.map((e) => Signal.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      app: json['app'] == null
+          ? null
+          : App.fromJson(json['app'] as Map<String, dynamic>),
       tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      diagnosis: json['diagnosis'] == null ? null : Diagnosis.fromJson(json['diagnosis'] as Map<String, dynamic>),
+      diagnosis: json['diagnosis'] == null
+          ? null
+          : Diagnosis.fromJson(json['diagnosis'] as Map<String, dynamic>),
       af: json['af'] as int?,
       indicator: $enumDecodeNullable(_$IndicatorEnumMap, json['indicator']),
-      algoAnalysis: $enumDecodeNullable(_$AlgoAnalysisEnumMap, json['algoAnalysis']),
+      algoAnalysis:
+          $enumDecodeNullable(_$AlgoAnalysisEnumMap, json['algoAnalysis']),
       reviewType: $enumDecodeNullable(_$ReviewTypeEnumMap, json['reviewType']),
     );
 
-Map<String, dynamic> _$MeasurementResponseDataToJson(MeasurementResponseData instance) => <String, dynamic>{
+Map<String, dynamic> _$MeasurementResponseDataToJson(
+        MeasurementResponseData instance) =>
+    <String, dynamic>{
       'acc': instance.acc?.toJson(),
       'rotation': instance.rotation?.toJson(),
       'grav': instance.grav?.toJson(),
       'gyro': instance.gyro?.toJson(),
       'heartrate': instance.heartrate,
       'measurement_timestamp': instance.measurementTimestamp,
-      'quadrants': instance.quadrants?.map((e) => e.map((e) => e.toJson()).toList()).toList(),
+      'quadrants': instance.quadrants
+          ?.map((e) => e.map((e) => e.toJson()).toList())
+          .toList(),
       'technical_details': instance.technicalDetails?.toJson(),
       'time': instance.time,
       'yList': instance.yList,
-      'abnormalities': instance.abnormalities?.map((e) => _$AbnormalitiesEnumMap[e]!).toList(),
+      'abnormalities': instance.abnormalities
+          ?.map((e) => _$AbnormalitiesEnumMap[e]!)
+          .toList(),
       'attempts': instance.attempts,
       'signals': instance.signals?.map((e) => e.toJson()).toList(),
       'context': instance.context?.toJson(),
@@ -391,32 +485,49 @@ const _$ReviewTypeEnumMap = {
   ReviewType.manual: 'manual',
 };
 
-TransitionLock _$TransitionLockFromJson(Map<String, dynamic> json) => TransitionLock(
-      timestamp: json['timestamp'] == null ? null : DateTime.parse(json['timestamp'] as String),
+TransitionLock _$TransitionLockFromJson(Map<String, dynamic> json) =>
+    TransitionLock(
+      timestamp: json['timestamp'] == null
+          ? null
+          : DateTime.parse(json['timestamp'] as String),
     );
 
-Map<String, dynamic> _$TransitionLockToJson(TransitionLock instance) => <String, dynamic>{
+Map<String, dynamic> _$TransitionLockToJson(TransitionLock instance) =>
+    <String, dynamic>{
       'timestamp': instance.timestamp?.toIso8601String(),
     };
 
 Measurement _$MeasurementFromJson(Map<String, dynamic> json) => Measurement(
       id: json['id'] as String?,
-      userIds: (json['userIds'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      groupIds: (json['groupIds'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      userIds:
+          (json['userIds'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      groupIds: (json['groupIds'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
       status: $enumDecodeNullable(_$MeasurementStatusEnumMap, json['status']),
-      data: json['data'] == null ? null : MeasurementResponseData.fromJson(json['data'] as Map<String, dynamic>),
+      data: json['data'] == null
+          ? null
+          : MeasurementResponseData.fromJson(
+              json['data'] as Map<String, dynamic>),
       transitionLock: json['transitionLock'] == null
           ? null
-          : TransitionLock.fromJson(json['transitionLock'] as Map<String, dynamic>),
+          : TransitionLock.fromJson(
+              json['transitionLock'] as Map<String, dynamic>),
       commentCount: json['commentCount'] as int?,
-      updateTimestamp: json['updateTimestamp'] == null ? null : DateTime.parse(json['updateTimestamp'] as String),
-      creationTimestamp: json['creationTimestamp'] == null ? null : DateTime.parse(json['creationTimestamp'] as String),
-      statusChangedTimestamp:
-          json['statusChangedTimestamp'] == null ? null : DateTime.parse(json['statusChangedTimestamp'] as String),
+      updateTimestamp: json['updateTimestamp'] == null
+          ? null
+          : DateTime.parse(json['updateTimestamp'] as String),
+      creationTimestamp: json['creationTimestamp'] == null
+          ? null
+          : DateTime.parse(json['creationTimestamp'] as String),
+      statusChangedTimestamp: json['statusChangedTimestamp'] == null
+          ? null
+          : DateTime.parse(json['statusChangedTimestamp'] as String),
       creatorId: json['creatorId'] as String?,
     );
 
-Map<String, dynamic> _$MeasurementToJson(Measurement instance) => <String, dynamic>{
+Map<String, dynamic> _$MeasurementToJson(Measurement instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'userIds': instance.userIds,
       'groupIds': instance.groupIds,
@@ -426,7 +537,8 @@ Map<String, dynamic> _$MeasurementToJson(Measurement instance) => <String, dynam
       'commentCount': instance.commentCount,
       'updateTimestamp': instance.updateTimestamp?.toIso8601String(),
       'creationTimestamp': instance.creationTimestamp?.toIso8601String(),
-      'statusChangedTimestamp': instance.statusChangedTimestamp?.toIso8601String(),
+      'statusChangedTimestamp':
+          instance.statusChangedTimestamp?.toIso8601String(),
       'creatorId': instance.creatorId,
     };
 

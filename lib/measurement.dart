@@ -25,9 +25,9 @@ enum MeasurementStatus {
 
 @JsonSerializable(explicitToJson: true)
 class MotionData {
-  final List<int> x;
-  final List<int> y;
-  final List<int> z;
+  final List<num> x;
+  final List<num> y;
+  final List<num> z;
 
   MotionData({
     required this.x,
@@ -234,8 +234,8 @@ class App {
 
 @JsonSerializable(explicitToJson: true)
 class Location {
-  final int latitude;
-  final int longitude;
+  final num latitude;
+  final num longitude;
 
   Location({
     required this.latitude,

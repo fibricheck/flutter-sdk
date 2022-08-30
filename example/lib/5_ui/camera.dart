@@ -75,6 +75,10 @@ class _CameraScreenState extends State<CameraScreen> {
                       //   fibriCheckViewProperties: FibriCheckViewProperties(
                       //     flashEnabled: true,
                       //     lineThickness: 4,
+                      //     accEnabled: true,
+                      //     gravEnabled: true,
+                      //     gyroEnabled: true,
+                      //     rotationEnabled: true,
                       //   ),
                       //   onCalibrationReady: () => {
                       //     debugPrint("Flutter onCalibrationReady"),
@@ -144,9 +148,10 @@ class _CameraScreenState extends State<CameraScreen> {
   }
 
   Future _onMeasurementFinished(String measurementString) async {
+    debugPrint(measurementString);
     var json = jsonDecode(measurementString);
+    debugPrint(json);
     var mCreationData = MeasurementCreationData.fromJson(json);
-
     await widget.sdk.postMeasurement(mCreationData, "v0.0.1");
   }
 }
