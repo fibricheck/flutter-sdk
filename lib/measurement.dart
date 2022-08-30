@@ -1,4 +1,6 @@
 // ignore: depend_on_referenced_packages
+import 'dart:convert';
+
 import 'package:json_annotation/json_annotation.dart';
 
 part 'measurement.g.dart';
@@ -353,6 +355,13 @@ class MeasurementCreationData extends CameraData {
     this.app,
     this.tags,
   });
+
+  static MeasurementCreationData fromCameraSdk(String cameraMeasurement) {
+    var json = jsonDecode(cameraMeasurement);
+    var data = jsonDecode(json["measurement"]!);
+    var mCreationData = MeasurementCreationData.fromJson(data);
+    return mCreationData;
+  }
 
   factory MeasurementCreationData.fromJson(Map<String, dynamic> json) => _$MeasurementCreationDataFromJson(json);
 

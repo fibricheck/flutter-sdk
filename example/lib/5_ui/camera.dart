@@ -148,10 +148,7 @@ class _CameraScreenState extends State<CameraScreen> {
   }
 
   Future _onMeasurementFinished(String measurementString) async {
-    debugPrint(measurementString);
-    var json = jsonDecode(measurementString);
-    debugPrint(json);
-    var mCreationData = MeasurementCreationData.fromJson(json);
+    var mCreationData = MeasurementCreationData.fromCameraSdk(measurementString);
     await widget.sdk.postMeasurement(mCreationData, "v0.0.1");
   }
 }
