@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_fibricheck_sdk/oauth1/client_credentials.dart';
 import 'package:http/http.dart' as http;
 import '../oauth1/authorization_header.dart';
 import '../oauth1/client_credentials.dart';

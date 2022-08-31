@@ -113,7 +113,7 @@ class _CameraScreenState extends State<CameraScreen> {
                       //   onMeasurementProcessed: (measurement) async => {
                       //     await _onMeasurementFinished(measurement),
                       //     debugPrint("Flutter onMeasurementProcessed $measurement"),
-                      //     if (Navigator.canPop(context)) Navigator.pop(context),
+                      //     if (Navigator.canPop(context)) Navigator.pop(context, true),
                       //   },
                       //   onPulseDetected: () => {
                       //     debugPrint("Flutter onPulseDetected"),
