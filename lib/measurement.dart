@@ -359,8 +359,7 @@ class MeasurementCreationData extends CameraData {
 
   static MeasurementCreationData fromCameraSdk(String cameraMeasurement) {
     var json = jsonDecode(cameraMeasurement);
-    var data = json["measurement"] != null ? jsonDecode(json["measurement"]!) : json;
-    var mCreationData = MeasurementCreationData.fromJson(data);
+    var mCreationData = MeasurementCreationData.fromJson(json);
     return mCreationData;
   }
 
