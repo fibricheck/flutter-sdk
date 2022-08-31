@@ -103,12 +103,16 @@ class _DashBoardState extends State<DashBoard> {
     var canPostMeasurement = await widget.sdk.canPerformMeasurement();
     if (canPostMeasurement) {
       // ignore: use_build_context_synchronously
-      Navigator.push(
+      var result = await Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => CameraScreen(
                     sdk: widget.sdk,
                   )));
+      if (result) {
+        await _getMeasurements();
+        setState(() {});
+      }
     } else {
       showDialog(
           context: context,
