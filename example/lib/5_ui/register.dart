@@ -16,7 +16,7 @@ class Register extends StatelessWidget {
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
   final phoneNumberController = TextEditingController();
-  final languageController = TextEditingController();
+  final languageController = TextEditingController(text: "NL");
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +84,7 @@ class Register extends StatelessWidget {
                   margin: const EdgeInsets.fromLTRB(16, 16, 16, 8),
                   child: FCTextFieldWidget(
                     editingController: languageController,
-                    label: "Language code",
+                    label: "Language code (in capitals)",
                     obscureText: false,
                   ),
                 ),
