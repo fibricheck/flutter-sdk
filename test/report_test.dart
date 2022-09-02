@@ -13,6 +13,7 @@ void main() {
   var sdk = FLFibriCheckSdk(mockClient);
   when(mockClient.consumerKey).thenReturn("key");
   when(mockClient.consumerSecret).thenReturn("secret");
+
   group('report', () {
     test("should get a report url for existing report", () async {
       when(mockClient.getMeasurementReportUrl(any)).thenAnswer(

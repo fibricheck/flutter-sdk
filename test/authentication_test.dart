@@ -18,6 +18,7 @@ void main() {
     var sdk = FLFibriCheckSdk(mockClient);
     when(mockClient.consumerKey).thenReturn("key");
     when(mockClient.consumerSecret).thenReturn("secret");
+
     test("should register a new user", () async {
       when(mockClient.register(userData)).thenAnswer((_) async => Response(newUserData, 200));
 
@@ -52,7 +53,10 @@ void main() {
           oautWithEmail,
           (e) async => {
                 for (var document in e)
-                  {await sdk.giveConsent(document), verify(mockClient.updateUserConfig(any)).called(1)}
+                  {
+                    await sdk.giveConsent(document),
+                    verify(mockClient.updateUserConfig(any)).called(1),
+                  }
               });
 
       verify(mockClient.createOAuth1TokenWithEmail(any)).called(1);

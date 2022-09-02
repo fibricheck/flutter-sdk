@@ -24,6 +24,7 @@ void main() {
     when(mockClient.consumerKey).thenReturn("key");
     when(mockClient.consumerSecret).thenReturn("secret");
     TestWidgetsFlutterBinding.ensureInitialized();
+
     test("should post a measurement", () async {
       when(mockClient.postMeasurement(any)).thenAnswer((_) async => Response(newUserData, 200));
       when(mockClient.getDocuments()).thenAnswer((_) async => Response(canPerformMeasurement, 200));
