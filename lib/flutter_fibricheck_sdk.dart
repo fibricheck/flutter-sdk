@@ -1,16 +1,17 @@
 library flutter_fibricheck_sdk;
 
 import 'dart:convert';
-import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_fibricheck_sdk/api/httpclient.dart';
 import 'package:flutter_fibricheck_sdk/measurement.dart';
-import 'package:flutter_fibricheck_sdk/paged_results.dart';
+import 'package:flutter_fibricheck_sdk/paged_results.dart' as paged_results;
 import 'package:flutter_fibricheck_sdk/profiledata.dart';
 import 'package:flutter_fibricheck_sdk/report.dart';
 import 'package:http/http.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:platform/platform.dart';
 
 import 'sdk_errors.dart';
 import 'userdata.dart';
@@ -23,6 +24,9 @@ enum Env {
 List<String> _requiredDocuments = ["privacy_policy", "terms_of_use"];
 
 class FLFibriCheckSdk {
+  @visibleForTesting
+  bool supressPlatformCheckError = false;
+
   final String dataKey = "data";
 
   late OAuth1Client _client;
@@ -207,25 +211,31 @@ class FLFibriCheckSdk {
     String? model;
     String? manufacturer;
 
-    if (Platform.isAndroid) {
+    var platform = const LocalPlatform();
+
+    if (platform.isAndroid) {
       androidInfo = await deviceInfo.androidInfo;
       os = androidInfo.version.release;
       model = androidInfo.model;
       manufacturer = androidInfo.manufacturer;
-    } else if (Platform.isIOS) {
+    } else if (platform.isIOS) {
       iosInfo = await deviceInfo.iosInfo;
       os = iosInfo.systemVersion;
       model = iosInfo.localizedModel; // => check input
       manufacturer = 'Apple';
     } else {
-      throw SdkError(errorBody: "Platform not supported");
+      if (!supressPlatformCheckError) {
+        // => supress unsupported platform error in order to test
+        // postMeasurement without mocking of the platform
+        throw SdkError(errorBody: "Platform not supported");
+      }
     }
 
     measurementCreationData.device = Device(
       os: os,
       model: model,
       manufacturer: manufacturer,
-      type: Platform.isAndroid ? "android" : "ios",
+      type: platform.isAndroid ? "android" : "ios",
     );
     measurementCreationData.tags = ['FibriCheck-flutter-sdk'];
 
@@ -261,14 +271,14 @@ class FLFibriCheckSdk {
   }
 
   /// Get all measurements of the current user
-  Future<PagedMeasurementResult> getMeasurements(bool newestFirst) async {
+  Future<paged_results.PagedMeasurementResult> getMeasurements(bool newestFirst) async {
     var res = await _client.getMeasurements(newestFirst);
     _throwErrorsFromResponseIfNeeded(res);
 
     Map<String, dynamic> resultObj = jsonDecode(res.body);
     var measurements = resultObj[dataKey];
 
-    var page = Page();
+    var page = paged_results.Page();
     page.limit = resultObj["page"]["limit"];
     page.offset = resultObj["page"]["offset"];
     page.total = resultObj["page"]["total"];
@@ -278,7 +288,7 @@ class FLFibriCheckSdk {
       measurementList.add(Measurement.fromJson(m));
     }
 
-    var pagedResult = PagedMeasurementResult(
+    var pagedResult = paged_results.PagedMeasurementResult(
       result: measurementList,
       page: page,
       client: _client,
@@ -347,7 +357,7 @@ class FLFibriCheckSdk {
     return pdf;
   }
 
-  Future<PagedPeriodicReportsResult> getPeriodicReports(bool newestFirst) async {
+  Future<paged_results.PagedPeriodicReportsResult> getPeriodicReports(bool newestFirst) async {
     var res = await _client.getPeriodicReports(newestFirst);
     _throwErrorsFromResponseIfNeeded(res);
 
@@ -358,12 +368,12 @@ class FLFibriCheckSdk {
       reportsList.add(PeriodicReport.fromJson(r));
     }
 
-    var page = Page();
+    var page = paged_results.Page();
     page.limit = resultObj["page"]["limit"];
     page.offset = resultObj["page"]["offset"];
     page.total = resultObj["page"]["total"];
 
-    var pagedResult = PagedPeriodicReportsResult(
+    var pagedResult = paged_results.PagedPeriodicReportsResult(
       result: reportsList,
       page: page,
       client: _client,
