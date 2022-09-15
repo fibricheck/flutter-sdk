@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import '../authentication_data.dart';
 import '../oauth1/authorization_header.dart';
 import '../oauth1/client_credentials.dart';
 import '../oauth1/credentials.dart';
@@ -66,6 +67,9 @@ class OAuth1Client {
 
   Future<http.Response> register(UserRegisterData body) async {
     var uri = Uri.parse('$host/users/v1/register');
+
+    if (body.birthday != null) body.birthday = body.birthday!.replaceAll(r"/", "-");
+
     var jsonBody = jsonEncode(body);
     var headers = <String, String>{
       "consumerKey": consumerKey,

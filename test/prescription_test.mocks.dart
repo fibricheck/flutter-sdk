@@ -6,7 +6,8 @@
 import 'dart:async' as _i4;
 
 import 'package:flutter_fibricheck_sdk/api/httpclient.dart' as _i3;
-import 'package:flutter_fibricheck_sdk/paged_results.dart' as _i6;
+import 'package:flutter_fibricheck_sdk/authentication_data.dart' as _i6;
+import 'package:flutter_fibricheck_sdk/paged_results.dart' as _i7;
 import 'package:flutter_fibricheck_sdk/userdata.dart' as _i5;
 import 'package:http/http.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
@@ -70,7 +71,7 @@ class MockOAuth1Client extends _i1.Mock implements _i3.OAuth1Client {
           as _i4.Future<_i2.Response>);
   @override
   _i4.Future<_i2.Response> createOAuth1TokenWithEmail(
-          _i5.ParamsOauth1WithEmail? body) =>
+          _i6.ParamsOauth1WithEmail? body) =>
       (super.noSuchMethod(
               Invocation.method(#createOAuth1TokenWithEmail, [body]),
               returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(this,
@@ -78,7 +79,7 @@ class MockOAuth1Client extends _i1.Mock implements _i3.OAuth1Client {
           as _i4.Future<_i2.Response>);
   @override
   _i4.Future<_i2.Response> createOAuth1TokenWithToken(
-          _i5.ParamsOauth1WithToken? body) =>
+          _i6.ParamsOauth1WithToken? body) =>
       (super.noSuchMethod(
               Invocation.method(#createOAuth1TokenWithToken, [body]),
               returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(this,
@@ -140,7 +141,7 @@ class MockOAuth1Client extends _i1.Mock implements _i3.OAuth1Client {
           as _i4.Future<_i2.Response>);
   @override
   _i4.Future<_i2.Response> getNextMeasurements(
-          _i6.Page? page, bool? newestFirst) =>
+          _i7.Page? page, bool? newestFirst) =>
       (super.noSuchMethod(
               Invocation.method(#getNextMeasurements, [page, newestFirst]),
               returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
@@ -150,7 +151,7 @@ class MockOAuth1Client extends _i1.Mock implements _i3.OAuth1Client {
           as _i4.Future<_i2.Response>);
   @override
   _i4.Future<_i2.Response> getPreviousMeasurements(
-          _i6.Page? page, bool? newestFirst) =>
+          _i7.Page? page, bool? newestFirst) =>
       (super.noSuchMethod(
               Invocation.method(#getPreviousMeasurements, [page, newestFirst]),
               returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
@@ -194,7 +195,7 @@ class MockOAuth1Client extends _i1.Mock implements _i3.OAuth1Client {
           as _i4.Future<_i2.Response>);
   @override
   _i4.Future<_i2.Response> getNextPeriodicReports(
-          _i6.Page? page, bool? newestFirst) =>
+          _i7.Page? page, bool? newestFirst) =>
       (super.noSuchMethod(
               Invocation.method(#getNextPeriodicReports, [page, newestFirst]),
               returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
@@ -204,7 +205,7 @@ class MockOAuth1Client extends _i1.Mock implements _i3.OAuth1Client {
           as _i4.Future<_i2.Response>);
   @override
   _i4.Future<_i2.Response> getPreviousPeriodicReports(
-          _i6.Page? page, bool? newestFirst) =>
+          _i7.Page? page, bool? newestFirst) =>
       (super.noSuchMethod(
           Invocation.method(#getPreviousPeriodicReports, [page, newestFirst]),
           returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
