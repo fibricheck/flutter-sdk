@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_fibricheck_sdk/authentication_data.dart';
 import 'package:flutter_fibricheck_sdk/flutter_fibricheck_sdk.dart';
 import 'package:flutter_fibricheck_sdk/userdata.dart';
 import 'package:flutter_fibricheck_sdk_example/5_ui/widgets/fc_primarybutton.dart';
@@ -17,6 +18,9 @@ class Register extends StatelessWidget {
   final lastNameController = TextEditingController();
   final phoneNumberController = TextEditingController();
   final languageController = TextEditingController(text: "NL");
+  final birthDayController = TextEditingController(text: "1970/01/01");
+  final countryController = TextEditingController(text: "NL");
+  final regionController = TextEditingController(text: "NL-GR");
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +89,30 @@ class Register extends StatelessWidget {
                   child: FCTextFieldWidget(
                     editingController: languageController,
                     label: "Language code (in capitals)",
+                    obscureText: false,
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+                  child: FCTextFieldWidget(
+                    editingController: birthDayController,
+                    label: "Birthday (YYYY-MM-DD)",
+                    obscureText: false,
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+                  child: FCTextFieldWidget(
+                    editingController: countryController,
+                    label: "Country code (in capitals)",
+                    obscureText: false,
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+                  child: FCTextFieldWidget(
+                    editingController: regionController,
+                    label: "Region code (in capitals)",
                     obscureText: false,
                   ),
                 ),

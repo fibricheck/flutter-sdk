@@ -2,13 +2,16 @@ import 'package:flutter_fibricheck_sdk/measurement.dart';
 import 'package:flutter_fibricheck_sdk/userdata.dart';
 
 UserRegisterData userData = UserRegisterData(
-  firstName: "John",
-  lastName: "Doe",
-  email: "john.doe@example.com",
-  password: "string",
-  phoneNumber: "7692837456",
-  language: "NL",
-);
+    firstName: "John",
+    lastName: "Doe",
+    email: "john.doe@example.com",
+    password: "string",
+    phoneNumber: "7692837456",
+    language: "NL",
+    birthday: "1970/01/01",
+    country: "NL",
+    gender: Gender.female,
+    region: "NL-GR");
 
 const String newUserData =
     '{"id": "5bfbfc3146e0fb321rsa4b28","first_name": "John","last_name": "Doe","email": "john.doe@example.com","activation": true,"phone_number": "213243546","profile_image": "string","language": "NL","time_zone": "Europe/Brussels","last_failed_timestamp": 1543240753194,"failed_count": 0,"creation_timestamp": 1497265621409,"update_timestamp": 1565954044301}';
