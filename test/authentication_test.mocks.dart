@@ -172,7 +172,7 @@ class MockOAuth1Client extends _i1.Mock implements _i3.OAuth1Client {
                   this, Invocation.method(#postMeasurement, [body]))))
           as _i4.Future<_i2.Response>);
   @override
-  _i4.Future<_i2.Response> upateMeasurementContext(
+  _i4.Future<_i2.Response> updateMeasurementContext(
           String? measurementId, String? body) =>
       (super.noSuchMethod(
           Invocation.method(#upateMeasurementContext, [measurementId, body]),

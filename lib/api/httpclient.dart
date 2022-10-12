@@ -280,7 +280,7 @@ class OAuth1Client {
     return res;
   }
 
-  Future<http.Response> upateMeasurementContext(String measurementId, String body) async {
+  Future<http.Response> updateMeasurementContext(String measurementId, String body) async {
     var tries = 5;
     http.Response res = http.Response(body, 200);
     while (tries > 0) {

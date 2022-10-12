@@ -173,7 +173,7 @@ class FLFibriCheckSdk {
   }
 
   /// Gives consent based on a [Consent] object
-  /// Returns the number of affectedd records
+  /// Returns the number of affected records
   Future<int> giveConsent(Consent consent) async {
     var b =
         '{"data": { "documents": { "${consent.legalDocumentKey}": { "version": "${consent.version}", "timestamp": "${DateTime.now().toIso8601String()}" } } } }';
@@ -226,7 +226,7 @@ class FLFibriCheckSdk {
       manufacturer = 'Apple';
     } else {
       if (!suppressPlatformCheckError) {
-        // => supress unsupported platform error in order to test
+        // => suppress unsupported platform error in order to test
         // postMeasurement without mocking of the platform
         throw SdkError(errorBody: "Platform not supported");
       }
@@ -263,7 +263,7 @@ class FLFibriCheckSdk {
 
   /// Updates the measurement context for a given measurement id
   Future<int> updateMeasurementContext(String measurementId, MeasurementContext measurementContext) async {
-    var res = await _client.upateMeasurementContext(measurementId, '{"context": ${jsonEncode(measurementContext)} }');
+    var res = await _client.updateMeasurementContext(measurementId, '{"context": ${jsonEncode(measurementContext)} }');
     _throwErrorsFromResponseIfNeeded(res);
 
     Map<String, dynamic> resultObj = jsonDecode(res.body);
