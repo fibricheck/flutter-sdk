@@ -26,7 +26,7 @@ List<String> _requiredDocuments = ["privacy_policy", "terms_of_use"];
 
 class FLFibriCheckSdk {
   @visibleForTesting
-  bool supressPlatformCheckError = false;
+  bool suppressPlatformCheckError = false;
 
   final String dataKey = "data";
 
@@ -225,7 +225,7 @@ class FLFibriCheckSdk {
       model = iosInfo.localizedModel; // => check input
       manufacturer = 'Apple';
     } else {
-      if (!supressPlatformCheckError) {
+      if (!suppressPlatformCheckError) {
         // => supress unsupported platform error in order to test
         // postMeasurement without mocking of the platform
         throw SdkError(errorBody: "Platform not supported");

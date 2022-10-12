@@ -20,7 +20,7 @@ void main() {
         buildNumber: "1",
         buildSignature: "buildSignature");
     var sdk = FLFibriCheckSdk(mockClient);
-    sdk.supressPlatformCheckError = true;
+    sdk.suppressPlatformCheckError = true;
     when(mockClient.consumerKey).thenReturn("key");
     when(mockClient.consumerSecret).thenReturn("secret");
     TestWidgetsFlutterBinding.ensureInitialized();
