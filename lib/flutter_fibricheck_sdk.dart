@@ -408,16 +408,18 @@ class FLFibriCheckSdk {
 
   void _throwErrorsFromResponseIfNeeded(Response res) {
     if (res.statusCode != 200) {
-      if (jsonDecode(res.body)["code"] == 101) throw ApplicationNotAuthenticatedError(errorBody: res.body);
-      if (jsonDecode(res.body)["code"] == 106) throw AuthenticationError(errorBody: res.body);
-      if (jsonDecode(res.body)["code"] == 129) throw MfaRequiredError(errorBody: res.body);
+      int exhCode = jsonDecode(res.body)["code"];
 
-      if (jsonDecode(res.body)["code"] == 203) throw EmailUsedError(errorBody: res.body);
-      if (jsonDecode(res.body)["code"] == 211) throw LoginTimeoutError(errorBody: res.body);
-      if (jsonDecode(res.body)["code"] == 212) throw LoginFreezeError(errorBody: res.body);
-      if (jsonDecode(res.body)["code"] == 213) throw TooManyFailedAttemptsError(errorBody: res.body);
-
-      if (jsonDecode(res.body)["code"] == 415) throw LockedDocumentError(errorBody: res.body);
+      switch (exhCode) {
+        case 101: throw ApplicationNotAuthenticatedError(errorBody: res.body);
+        case 106: throw AuthenticationError(errorBody: res.body);
+        case 129: throw MfaRequiredError(errorBody: res.body);
+        case 203: throw EmailUsedError(errorBody: res.body);
+        case 211: throw LoginTimeoutError(errorBody: res.body);
+        case 212: throw LoginFreezeError(errorBody: res.body);
+        case 213: throw TooManyFailedAttemptsError(errorBody: res.body);
+        case 415: throw LockedDocumentError(errorBody: res.body);
+      }
     }
   }
 }
