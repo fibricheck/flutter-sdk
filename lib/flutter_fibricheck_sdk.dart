@@ -406,6 +406,19 @@ class FLFibriCheckSdk {
     }
   }
 
+  Future<bool> updateUserConfig(String userId, String key, String valueJsonString) async {
+    var encapsulated = { 'data': { [key]: valueJsonString} };
+    final String jsonString = jsonEncode(encapsulated);
+
+    var res = await _client.updateUserProfile(userId, jsonString);
+    _throwErrorsFromResponseIfNeeded(res);
+
+    Map<String, dynamic> resultObj = jsonDecode(res.body);
+    int affectedRecords = resultObj["records_affected"];
+
+    return affectedRecords > 0;
+  }
+
   void _throwErrorsFromResponseIfNeeded(Response res) {
     if (res.statusCode != 200) {
       int exhCode = jsonDecode(res.body)["code"];
