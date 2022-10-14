@@ -422,7 +422,7 @@ class FLFibriCheckSdk {
     }
   }
 
-  /// Return the general configuration as a [Map<String, dynamic>]. 
+  /// Return the general configuration as a [GeneralConfiguration]. 
   Future<GeneralConfiguration> getGeneralConfiguration() async {
     Response response = await _client.getGeneralConfiguration();
     _throwErrorsFromResponseIfNeeded(response);
@@ -433,7 +433,7 @@ class FLFibriCheckSdk {
     return generalConfiguration;
   }
 
-  /// Return the user configuration as a [Map<String, dynamic>]. 
+  /// Return the user configuration as a [UserConfiguration]. 
   Future<UserConfiguration> getUserConfiguration() async {
     Response response = await _client.getUserConfiguration(_userId);
     _throwErrorsFromResponseIfNeeded(response);
