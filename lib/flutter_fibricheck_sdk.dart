@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_fibricheck_sdk/api/httpclient.dart';
+import 'package:flutter_fibricheck_sdk/general_configuration.dart';
 import 'package:flutter_fibricheck_sdk/measurement.dart';
 import 'package:flutter_fibricheck_sdk/paged_results.dart' as paged_results;
 import 'package:flutter_fibricheck_sdk/profiledata.dart';
@@ -407,13 +408,14 @@ class FLFibriCheckSdk {
   }
 
   /// Return the general configuration as a [Map<String, dynamic>]. 
-  Future<Map<String, dynamic>> getGeneralConfiguration() async {
+  Future<GeneralConfiguration> getGeneralConfiguration() async {
     Response response = await _client.getGeneralConfiguration();
     _throwErrorsFromResponseIfNeeded(response);
 
     Map<String, dynamic> resultObject = jsonDecode(response.body);
+    GeneralConfiguration generalConfiguration = GeneralConfiguration.fromJson(resultObject);
 
-    return resultObject;
+    return generalConfiguration;
   }
 
   /// Return the user configuration as a [Map<String, dynamic>]. 
