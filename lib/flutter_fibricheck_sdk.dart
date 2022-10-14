@@ -406,6 +406,9 @@ class FLFibriCheckSdk {
     }
   }
 
+  /// Update the user with the id [userId] configuration.
+  /// The [key] is the key where to save the value for the user.
+  /// The [valueJsonString] is an encoded json in string.
   Future<bool> updateUserConfig(String userId, String key, String valueJsonString) async {
     var encapsulated = { 'data': { [key]: valueJsonString} };
     final String jsonString = jsonEncode(encapsulated);
