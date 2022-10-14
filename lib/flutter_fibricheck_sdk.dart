@@ -406,22 +406,35 @@ class FLFibriCheckSdk {
     }
   }
 
-  Future<Response> getGeneralConfiguration() async {
-    return await getGeneralConfiguration();
+  /// Return the general configuration as a [Map<String, dynamic>]. 
+  Future<Map<String, dynamic>> getGeneralConfiguration() async {
+    Response response = await _client.getGeneralConfiguration();
+    _throwErrorsFromResponseIfNeeded(response);
+
+    Map<String, dynamic> resultObject = jsonDecode(response.body);
+
+    return resultObject;
   }
 
-  Future<Response> getUserConfiguration(String userId) async {
-    return await getUserConfiguration(userId);
+  /// Return the user configuration as a [Map<String, dynamic>]. 
+  Future<Map<String, dynamic>> getUserConfiguration() async {
+    Response response = await _client.getUserConfiguration();
+    _throwErrorsFromResponseIfNeeded(response);
+
+    Map<String, dynamic> resultObject = jsonDecode(response.body);
+
+    return resultObject;
   }
 
   /// Update the user with the id [userId] configuration.
   /// The [key] is the key where to save the value for the user.
   /// The [valueJsonString] is an encoded json in string.
+  /// Return true if the update was done successfully.
   Future<bool> updateUserConfig(String userId, String key, String valueJsonString) async {
-    var encapsulated = { 'data': { [key]: valueJsonString} };
+    Map<String, dynamic> encapsulated = { 'data': { [key]: valueJsonString} };
     final String jsonString = jsonEncode(encapsulated);
 
-    var res = await _client.updateUserProfile(userId, jsonString);
+    Response res = await _client.updateUserProfile(userId, jsonString);
     _throwErrorsFromResponseIfNeeded(res);
 
     Map<String, dynamic> resultObj = jsonDecode(res.body);
