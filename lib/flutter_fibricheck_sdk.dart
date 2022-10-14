@@ -37,6 +37,7 @@ class FLFibriCheckSdk {
 
   FLFibriCheckSdk(OAuth1Client oAuth1Client) {
     _client = oAuth1Client;
+    _userId = '';
   }
 
   /// Create an instance of the FibriCheck SDK based on a [consumerKey],
@@ -448,14 +449,15 @@ class FLFibriCheckSdk {
   /// The [valueJsonString] is an encoded json in string.
   /// Return true if the update was done successfully.
   Future<bool> updateUserConfig(String key, String valueJsonString) async {
-    Map<String, dynamic> encapsulated = { 'data': { [key]: valueJsonString} };
+    Map<String, dynamic> encapsulated = { "data": {} };
+    encapsulated["data"][key] = valueJsonString;
     final String jsonString = jsonEncode(encapsulated);
 
-    Response res = await _client.updateUserProfile(_userId, jsonString);
+    Response res = await _client.updateUserConfig(_userId, jsonString);
     _throwErrorsFromResponseIfNeeded(res);
 
     Map<String, dynamic> resultObj = jsonDecode(res.body);
-    int affectedRecords = resultObj["records_affected"];
+    int affectedRecords = resultObj["affectedRecords"];
 
     return affectedRecords > 0;
   }

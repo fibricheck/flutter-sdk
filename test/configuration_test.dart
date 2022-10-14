@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter_fibricheck_sdk/api/httpclient.dart';
+import 'package:flutter_fibricheck_sdk/authentication_data.dart';
 import 'package:flutter_fibricheck_sdk/flutter_fibricheck_sdk.dart';
 import 'package:flutter_fibricheck_sdk/general_configuration.dart';
 import 'package:flutter_fibricheck_sdk/user_configuration.dart';
@@ -52,7 +53,12 @@ void main() {
     });
 
     test('should update properly the user configuration', () async {
+      when(mockClient.updateUserConfig(any, any)).thenAnswer(
+        (_) async => Response(affected1Record, 200));
 
+      bool isUserConfigurationUpdated = await sdk.updateUserConfig('key', 'value');
+
+      expect(isUserConfigurationUpdated, true);
     });
   });
 }
