@@ -1,21 +1,21 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'general_configuration.dart';
+part of 'user_configuration.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-GeneralConfiguration _$GeneralConfigurationFromJson(
-        Map<String, dynamic> json) =>
-    GeneralConfiguration(
+UserConfiguration _$UserConfigurationFromJson(Map<String, dynamic> json) =>
+    UserConfiguration(
       id: json['id'] as String?,
       data: json['data'] as Map<String, dynamic>?,
-      userConfiguration: json['userConfiguration'] as Map<String, dynamic>?,
-      groupConfiguration: json['groupConfiguration'] as Map<String, dynamic>?,
-      staffConfiguration: json['staffConfiguration'] as Map<String, dynamic>?,
-      patientConfiguration:
-          json['patientConfiguration'] as Map<String, dynamic>?,
+      staffConfigurations: (json['staffConfigurations'] as List<dynamic>?)
+          ?.map((e) => e as Map<String, dynamic>)
+          .toList(),
+      patientConfigurations: (json['patientConfigurations'] as List<dynamic>?)
+          ?.map((e) => e as Map<String, dynamic>)
+          .toList(),
       updateTimestamp: json['updateTimestamp'] == null
           ? null
           : DateTime.parse(json['updateTimestamp'] as String),
@@ -24,15 +24,12 @@ GeneralConfiguration _$GeneralConfigurationFromJson(
           : DateTime.parse(json['creationTimestamp'] as String),
     );
 
-Map<String, dynamic> _$GeneralConfigurationToJson(
-        GeneralConfiguration instance) =>
+Map<String, dynamic> _$UserConfigurationToJson(UserConfiguration instance) =>
     <String, dynamic>{
       'id': instance.id,
       'data': instance.data,
-      'userConfiguration': instance.userConfiguration,
-      'groupConfiguration': instance.groupConfiguration,
-      'staffConfiguration': instance.staffConfiguration,
-      'patientConfiguration': instance.patientConfiguration,
+      'staffConfigurations': instance.staffConfigurations,
+      'patientConfigurations': instance.patientConfigurations,
       'updateTimestamp': instance.updateTimestamp?.toIso8601String(),
       'creationTimestamp': instance.creationTimestamp?.toIso8601String(),
     };

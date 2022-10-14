@@ -34,7 +34,7 @@ void main() {
       when(mockClient.createOAuth1TokenWithEmail(oauthWithEmail))
           .thenAnswer((_) async => Response(authWithEmailResult, 200));
       when(mockClient.getGeneralConfiguration()).thenAnswer((_) async => Response(privacyDocumentV1, 200));
-      when(mockClient.getUserConfiguration()).thenAnswer((_) async => Response(privacyDocumentV1, 200));
+      when(mockClient.getUserConfiguration(any)).thenAnswer((_) async => Response(privacyDocumentV1, 200));
 
       await sdk.authenticateWithEmail(oauthWithEmail, (e) => {});
 
@@ -46,8 +46,8 @@ void main() {
       when(mockClient.createOAuth1TokenWithEmail(oauthWithEmail))
           .thenAnswer((_) async => Response(authWithEmailResult, 200));
       when(mockClient.getGeneralConfiguration()).thenAnswer((_) async => Response(privacyDocumentV2, 200));
-      when(mockClient.getUserConfiguration()).thenAnswer((_) async => Response(privacyDocumentV1, 200));
-      when(mockClient.updateUserConfig(any)).thenAnswer((_) async => Response(affected1Record, 200));
+      when(mockClient.getUserConfiguration(any)).thenAnswer((_) async => Response(privacyDocumentV1, 200));
+      when(mockClient.updateUserConfig(any, any)).thenAnswer((_) async => Response(affected1Record, 200));
 
       await sdk.authenticateWithEmail(
           oauthWithEmail,
@@ -55,7 +55,7 @@ void main() {
                 for (var document in e)
                   {
                     await sdk.giveConsent(document),
-                    verify(mockClient.updateUserConfig(any)).called(1),
+                    verify(mockClient.updateUserConfig(any, any)).called(1),
                   }
               });
 
@@ -63,12 +63,12 @@ void main() {
     });
 
     test("should update legal docs", () async {
-      when(mockClient.updateUserConfig(any)).thenAnswer((_) async => Response(affected1Record, 200));
+      when(mockClient.updateUserConfig(any, any)).thenAnswer((_) async => Response(affected1Record, 200));
       var document = Consent(legalDocumentKey: "legalDocumentKey", version: "version", url: "url");
 
       await sdk.giveConsent(document);
 
-      verify(mockClient.updateUserConfig(any)).called(1);
+      verify(mockClient.updateUserConfig(any, any)).called(1);
     });
   });
 }

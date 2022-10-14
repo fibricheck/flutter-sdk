@@ -18,13 +18,13 @@ class GeneralConfiguration {
   
   GeneralConfiguration({
     this.id,
-    this.updateTimestamp,
-    this.creationTimestamp,
     this.data,
     this.userConfiguration,
     this.groupConfiguration,
     this.staffConfiguration,
     this.patientConfiguration,
+    this.updateTimestamp,
+    this.creationTimestamp,
   });
 
   factory GeneralConfiguration.fromJson(Map<String, dynamic> json) => _$GeneralConfigurationFromJson(json);

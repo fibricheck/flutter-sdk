@@ -57,19 +57,6 @@ class MockOAuth1Client extends _i1.Mock implements _i3.OAuth1Client {
         returnValue: '',
       ) as String);
   @override
-  String get userId => (super.noSuchMethod(
-        Invocation.getter(#userId),
-        returnValue: '',
-      ) as String);
-  @override
-  set userId(String? _userId) => super.noSuchMethod(
-        Invocation.setter(
-          #userId,
-          _userId,
-        ),
-        returnValueForMissingStub: null,
-      );
-  @override
   set oAuthToken(String? _oAuthToken) => super.noSuchMethod(
         Invocation.setter(
           #oAuthToken,
@@ -179,31 +166,41 @@ class MockOAuth1Client extends _i1.Mock implements _i3.OAuth1Client {
         )),
       ) as _i4.Future<_i2.Response>);
   @override
-  _i4.Future<_i2.Response> getUserConfiguration() => (super.noSuchMethod(
+  _i4.Future<_i2.Response> getUserConfiguration(String? userId) =>
+      (super.noSuchMethod(
         Invocation.method(
           #getUserConfiguration,
-          [],
+          [userId],
         ),
         returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
           this,
           Invocation.method(
             #getUserConfiguration,
-            [],
+            [userId],
           ),
         )),
       ) as _i4.Future<_i2.Response>);
   @override
-  _i4.Future<_i2.Response> updateUserConfig(String? body) =>
+  _i4.Future<_i2.Response> updateUserConfig(
+    String? userId,
+    String? body,
+  ) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateUserConfig,
-          [body],
+          [
+            userId,
+            body,
+          ],
         ),
         returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
           this,
           Invocation.method(
             #updateUserConfig,
-            [body],
+            [
+              userId,
+              body,
+            ],
           ),
         )),
       ) as _i4.Future<_i2.Response>);
@@ -222,16 +219,16 @@ class MockOAuth1Client extends _i1.Mock implements _i3.OAuth1Client {
         )),
       ) as _i4.Future<_i2.Response>);
   @override
-  _i4.Future<_i2.Response> getDocuments() => (super.noSuchMethod(
+  _i4.Future<_i2.Response> getDocuments(String? userId) => (super.noSuchMethod(
         Invocation.method(
           #getDocuments,
-          [],
+          [userId],
         ),
         returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
           this,
           Invocation.method(
             #getDocuments,
-            [],
+            [userId],
           ),
         )),
       ) as _i4.Future<_i2.Response>);
@@ -260,22 +257,32 @@ class MockOAuth1Client extends _i1.Mock implements _i3.OAuth1Client {
         )),
       ) as _i4.Future<_i2.Response>);
   @override
-  _i4.Future<_i2.Response> getMeasurements(bool? newestFirst) =>
+  _i4.Future<_i2.Response> getMeasurements(
+    String? userId,
+    bool? newestFirst,
+  ) =>
       (super.noSuchMethod(
         Invocation.method(
           #getMeasurements,
-          [newestFirst],
+          [
+            userId,
+            newestFirst,
+          ],
         ),
         returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
           this,
           Invocation.method(
             #getMeasurements,
-            [newestFirst],
+            [
+              userId,
+              newestFirst,
+            ],
           ),
         )),
       ) as _i4.Future<_i2.Response>);
   @override
   _i4.Future<_i2.Response> getNextMeasurements(
+    String? userId,
     _i7.Page? page,
     bool? newestFirst,
   ) =>
@@ -283,6 +290,7 @@ class MockOAuth1Client extends _i1.Mock implements _i3.OAuth1Client {
         Invocation.method(
           #getNextMeasurements,
           [
+            userId,
             page,
             newestFirst,
           ],
@@ -292,6 +300,7 @@ class MockOAuth1Client extends _i1.Mock implements _i3.OAuth1Client {
           Invocation.method(
             #getNextMeasurements,
             [
+              userId,
               page,
               newestFirst,
             ],
@@ -300,6 +309,7 @@ class MockOAuth1Client extends _i1.Mock implements _i3.OAuth1Client {
       ) as _i4.Future<_i2.Response>);
   @override
   _i4.Future<_i2.Response> getPreviousMeasurements(
+    String? userId,
     _i7.Page? page,
     bool? newestFirst,
   ) =>
@@ -307,6 +317,7 @@ class MockOAuth1Client extends _i1.Mock implements _i3.OAuth1Client {
         Invocation.method(
           #getPreviousMeasurements,
           [
+            userId,
             page,
             newestFirst,
           ],
@@ -316,6 +327,7 @@ class MockOAuth1Client extends _i1.Mock implements _i3.OAuth1Client {
           Invocation.method(
             #getPreviousMeasurements,
             [
+              userId,
               page,
               newestFirst,
             ],
@@ -390,22 +402,32 @@ class MockOAuth1Client extends _i1.Mock implements _i3.OAuth1Client {
         )),
       ) as _i4.Future<_i2.Response>);
   @override
-  _i4.Future<_i2.Response> getPeriodicReports(bool? newestFirst) =>
+  _i4.Future<_i2.Response> getPeriodicReports(
+    String? userId,
+    bool? newestFirst,
+  ) =>
       (super.noSuchMethod(
         Invocation.method(
           #getPeriodicReports,
-          [newestFirst],
+          [
+            userId,
+            newestFirst,
+          ],
         ),
         returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
           this,
           Invocation.method(
             #getPeriodicReports,
-            [newestFirst],
+            [
+              userId,
+              newestFirst,
+            ],
           ),
         )),
       ) as _i4.Future<_i2.Response>);
   @override
   _i4.Future<_i2.Response> getNextPeriodicReports(
+    String? userId,
     _i7.Page? page,
     bool? newestFirst,
   ) =>
@@ -413,6 +435,7 @@ class MockOAuth1Client extends _i1.Mock implements _i3.OAuth1Client {
         Invocation.method(
           #getNextPeriodicReports,
           [
+            userId,
             page,
             newestFirst,
           ],
@@ -422,6 +445,7 @@ class MockOAuth1Client extends _i1.Mock implements _i3.OAuth1Client {
           Invocation.method(
             #getNextPeriodicReports,
             [
+              userId,
               page,
               newestFirst,
             ],
@@ -430,6 +454,7 @@ class MockOAuth1Client extends _i1.Mock implements _i3.OAuth1Client {
       ) as _i4.Future<_i2.Response>);
   @override
   _i4.Future<_i2.Response> getPreviousPeriodicReports(
+    String? userId,
     _i7.Page? page,
     bool? newestFirst,
   ) =>
@@ -437,6 +462,7 @@ class MockOAuth1Client extends _i1.Mock implements _i3.OAuth1Client {
         Invocation.method(
           #getPreviousPeriodicReports,
           [
+            userId,
             page,
             newestFirst,
           ],
@@ -446,6 +472,7 @@ class MockOAuth1Client extends _i1.Mock implements _i3.OAuth1Client {
           Invocation.method(
             #getPreviousPeriodicReports,
             [
+              userId,
               page,
               newestFirst,
             ],

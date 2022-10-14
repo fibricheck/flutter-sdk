@@ -1,11 +1,20 @@
+// ignore_for_file: depend_on_referenced_packages
+
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:flutter_fibricheck_sdk/api/httpclient.dart';
 import 'package:flutter_fibricheck_sdk/flutter_fibricheck_sdk.dart';
+import 'package:flutter_fibricheck_sdk/general_configuration.dart';
+import 'package:flutter_fibricheck_sdk/user_configuration.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:collection/collection.dart';
 
 import 'measurement_test.mocks.dart';
+import 'test_data.dart';
 
 // Generate a MockClient using the Mockito package.
 // Create new instances of this class in each test.
@@ -18,9 +27,32 @@ void main() {
   when(mockClient.consumerSecret).thenReturn("secret");
 
   group("configuration", () {
-    test("should get an json object for the general configuration", () async {
+    test("should get a GeneralConfiguration instance", () async {
       when(mockClient.getGeneralConfiguration()).thenAnswer(
-        (_) async => Response("", 200));
+        (_) async => Response(generalConfigurationData, 200));
+
+      GeneralConfiguration generalConfiguration = await sdk.getGeneralConfiguration();
+      
+      Map<String, dynamic> originalConfigurationJson = jsonDecode(generalConfigurationData);
+      Map<String, dynamic> fetchedConfigurationJson = generalConfiguration.toJson();
+
+      expect(const DeepCollectionEquality().equals(originalConfigurationJson, fetchedConfigurationJson), true);
+    });
+
+    test("should get the user configuration as a json", () async {
+      when(mockClient.getUserConfiguration(any)).thenAnswer(
+        (_) async => Response(userConfigurationData, 200));
+
+      UserConfiguration userConfiguration = await sdk.getUserConfiguration();
+
+      Map<String, dynamic> originalConfigurationJson = jsonDecode(userConfigurationData);
+      Map<String, dynamic> fetchedConfigurationJson = userConfiguration.toJson();
+
+      expect(const DeepCollectionEquality().equals(originalConfigurationJson, fetchedConfigurationJson), true);
+    });
+
+    test('should update properly the user configuration', () async {
+
     });
   });
 }

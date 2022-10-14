@@ -20,7 +20,6 @@ class OAuth1Client {
   final String consumerKey;
   final String consumerSecret;
 
-  late String userId;
   late String? oAuthToken;
   late String? oAuthTokenSecret;
 
@@ -91,24 +90,11 @@ class OAuth1Client {
       "Authorization": authHeader.toString(),
     };
 
-    var res = await _executeCall(uri, HttpMethod.post, jsonBody, header);
-
-    Map<String, dynamic> resultObj = jsonDecode(res.body);
-    oAuthToken = resultObj['token'];
-    oAuthTokenSecret = resultObj['tokenSecret'];
-    userId = resultObj['userId'];
-
-    return res;
+    return await _executeCall(uri, HttpMethod.post, jsonBody, header);
   }
 
   Future<http.Response> createOAuth1TokenWithToken(ParamsOauth1WithToken body) async {
-    var res = await getMe(body.token, body.tokenSecret);
-
-    Map<String, dynamic> resultObj = jsonDecode(res.body);
-    oAuthToken = body.token;
-    oAuthTokenSecret = body.tokenSecret;
-    userId = resultObj['id'];
-    return res;
+    return await getMe(body.token, body.tokenSecret);
   }
 
   Future<http.Response> getMe(String token, String tokenSecret) async {
@@ -144,7 +130,7 @@ class OAuth1Client {
     return res;
   }
 
-  Future<http.Response> getUserConfiguration() async {
+  Future<http.Response> getUserConfiguration(String userId) async {
     var uri = Uri.parse('$host/configurations/v2/users/$userId');
 
     var authHeader = AuthorizationHeader(SignatureMethods.hmacSha1, ClientCredentials(consumerKey, consumerSecret),
@@ -158,7 +144,7 @@ class OAuth1Client {
     return res;
   }
 
-  Future<http.Response> updateUserConfig(String body) async {
+  Future<http.Response> updateUserConfig(String userId, String body) async {
     var uri = Uri.parse('$host/configurations/v2/users/$userId');
 
     var authHeader = AuthorizationHeader(SignatureMethods.hmacSha1, ClientCredentials(consumerKey, consumerSecret),
@@ -186,7 +172,7 @@ class OAuth1Client {
     return res;
   }
 
-  Future<http.Response> getDocuments() async {
+  Future<http.Response> getDocuments(String userId) async {
     var uri = Uri.parse('$host/data/v1/feature-algo/documents/?eq(data.userId,$userId)');
 
     var authHeader = AuthorizationHeader(SignatureMethods.hmacSha1, ClientCredentials(consumerKey, consumerSecret),
@@ -212,7 +198,7 @@ class OAuth1Client {
     return res;
   }
 
-  Future<http.Response> getMeasurements(bool newestFirst) async {
+  Future<http.Response> getMeasurements(String userId, bool newestFirst) async {
     var uriString = '$host/data/v1/fibricheck-measurements/documents?eq(creatorId,$userId)&limit(20,0)';
     if (newestFirst) uriString += '&sort(-id)';
     var uri = Uri.parse(uriString);
@@ -226,7 +212,7 @@ class OAuth1Client {
     return res;
   }
 
-  Future<http.Response> getNextMeasurements(paged_result.Page page, bool newestFirst) async {
+  Future<http.Response> getNextMeasurements(String userId, paged_result.Page page, bool newestFirst) async {
     var uriString =
         '$host/data/v1/fibricheck-measurements/documents/?eq(creatorId,$userId)&limit(20,${page.offset + 20})';
     if (newestFirst) uriString += '&sort(-id)';
@@ -241,7 +227,7 @@ class OAuth1Client {
     return res;
   }
 
-  Future<http.Response> getPreviousMeasurements(paged_result.Page page, bool newestFirst) async {
+  Future<http.Response> getPreviousMeasurements(String userId, paged_result.Page page, bool newestFirst) async {
     var uriString =
         '$host/data/v1/fibricheck-measurements/documents/?eq(creatorId,$userId)&limit(20,${page.offset - 20})';
     if (newestFirst) uriString += '&sort(-id)';
@@ -316,7 +302,7 @@ class OAuth1Client {
     return res;
   }
 
-  Future<http.Response> getPeriodicReports(bool newestFirst) async {
+  Future<http.Response> getPeriodicReports(String userId, bool newestFirst) async {
     var uriString = '$host/reports/v1/?eq(user_id,$userId)&out(trigger,MANUAL)&eq(status,COMPLETE)&limit(20,0)';
     if (newestFirst) uriString += '&sort(-id)';
     var uri = Uri.parse(uriString);
@@ -331,7 +317,7 @@ class OAuth1Client {
     return res;
   }
 
-  Future<http.Response> getNextPeriodicReports(paged_result.Page page, bool newestFirst) async {
+  Future<http.Response> getNextPeriodicReports(String userId, paged_result.Page page, bool newestFirst) async {
     var uriString =
         '$host/reports/v1/?eq(user_id,$userId)&out(trigger,MANUAL)&eq(status,COMPLETE)&limit(20,${page.offset + 20})';
     if (newestFirst) uriString += '&sort(-id)';
@@ -347,7 +333,7 @@ class OAuth1Client {
     return res;
   }
 
-  Future<http.Response> getPreviousPeriodicReports(paged_result.Page page, bool newestFirst) async {
+  Future<http.Response> getPreviousPeriodicReports(String userId, paged_result.Page page, bool newestFirst) async {
     var uriString =
         '$host/reports/v1/?eq(user_id,$userId)&out(trigger,MANUAL)&eq(status,COMPLETE)&limit(20,${page.offset - 20})';
     if (newestFirst) uriString += '&sort(-id)';
