@@ -1,10 +1,8 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:flutter_fibricheck_sdk/api/httpclient.dart';
-import 'package:flutter_fibricheck_sdk/authentication_data.dart';
 import 'package:flutter_fibricheck_sdk/flutter_fibricheck_sdk.dart';
 import 'package:flutter_fibricheck_sdk/general_configuration.dart';
 import 'package:flutter_fibricheck_sdk/user_configuration.dart';
