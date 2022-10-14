@@ -406,6 +406,14 @@ class FLFibriCheckSdk {
     }
   }
 
+  Future<Response> getGeneralConfiguration() async {
+    return await getGeneralConfiguration();
+  }
+
+  Future<Response> getUserConfiguration(String userId) async {
+    return await getUserConfiguration(userId);
+  }
+
   /// Update the user with the id [userId] configuration.
   /// The [key] is the key where to save the value for the user.
   /// The [valueJsonString] is an encoded json in string.
