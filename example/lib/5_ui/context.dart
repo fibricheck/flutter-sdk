@@ -179,6 +179,15 @@ class _ContextState extends State<Context> {
       case Symptoms.shortnessOfBreath:
         label += "shortness of breath";
         break;
+      case Symptoms.racingHeart:
+        label += "racing heart";
+        break;
+      case Symptoms.dizziness:
+        label += "dizziness";
+        break;
+      case Symptoms.feelingOfFainting:
+        label += "feeling of fainting";
+        break;
     }
     return label;
   }
