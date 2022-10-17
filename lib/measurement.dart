@@ -148,6 +148,11 @@ enum Symptoms {
   chestPains,
   @JsonValue('shortness_of_breath')
   shortnessOfBreath,
+  @JsonValue('racing_heart')
+  racingHeart,
+  dizziness,
+  @JsonValue('feeling_of_fainting')
+  feelingOfFainting,
 }
 
 enum Activity {

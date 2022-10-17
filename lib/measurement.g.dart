@@ -154,6 +154,9 @@ const _$SymptomsEnumMap = {
   Symptoms.palpitations: 'palpitations',
   Symptoms.chestPains: 'chest_pains',
   Symptoms.shortnessOfBreath: 'shortness_of_breath',
+  Symptoms.racingHeart: 'racing_heart',
+  Symptoms.dizziness: 'dizziness',
+  Symptoms.feelingOfFainting: 'feeling_of_fainting',
 };
 
 const _$ActivityEnumMap = {
