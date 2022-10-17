@@ -17,22 +17,24 @@ class PagedMeasurementResult {
   late Page page;
   final OAuth1Client _client;
   final bool newestFirst;
+  final String userId;
 
   PagedMeasurementResult({
     required this.result,
     required this.page,
     required OAuth1Client client,
     required this.newestFirst,
+    required this.userId,
   }) : _client = client;
 
   Future<PagedMeasurementResult> getNextMeasurements() async {
-    var res = await _client.getNextMeasurements(page, newestFirst);
+    var res = await _client.getNextMeasurements(userId, page, newestFirst);
     _extractObjectData(res);
     return this;
   }
 
   Future<PagedMeasurementResult> getPreviousMeasurements() async {
-    var res = await _client.getPreviousMeasurements(page, newestFirst);
+    var res = await _client.getPreviousMeasurements(userId, page, newestFirst);
     _extractObjectData(res);
     return this;
   }
@@ -61,22 +63,24 @@ class PagedPeriodicReportsResult {
   late Page page;
   final OAuth1Client _client;
   final bool newestFirst;
+  final String userId;
 
   PagedPeriodicReportsResult({
     required this.result,
     required this.page,
     required OAuth1Client client,
     required this.newestFirst,
+    required this.userId,
   }) : _client = client;
 
   Future<PagedPeriodicReportsResult> getNextPagedPeriodicReportsResult() async {
-    var res = await _client.getNextPeriodicReports(page, newestFirst);
+    var res = await _client.getNextPeriodicReports(userId, page, newestFirst);
     _extractObjectData(res);
     return this;
   }
 
   Future<PagedPeriodicReportsResult> getPreviousPagedPeriodicReportsResult() async {
-    var res = await _client.getPreviousPeriodicReports(page, newestFirst);
+    var res = await _client.getPreviousPeriodicReports(userId, page, newestFirst);
     _extractObjectData(res);
     return this;
   }

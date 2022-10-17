@@ -4,10 +4,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_fibricheck_sdk/api/httpclient.dart';
+import 'package:flutter_fibricheck_sdk/general_configuration.dart';
 import 'package:flutter_fibricheck_sdk/measurement.dart';
 import 'package:flutter_fibricheck_sdk/paged_results.dart' as paged_results;
 import 'package:flutter_fibricheck_sdk/profiledata.dart';
 import 'package:flutter_fibricheck_sdk/report.dart';
+import 'package:flutter_fibricheck_sdk/user_configuration.dart';
 import 'package:http/http.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -26,14 +28,16 @@ List<String> _requiredDocuments = ["privacy_policy", "terms_of_use"];
 
 class FLFibriCheckSdk {
   @visibleForTesting
-  bool supressPlatformCheckError = false;
+  bool suppressPlatformCheckError = false;
 
   final String dataKey = "data";
 
   late OAuth1Client _client;
+  late String _userId;
 
   FLFibriCheckSdk(OAuth1Client oAuth1Client) {
     _client = oAuth1Client;
+    _userId = '';
   }
 
   /// Create an instance of the FibriCheck SDK based on a [consumerKey],
@@ -68,15 +72,20 @@ class FLFibriCheckSdk {
   ///  [LoginTimeoutError], [LoginFreezeError], [TooManyFailedAttemptsError], [MfaRequiredError]
   Future<TokenDataOauth1> authenticateWithEmail(
       ParamsOauth1WithEmail credentials, void Function(List<Consent> consents) onConsentNeeded) async {
-    var res = await _client.createOAuth1TokenWithEmail(credentials);
-    _throwErrorsFromResponseIfNeeded(res);
+    Response response = await _client.createOAuth1TokenWithEmail(credentials);
+    _throwErrorsFromResponseIfNeeded(response);
 
-    var resGeneralConfig = await _client.getGeneralConfiguration();
+    Map<String, dynamic> resultObj = jsonDecode(response.body);
+    _client.oAuthToken = resultObj['token'];
+    _client.oAuthTokenSecret = resultObj['tokenSecret'];
+    _userId = resultObj['id'];
+
+    Response resGeneralConfig = await _client.getGeneralConfiguration();
     _throwErrorsFromResponseIfNeeded(resGeneralConfig);
     var resGeneralConfigObj = jsonDecode(resGeneralConfig.body);
     var liveDocuments = resGeneralConfigObj[dataKey]?["documents"];
 
-    var resUserConfig = await _client.getUserConfiguration();
+    Response resUserConfig = await _client.getUserConfiguration(_userId);
     _throwErrorsFromResponseIfNeeded(resUserConfig);
     var resUserConfigObj = jsonDecode(resUserConfig.body);
     var userDocuments = resUserConfigObj[dataKey]?["documents"];
@@ -96,7 +105,7 @@ class FLFibriCheckSdk {
       onConsentNeeded(consents);
     }
 
-    var resJson = jsonDecode(res.body);
+    var resJson = jsonDecode(response.body);
 
     var tokenData = TokenDataOauth1(
       userId: resJson["userId"],
@@ -120,8 +129,13 @@ class FLFibriCheckSdk {
   ///  [LoginTimeoutError], [LoginFreezeError], [TooManyFailedAttemptsError], [MfaRequiredError]
   Future<TokenDataOauth1> authenticateWithToken(
       ParamsOauth1WithToken credentials, void Function(List<Consent> consents) onConsentNeeded) async {
-    var res = await _client.createOAuth1TokenWithToken(credentials);
-    _throwErrorsFromResponseIfNeeded(res);
+    var response = await _client.createOAuth1TokenWithToken(credentials);
+    _throwErrorsFromResponseIfNeeded(response);
+
+    Map<String, dynamic> resultObj = jsonDecode(response.body);
+    _client.oAuthToken = resultObj['token'];
+    _client.oAuthTokenSecret = resultObj['tokenSecret'];
+    _userId = resultObj['id'];
 
     // get general config
     var resGeneralConfig = await _client.getGeneralConfiguration();
@@ -130,7 +144,7 @@ class FLFibriCheckSdk {
     var liveDocuments = resGeneralConfigObj[dataKey]?["documents"];
 
     // get user config
-    var resUserConfig = await _client.getUserConfiguration();
+    var resUserConfig = await _client.getUserConfiguration(_userId);
     _throwErrorsFromResponseIfNeeded(resUserConfig);
     var resUserConfigObj = jsonDecode(resUserConfig.body);
     var userDocuments = resUserConfigObj[dataKey]?["documents"];
@@ -151,7 +165,7 @@ class FLFibriCheckSdk {
     if (consents.isNotEmpty) {
       onConsentNeeded(consents);
     }
-    var resJson = jsonDecode(res.body);
+    var resJson = jsonDecode(response.body);
 
     var tokenData = TokenDataOauth1(
         userId: resJson["id"],
@@ -173,12 +187,12 @@ class FLFibriCheckSdk {
   }
 
   /// Gives consent based on a [Consent] object
-  /// Returns the number of affectedd records
+  /// Returns the number of affected records
   Future<int> giveConsent(Consent consent) async {
     var b =
         '{"data": { "documents": { "${consent.legalDocumentKey}": { "version": "${consent.version}", "timestamp": "${DateTime.now().toIso8601String()}" } } } }';
 
-    var res = await _client.updateUserConfig(b);
+    var res = await _client.updateUserConfig(_userId, b);
     _throwErrorsFromResponseIfNeeded(res);
 
     Map<String, dynamic> resultObj = jsonDecode(res.body);
@@ -225,8 +239,8 @@ class FLFibriCheckSdk {
       model = iosInfo.localizedModel; // => check input
       manufacturer = 'Apple';
     } else {
-      if (!supressPlatformCheckError) {
-        // => supress unsupported platform error in order to test
+      if (!suppressPlatformCheckError) {
+        // => suppress unsupported platform error in order to test
         // postMeasurement without mocking of the platform
         throw SdkError(errorBody: "Platform not supported");
       }
@@ -251,7 +265,7 @@ class FLFibriCheckSdk {
 
   /// Check if the user is entitled to perform a measurement
   Future<bool> canPerformMeasurement() async {
-    var res = await _client.getDocuments();
+    var res = await _client.getDocuments(_userId);
     _throwErrorsFromResponseIfNeeded(res);
 
     Map<String, dynamic> resultObj = jsonDecode(res.body);
@@ -263,7 +277,7 @@ class FLFibriCheckSdk {
 
   /// Updates the measurement context for a given measurement id
   Future<int> updateMeasurementContext(String measurementId, MeasurementContext measurementContext) async {
-    var res = await _client.upateMeasurementContext(measurementId, '{"context": ${jsonEncode(measurementContext)} }');
+    var res = await _client.updateMeasurementContext(measurementId, '{"context": ${jsonEncode(measurementContext)} }');
     _throwErrorsFromResponseIfNeeded(res);
 
     Map<String, dynamic> resultObj = jsonDecode(res.body);
@@ -273,7 +287,7 @@ class FLFibriCheckSdk {
 
   /// Get all measurements of the current user
   Future<paged_results.PagedMeasurementResult> getMeasurements(bool newestFirst) async {
-    var res = await _client.getMeasurements(newestFirst);
+    var res = await _client.getMeasurements(_userId, newestFirst);
     _throwErrorsFromResponseIfNeeded(res);
 
     Map<String, dynamic> resultObj = jsonDecode(res.body);
@@ -294,6 +308,7 @@ class FLFibriCheckSdk {
       page: page,
       client: _client,
       newestFirst: newestFirst,
+      userId: _userId,
     );
 
     return pagedResult;
@@ -359,7 +374,7 @@ class FLFibriCheckSdk {
   }
 
   Future<paged_results.PagedPeriodicReportsResult> getPeriodicReports(bool newestFirst) async {
-    var res = await _client.getPeriodicReports(newestFirst);
+    var res = await _client.getPeriodicReports(_userId, newestFirst);
     _throwErrorsFromResponseIfNeeded(res);
 
     Map<String, dynamic> resultObj = jsonDecode(res.body);
@@ -379,6 +394,7 @@ class FLFibriCheckSdk {
       page: page,
       client: _client,
       newestFirst: newestFirst,
+      userId: _userId,
     );
 
     return pagedResult;
@@ -406,18 +422,60 @@ class FLFibriCheckSdk {
     }
   }
 
+  /// Return the general configuration as a [GeneralConfiguration]. 
+  Future<GeneralConfiguration> getGeneralConfiguration() async {
+    Response response = await _client.getGeneralConfiguration();
+    _throwErrorsFromResponseIfNeeded(response);
+
+    Map<String, dynamic> resultObject = jsonDecode(response.body);
+    GeneralConfiguration generalConfiguration = GeneralConfiguration.fromJson(resultObject);
+
+    return generalConfiguration;
+  }
+
+  /// Return the user configuration as a [UserConfiguration]. 
+  Future<UserConfiguration> getUserConfiguration() async {
+    Response response = await _client.getUserConfiguration(_userId);
+    _throwErrorsFromResponseIfNeeded(response);
+
+    Map<String, dynamic> resultObject = jsonDecode(response.body);
+    UserConfiguration userConfiguration = UserConfiguration.fromJson(resultObject);
+
+    return userConfiguration;
+  }
+
+  /// Update the user with the id [userId] configuration.
+  /// The [key] is the key where to save the value for the user.
+  /// The [valueJsonString] is an encoded json in string.
+  /// Return true if the update was done successfully.
+  Future<bool> updateUserConfig(String key, String valueJsonString) async {
+    Map<String, dynamic> encapsulated = { "data": {} };
+    encapsulated["data"][key] = valueJsonString;
+    final String jsonString = jsonEncode(encapsulated);
+
+    Response res = await _client.updateUserConfig(_userId, jsonString);
+    _throwErrorsFromResponseIfNeeded(res);
+
+    Map<String, dynamic> resultObj = jsonDecode(res.body);
+    int affectedRecords = resultObj["affectedRecords"];
+
+    return affectedRecords > 0;
+  }
+
   void _throwErrorsFromResponseIfNeeded(Response res) {
     if (res.statusCode != 200) {
-      if (jsonDecode(res.body)["code"] == 101) throw ApplicationNotAuthenticatedError(errorBody: res.body);
-      if (jsonDecode(res.body)["code"] == 106) throw AuthenticationError(errorBody: res.body);
-      if (jsonDecode(res.body)["code"] == 129) throw MfaRequiredError(errorBody: res.body);
+      int exhCode = jsonDecode(res.body)["code"];
 
-      if (jsonDecode(res.body)["code"] == 203) throw EmailUsedError(errorBody: res.body);
-      if (jsonDecode(res.body)["code"] == 211) throw LoginTimeoutError(errorBody: res.body);
-      if (jsonDecode(res.body)["code"] == 212) throw LoginFreezeError(errorBody: res.body);
-      if (jsonDecode(res.body)["code"] == 213) throw TooManyFailedAttemptsError(errorBody: res.body);
-
-      if (jsonDecode(res.body)["code"] == 415) throw LockedDocumentError(errorBody: res.body);
+      switch (exhCode) {
+        case 101: throw ApplicationNotAuthenticatedError(errorBody: res.body);
+        case 106: throw AuthenticationError(errorBody: res.body);
+        case 129: throw MfaRequiredError(errorBody: res.body);
+        case 203: throw EmailUsedError(errorBody: res.body);
+        case 211: throw LoginTimeoutError(errorBody: res.body);
+        case 212: throw LoginFreezeError(errorBody: res.body);
+        case 213: throw TooManyFailedAttemptsError(errorBody: res.body);
+        case 415: throw LockedDocumentError(errorBody: res.body);
+      }
     }
   }
 }
