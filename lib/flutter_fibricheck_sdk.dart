@@ -78,7 +78,7 @@ class FLFibriCheckSdk {
     Map<String, dynamic> resultObj = jsonDecode(response.body);
     _client.oAuthToken = resultObj['token'];
     _client.oAuthTokenSecret = resultObj['tokenSecret'];
-    _userId = resultObj['id'];
+    _userId = resultObj['userId'];
 
     Response resGeneralConfig = await _client.getGeneralConfiguration();
     _throwErrorsFromResponseIfNeeded(resGeneralConfig);
@@ -135,7 +135,7 @@ class FLFibriCheckSdk {
     Map<String, dynamic> resultObj = jsonDecode(response.body);
     _client.oAuthToken = resultObj['token'];
     _client.oAuthTokenSecret = resultObj['tokenSecret'];
-    _userId = resultObj['id'];
+    _userId = resultObj['userId'];
 
     // get general config
     var resGeneralConfig = await _client.getGeneralConfiguration();
