@@ -56,9 +56,6 @@ class _DashBoardState extends State<DashBoard> {
                   return Text('Error: ${snapshot.error}');
                 }
                 List<Measurement> measurements = snapshot.data!;
-                debugPrint("-------------------------------------");
-                debugPrint(measurements.toString());
-                debugPrint("-------------------------------------");
                 return ListView.separated(
                   itemCount: measurements.length,
                   itemBuilder: (context, index) {
