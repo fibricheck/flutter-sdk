@@ -78,7 +78,7 @@ class FLFibriCheckSdk {
     Map<String, dynamic> resultObj = jsonDecode(response.body);
     _client.oAuthToken = resultObj['token'];
     _client.oAuthTokenSecret = resultObj['tokenSecret'];
-    _userId = resultObj['id'];
+    _userId = resultObj['userId'];
 
     Response resGeneralConfig = await _client.getGeneralConfiguration();
     _throwErrorsFromResponseIfNeeded(resGeneralConfig);
@@ -135,7 +135,7 @@ class FLFibriCheckSdk {
     Map<String, dynamic> resultObj = jsonDecode(response.body);
     _client.oAuthToken = resultObj['token'];
     _client.oAuthTokenSecret = resultObj['tokenSecret'];
-    _userId = resultObj['id'];
+    _userId = resultObj['userId'];
 
     // get general config
     var resGeneralConfig = await _client.getGeneralConfiguration();
@@ -446,11 +446,11 @@ class FLFibriCheckSdk {
 
   /// Update the user with the id [userId] configuration.
   /// The [key] is the key where to save the value for the user.
-  /// The [valueJsonString] is an encoded json in string.
+  /// The [value] is an object that can be jsonEncoded.
   /// Return true if the update was done successfully.
-  Future<bool> updateUserConfig(String key, String valueJsonString) async {
+  Future<bool> updateUserConfig(String key, Object value) async {
     Map<String, dynamic> encapsulated = { "data": {} };
-    encapsulated["data"][key] = valueJsonString;
+    encapsulated["data"][key] = value;
     final String jsonString = jsonEncode(encapsulated);
 
     Response res = await _client.updateUserConfig(_userId, jsonString);

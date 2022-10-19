@@ -17,8 +17,6 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoardState extends State<DashBoard> {
-  List<Measurement>? _measurements;
-
   final hashController = TextEditingController();
 
   @override
@@ -44,50 +42,54 @@ class _DashBoardState extends State<DashBoard> {
           backgroundColor: FCColors.green,
           title: const Text('Measurements'),
         ),
-        body: FutureBuilder(
+        body: FutureBuilder<List<Measurement>>(
           future: _getMeasurements(),
           builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
+            switch (snapshot.connectionState) {
+              case ConnectionState.waiting: return const Center(
                 child: CircularProgressIndicator(
                   color: FCColors.green,
                 ),
               );
-            } else {
-              return ListView.separated(
-                itemCount: _measurements!.length,
-                itemBuilder: (context, index) {
-                  var m = _measurements![index];
-                  DateTime date = m.creationTimestamp ?? DateTime.now();
-                  var hearthRateText = "Hearthrate: ${m.data?.heartrate.toString() ?? "-"}";
-                  return GestureDetector(
-                      onTap: (() => {navigate(context, m)}),
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  DateFormat("yyyy-MM-dd").format(date),
-                                  style: const TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                _mapStatusToStatusText(m.status)
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Text(hearthRateText),
-                              ],
-                            )
-                          ],
-                        ),
-                      ));
-                },
-                separatorBuilder: (BuildContext context, int index) => const Divider(),
-              );
+              default:
+                if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                }
+                List<Measurement> measurements = snapshot.data!;
+                return ListView.separated(
+                  itemCount: measurements.length,
+                  itemBuilder: (context, index) {
+                    var m = measurements[index];
+                    DateTime date = m.creationTimestamp ?? DateTime.now();
+                    var hearthRateText = "Hearthrate: ${m.data?.heartrate.toString() ?? "-"}";
+                    return GestureDetector(
+                        onTap: (() => {navigate(context, m)}),
+                        child: Container(
+                          padding: const EdgeInsets.all(8),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    DateFormat("yyyy-MM-dd").format(date),
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  _mapStatusToStatusText(m.status)
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(hearthRateText),
+                                ],
+                              )
+                            ],
+                          ),
+                        ));
+                  },
+                  separatorBuilder: (BuildContext context, int index) => const Divider(),
+                );
             }
           },
         ));
@@ -95,7 +97,6 @@ class _DashBoardState extends State<DashBoard> {
 
   Future<List<Measurement>> _getMeasurements() async {
     var res = await widget.sdk.getMeasurements(true);
-    _measurements = res.result;
     return res.result;
   }
 
