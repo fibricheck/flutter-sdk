@@ -1,5 +1,5 @@
-import 'package:flutter_fibricheck_sdk/measurement.dart';
-import 'package:flutter_fibricheck_sdk/userdata.dart';
+import 'package:flutter_fibricheck_sdk/src/models/measurement/measurement.dart';
+import 'package:flutter_fibricheck_sdk/src/models/userdata/userdata.dart';
 
 UserRegisterData userData = UserRegisterData(
     firstName: "John",

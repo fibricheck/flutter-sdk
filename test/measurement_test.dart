@@ -1,11 +1,11 @@
-import 'package:flutter_fibricheck_sdk/api/httpclient.dart';
-import 'package:flutter_fibricheck_sdk/flutter_fibricheck_sdk.dart';
+import 'package:flutter_fibricheck_sdk/src/api/httpclient.dart';
+import 'package:flutter_fibricheck_sdk/src/flutter_fibricheck_sdk.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:flutter_fibricheck_sdk/sdk_errors.dart';
+import 'package:flutter_fibricheck_sdk/src/sdk_errors.dart';
 import 'measurement_test.mocks.dart';
 import 'test_data.dart';
 

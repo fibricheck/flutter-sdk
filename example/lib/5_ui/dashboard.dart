@@ -10,6 +10,7 @@ import 'detail.dart';
 
 class DashBoard extends StatefulWidget {
   const DashBoard({super.key, required this.sdk});
+
   final FLFibriCheckSdk sdk;
 
   @override
@@ -46,11 +47,12 @@ class _DashBoardState extends State<DashBoard> {
           future: _getMeasurements(),
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
-              case ConnectionState.waiting: return const Center(
-                child: CircularProgressIndicator(
-                  color: FCColors.green,
-                ),
-              );
+              case ConnectionState.waiting:
+                return const Center(
+                  child: CircularProgressIndicator(
+                    color: FCColors.green,
+                  ),
+                );
               default:
                 if (snapshot.hasError) {
                   return Text('Error: ${snapshot.error}');
@@ -124,8 +126,7 @@ class _DashBoardState extends State<DashBoard> {
                 controller: hashController,
               ),
               actions: <Widget>[
-                FCPrimaryButtonWidget(
-                    onPressed: () => _activatePrescription(hashController.text, context), label: "OK"),
+                FCPrimaryButtonWidget(onPressed: () => _activatePrescription(hashController.text, context), label: "OK"),
                 TextButton(
                   child: const Text(
                     "Cancel",
