@@ -1,0 +1,4 @@
+enum ReviewType {
+  automatic,
+  manual,
+}
