@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart';
 
 import '../../api/httpclient.dart';
+import '../../constants/keys_fibricheck_sdk.dart';
 import '../report/report.dart';
 import 'paged_results.dart';
 
@@ -35,16 +36,16 @@ class PagedPeriodicReportsResult {
 
   void _extractObjectData(Response res) {
     Map<String, dynamic> resultObj = jsonDecode(res.body);
-    var reports = resultObj["data"];
+    var reports = resultObj[KeysFibricheckSDK.data];
     List<PeriodicReport> reportsList = <PeriodicReport>[];
     for (var r in reports) {
       reportsList.add(PeriodicReport.fromJson(r));
     }
 
     var page = Page();
-    page.limit = resultObj["page"]["limit"];
-    page.offset = resultObj["page"]["offset"];
-    page.total = resultObj["page"]["total"];
+    page.limit = resultObj[KeysFibricheckSDK.page][KeysFibricheckSDK.limit];
+    page.offset = resultObj[KeysFibricheckSDK.page][KeysFibricheckSDK.offset];
+    page.total = resultObj[KeysFibricheckSDK.page][KeysFibricheckSDK.total];
 
     result = reportsList;
     this.page = page;

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_fibricheck_sdk/src/constants/keys_fibricheck_sdk.dart';
 import 'package:http/http.dart';
 
 import '../../api/httpclient.dart';
@@ -36,12 +37,12 @@ class PagedMeasurementResult {
 
   void _extractObjectData(Response res) {
     Map<String, dynamic> resultObj = jsonDecode(res.body);
-    var measurements = resultObj["data"];
+    var measurements = resultObj[KeysFibricheckSDK.data];
 
     var page = Page();
-    page.limit = resultObj["page"]["limit"];
-    page.offset = resultObj["page"]["offset"];
-    page.total = resultObj["page"]["total"];
+    page.limit = resultObj[KeysFibricheckSDK.page][KeysFibricheckSDK.limit];
+    page.offset = resultObj[KeysFibricheckSDK.page][KeysFibricheckSDK.offset];
+    page.total = resultObj[KeysFibricheckSDK.page][KeysFibricheckSDK.total];
 
     List<Measurement> measurementList = <Measurement>[];
     for (var m in measurements) {
