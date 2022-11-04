@@ -38,9 +38,8 @@ class MeasurementCreationData extends CameraData {
     this.tags,
   });
 
-  static MeasurementCreationData fromCameraSdk(String cameraMeasurement) {
-    var json = jsonDecode(cameraMeasurement);
-    var mCreationData = MeasurementCreationData.fromJson(json);
+  static MeasurementCreationData fromCameraSdk(Map<String, dynamic> cameraMeasurement) {
+    var mCreationData = MeasurementCreationData.fromJson(cameraMeasurement);
     return mCreationData;
   }
 

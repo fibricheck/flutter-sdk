@@ -111,7 +111,7 @@ class _CameraScreenState extends State<CameraScreen> {
                       //     }),
                       //   },
                       //   onMeasurementProcessed: (measurement) async => {
-                      //     await _onMeasurementFinished(jsonEncode(measurement)),
+                      //     await _onMeasurementFinished(measurement),
                       //     debugPrint("Flutter onMeasurementProcessed $measurement"),
                       //     if (Navigator.canPop(context)) Navigator.pop(context, true),
                       //   },
@@ -147,8 +147,8 @@ class _CameraScreenState extends State<CameraScreen> {
     });
   }
 
-  Future _onMeasurementFinished(String measurementString) async {
-    var mCreationData = MeasurementCreationData.fromCameraSdk(measurementString);
+  Future _onMeasurementFinished(Map<String, dynamic> measurementJson) async {
+    var mCreationData = MeasurementCreationData.fromCameraSdk(measurementJson);
     await widget.sdk.postMeasurement(mCreationData, "v0.0.1");
   }
 }
