@@ -94,10 +94,10 @@ class _CameraScreenState extends State<CameraScreen> {
                       //     }),
                       //   },
                       //   onFingerDetectionTimeExpired: () => debugPrint("Flutter onFingerDetectionTimeExpired"),
-                      //   onFingerRemoved: () => {
-                      //     Wakelock.disable(),
-                      //     debugPrint("Flutter onFingerRemoved"),
-                      //   },
+                      //   onFingerRemoved: (y, v, stdDevY) => {
+                      //      Wakelock.disable(),
+                      //      debugPrint("Flutter onFingerRemoved $y, $v, $stdDevY"),
+                      //    },
                       //   onHeartBeat: (heartbeat) => {
                       //     debugPrint("Flutter onHeartBeat $heartbeat"),
                       //     setState(() {
@@ -111,7 +111,7 @@ class _CameraScreenState extends State<CameraScreen> {
                       //     }),
                       //   },
                       //   onMeasurementProcessed: (measurement) async => {
-                      //     await _onMeasurementFinished(measurement),
+                      //     await _onMeasurementFinished(jsonEncode(measurement)),
                       //     debugPrint("Flutter onMeasurementProcessed $measurement"),
                       //     if (Navigator.canPop(context)) Navigator.pop(context, true),
                       //   },
