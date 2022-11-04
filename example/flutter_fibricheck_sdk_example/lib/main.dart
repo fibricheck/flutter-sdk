@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_fibricheck_sdk/authentication_data.dart';
 import 'package:flutter_fibricheck_sdk/flutter_fibricheck_sdk.dart';
+import 'package:flutter_fibricheck_sdk/authentication_data.dart';
 import 'package:flutter_fibricheck_sdk/measurement.dart';
 import 'package:flutter_fibricheck_sdk/profiledata.dart';
-import 'package:flutter_fibricheck_sdk/sdk_errors.dart';
 import 'package:flutter_fibricheck_sdk/userdata.dart';
+import 'package:flutter_fibricheck_sdk/sdk_errors.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
