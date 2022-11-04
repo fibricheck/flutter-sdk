@@ -1,7 +1,5 @@
 // ignore_for_file: depend_on_referenced_packages
 
-import 'dart:convert';
-
 import 'package:json_annotation/json_annotation.dart';
 
 import 'measurement.dart';
