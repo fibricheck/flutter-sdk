@@ -6,7 +6,6 @@ enum MeasurementDiagnosis {
   sinusArrhythmia,
   @JsonValue('extrasystoles_trig_episode')
   extrasystolesTrigEpisode,
-  other,
   undiagnosable,
   @JsonValue('extrasystoles_isolated')
   extrasystolesIsolated,
@@ -44,6 +43,11 @@ enum MeasurementDiagnosis {
   qualityToLow,
   @JsonValue('atrial_fibrillation')
   atrialFibrillation,
-  @JsonValue('atrial_fibrillation')
+  other,
+  @JsonValue('no_diagnosis')
   noDiagnosis,
+}
+
+extension MeasurementDiagnosisSortable on MeasurementDiagnosis {
+  int compareTo(MeasurementDiagnosis other) => index.compareTo(other.index);
 }

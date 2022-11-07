@@ -2,6 +2,7 @@
 
 import 'package:json_annotation/json_annotation.dart';
 
+import 'enums/measurement_diagnosis.dart';
 import 'enums/measurement_status.dart';
 import 'measurement_response_data.dart';
 import 'transition_lock.dart';
@@ -65,4 +66,17 @@ class Measurement {
   factory Measurement.fromJson(Map<String, dynamic> json) => _$MeasurementFromJson(json);
 
   Map<String, dynamic> toJson() => _$MeasurementToJson(this);
+
+  MeasurementDiagnosis getMostSevereLabel() {
+    final labels = data?.diagnosis?.label;
+
+    if (labels == null || labels.isEmpty) {
+      return MeasurementDiagnosis.noDiagnosis;
+    }
+
+    final copiedLabels = List<MeasurementDiagnosis>.from(labels);
+    copiedLabels.sort((label1, label2) => label1.compareTo(label2));
+    
+    return copiedLabels[0];
+  }
 }
