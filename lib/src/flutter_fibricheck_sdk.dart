@@ -352,6 +352,12 @@ class FLFibriCheckSdk {
 
     return affectedRecords;
   }
+
+  /// Return the the periodic report uri of the [reportId] provided
+  Future<Uri> getPeriodicReportPdfUri(String reportId) async {
+    return await _client.getPeriodicReportPdfUri(reportId);
+  }
+
   /// Return the periodic report pdf of the [reportId] provided
   Future<String> getPeriodicReportPdf(String reportId) async {
     final res = await _client.getPeriodicReportPdf(reportId);
