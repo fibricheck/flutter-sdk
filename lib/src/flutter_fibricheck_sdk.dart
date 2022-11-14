@@ -353,6 +353,12 @@ class FLFibriCheckSdk {
     return affectedRecords;
   }
 
+  /// Return the the periodic report uri of the [reportId] provided
+  Future<Uri> getPeriodicReportPdfUri(String reportId) async {
+    return await _client.getPeriodicReportPdfUri(reportId);
+  }
+
+  /// Return the periodic report pdf of the [reportId] provided
   Future<String> getPeriodicReportPdf(String reportId) async {
     final res = await _client.getPeriodicReportPdf(reportId);
 
@@ -361,6 +367,8 @@ class FLFibriCheckSdk {
     return pdf;
   }
 
+  /// Return a page of periodic reports. /!\ It's not the pdf.
+  /// Use [newestFirst] to have the latest.
   Future<paged_results.PagedPeriodicReportsResult> getPeriodicReports(bool newestFirst) async {
     final response = await _client.getPeriodicReports(_userId, newestFirst);
     response.throwSDKErrorIfNeeded();

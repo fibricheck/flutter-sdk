@@ -68,8 +68,8 @@ class UriUtil {
     return uri;
   }
 
-  Uri getPeriodicReportPdfUri(String reportId) {
-    return Uri.parse("$host/reports/v1/$reportId/pdf/nl");
+  Uri getPeriodicReportPdfUri(String reportId, String language) {
+    return Uri.parse("$host/reports/v1/$reportId/pdf/$language");
   }
 
   Uri getPeriodicReportsUri(String userId, bool newestFirst) {

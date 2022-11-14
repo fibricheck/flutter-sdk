@@ -191,8 +191,16 @@ class OAuth1Client {
     return res;
   }
 
+  Future<Uri> getPeriodicReportPdfUri(String reportId) async {
+    final language = await _getLanguage();
+    final uri = _uriUtil.getPeriodicReportPdfUri(reportId, language);
+
+    return uri;
+  }
+
   Future<http.Response> getPeriodicReportPdf(String reportId) async {
-    var uri = _uriUtil.getPeriodicReportPdfUri(reportId);
+    final language = await _getLanguage();
+    var uri = _uriUtil.getPeriodicReportPdfUri(reportId, language);
 
     var header = _getDefaultHeadersGet(uri);
     header.addAll(<String, String>{

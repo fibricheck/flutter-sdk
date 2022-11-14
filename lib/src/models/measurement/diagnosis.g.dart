@@ -22,7 +22,6 @@ Map<String, dynamic> _$DiagnosisToJson(Diagnosis instance) => <String, dynamic>{
 const _$MeasurementDiagnosisEnumMap = {
   MeasurementDiagnosis.sinusArrhythmia: 'sinus_arrhythmia',
   MeasurementDiagnosis.extrasystolesTrigEpisode: 'extrasystoles_trig_episode',
-  MeasurementDiagnosis.other: 'other',
   MeasurementDiagnosis.undiagnosable: 'undiagnosable',
   MeasurementDiagnosis.extrasystolesIsolated: 'extrasystoles_isolated',
   MeasurementDiagnosis.dubiousRhythm: 'dubious_rhythm',
@@ -44,5 +43,6 @@ const _$MeasurementDiagnosisEnumMap = {
   MeasurementDiagnosis.bradyArrhytmia: 'brady_arrhytmia',
   MeasurementDiagnosis.qualityToLow: 'quality_to_low',
   MeasurementDiagnosis.atrialFibrillation: 'atrial_fibrillation',
-  MeasurementDiagnosis.noDiagnosis: 'atrial_fibrillation',
+  MeasurementDiagnosis.other: 'other',
+  MeasurementDiagnosis.noDiagnosis: 'no_diagnosis',
 };
