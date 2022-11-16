@@ -170,7 +170,7 @@ class OAuth1Client {
 
   Future<http.Response> updateMeasurementContext(String measurementId, MeasurementContext measurementContext) async {
     var map = <String, dynamic>{
-      KeysFibricheckSDK.context: jsonEncode(measurementContext),
+      KeysFibricheckSDK.context: measurementContext.toJson(),
     };
     var body = jsonEncode(map);
 
