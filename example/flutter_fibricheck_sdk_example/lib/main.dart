@@ -220,7 +220,6 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> updateProfile() async {
     await _sdk.updateProfile(
-        "",
         ProfileData(
             addressLine1: "test lijn 1",
             addressLine2: "test lijn 2",
