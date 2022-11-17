@@ -338,12 +338,12 @@ class FLFibriCheckSdk {
     await _client.activatePrescription(hash);
   }
 
-  /// Update the user profile of the [userId] provided
+  /// Update the user profile of the authenticated user
   /// with the given [ProfileData] and returns the number of affected records
-  Future<int> updateProfile(String userId, ProfileData updateData) async {
+  Future<int> updateProfile(ProfileData updateData) async {
     final jsonUpdateData = jsonEncode(updateData);
 
-    final response = await _client.updateUserProfile(userId, jsonUpdateData);
+    final response = await _client.updateUserProfile(_userId, jsonUpdateData);
     response.throwSDKErrorIfNeeded();
 
     final resultObj = jsonDecode(response.body);
