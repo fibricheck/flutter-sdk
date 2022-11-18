@@ -75,7 +75,7 @@ class UriUtil {
   Uri getPeriodicReportsUri(String userId, bool newestFirst) {
     var uriString = "$host/reports/v1/?eq(user_id,$userId)&out(trigger,MANUAL)&eq(status,COMPLETE)&limit(20,0)";
 
-    if (newestFirst) uriString += "&sort(-id)";
+    if (newestFirst) uriString += "&sort(-creation_timestamp)";
 
     var uri = Uri.parse(uriString);
     return uri;
@@ -84,7 +84,7 @@ class UriUtil {
   Uri getNextPeriodicReportsUri(String userId, paged_result.Page page, bool newestFirst) {
     var uriString = "$host/reports/v1/?eq(user_id,$userId)&out(trigger,MANUAL)&eq(status,COMPLETE)&limit(20,${page.offset + 20})";
 
-    if (newestFirst) uriString += "&sort(-id)";
+    if (newestFirst) uriString += "&sort(-creation_timestamp)";
 
     var uri = Uri.parse(uriString);
     return uri;
@@ -93,7 +93,7 @@ class UriUtil {
   Uri getPreviousPeriodicReportsUri(String userId, paged_result.Page page, bool newestFirst) {
     var uriString = "$host/reports/v1/?eq(user_id,$userId)&out(trigger,MANUAL)&eq(status,COMPLETE)&limit(20,${page.offset - 20})";
 
-    if (newestFirst) uriString += "&sort(-id)";
+    if (newestFirst) uriString += "&sort(-creation_timestamp)";
 
     var uri = Uri.parse(uriString);
     return uri;
