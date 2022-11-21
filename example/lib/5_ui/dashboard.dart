@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_fibricheck_sdk/flutter_fibricheck_sdk.dart';
 import 'package:flutter_fibricheck_sdk/measurement.dart';
-import 'package:flutter_fibricheck_sdk/profiledata.dart';
 import 'package:flutter_fibricheck_sdk_example/5_ui/widgets/fc_primarybutton.dart';
 import 'package:intl/intl.dart';
 
