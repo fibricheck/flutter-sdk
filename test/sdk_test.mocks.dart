@@ -33,6 +33,11 @@ class _FakeResponse_0 extends _i1.SmartFake implements _i2.Response {
       : super(parent, parentInvocation);
 }
 
+class _FakeUri_1 extends _i1.SmartFake implements Uri {
+  _FakeUri_1(Object parent, Invocation parentInvocation)
+      : super(parent, parentInvocation);
+}
+
 /// A class which mocks [OAuth1Client].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -175,6 +180,12 @@ class MockOAuth1Client extends _i1.Mock implements _i3.OAuth1Client {
               returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(this,
                   Invocation.method(#updateMeasurementContext, [measurementId, measurementContext]))))
           as _i4.Future<_i2.Response>);
+  @override
+  _i4.Future<Uri> getPeriodicReportPdfUri(String? reportId) => (super
+          .noSuchMethod(Invocation.method(#getPeriodicReportPdfUri, [reportId]),
+              returnValue: _i4.Future<Uri>.value(_FakeUri_1(this,
+                  Invocation.method(#getPeriodicReportPdfUri, [reportId]))))
+      as _i4.Future<Uri>);
   @override
   _i4.Future<_i2.Response> getPeriodicReportPdf(String? reportId) =>
       (super.noSuchMethod(Invocation.method(#getPeriodicReportPdf, [reportId]),

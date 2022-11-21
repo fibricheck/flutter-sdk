@@ -9,7 +9,7 @@ part 'medication.g.dart';
 class Medication {
   final String name;
   final Dosis dosis;
-  @JsonValue('medication_frequency')
+  @JsonKey(name: 'medication_frequency')
   final MedicationFrequency? medicationFrequency;
   final int count;
 
