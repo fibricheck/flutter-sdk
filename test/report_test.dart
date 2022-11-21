@@ -1,5 +1,5 @@
-import 'package:flutter_fibricheck_sdk/api/httpclient.dart';
-import 'package:flutter_fibricheck_sdk/flutter_fibricheck_sdk.dart';
+import 'package:flutter_fibricheck_sdk/src/api/httpclient.dart';
+import 'package:flutter_fibricheck_sdk/src/flutter_fibricheck_sdk.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
 import 'package:mockito/annotations.dart';

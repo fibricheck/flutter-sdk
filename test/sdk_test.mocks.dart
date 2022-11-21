@@ -5,9 +5,15 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
 
-import 'package:flutter_fibricheck_sdk/api/httpclient.dart' as _i3;
-import 'package:flutter_fibricheck_sdk/paged_results.dart' as _i6;
-import 'package:flutter_fibricheck_sdk/userdata.dart' as _i5;
+import 'package:flutter_fibricheck_sdk/src/api/httpclient.dart' as _i3;
+import 'package:flutter_fibricheck_sdk/src/models/authentication_data/authentication_data.dart'
+    as _i6;
+import 'package:flutter_fibricheck_sdk/src/models/measurement/measurement.dart'
+    as _i8;
+import 'package:flutter_fibricheck_sdk/src/models/paged_results/paged_results.dart'
+    as _i7;
+import 'package:flutter_fibricheck_sdk/src/models/userdata/userdata.dart'
+    as _i5;
 import 'package:http/http.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -24,6 +30,11 @@ import 'package:mockito/mockito.dart' as _i1;
 
 class _FakeResponse_0 extends _i1.SmartFake implements _i2.Response {
   _FakeResponse_0(Object parent, Invocation parentInvocation)
+      : super(parent, parentInvocation);
+}
+
+class _FakeUri_1 extends _i1.SmartFake implements Uri {
+  _FakeUri_1(Object parent, Invocation parentInvocation)
       : super(parent, parentInvocation);
 }
 
@@ -47,14 +58,6 @@ class MockOAuth1Client extends _i1.Mock implements _i3.OAuth1Client {
       (super.noSuchMethod(Invocation.getter(#consumerSecret), returnValue: '')
           as String);
   @override
-  String get userId =>
-      (super.noSuchMethod(Invocation.getter(#userId), returnValue: '')
-          as String);
-  @override
-  set userId(String? _userId) =>
-      super.noSuchMethod(Invocation.setter(#userId, _userId),
-          returnValueForMissingStub: null);
-  @override
   set oAuthToken(String? _oAuthToken) =>
       super.noSuchMethod(Invocation.setter(#oAuthToken, _oAuthToken),
           returnValueForMissingStub: null);
@@ -70,7 +73,7 @@ class MockOAuth1Client extends _i1.Mock implements _i3.OAuth1Client {
           as _i4.Future<_i2.Response>);
   @override
   _i4.Future<_i2.Response> createOAuth1TokenWithEmail(
-          _i5.ParamsOauth1WithEmail? body) =>
+          _i6.ParamsOauth1WithEmail? body) =>
       (super.noSuchMethod(
               Invocation.method(#createOAuth1TokenWithEmail, [body]),
               returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(this,
@@ -78,17 +81,11 @@ class MockOAuth1Client extends _i1.Mock implements _i3.OAuth1Client {
           as _i4.Future<_i2.Response>);
   @override
   _i4.Future<_i2.Response> createOAuth1TokenWithToken(
-          _i5.ParamsOauth1WithToken? body) =>
+          _i6.ParamsOauth1WithToken? body) =>
       (super.noSuchMethod(
               Invocation.method(#createOAuth1TokenWithToken, [body]),
               returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(this,
                   Invocation.method(#createOAuth1TokenWithToken, [body]))))
-          as _i4.Future<_i2.Response>);
-  @override
-  _i4.Future<_i2.Response> getMe(String? token, String? tokenSecret) =>
-      (super.noSuchMethod(Invocation.method(#getMe, [token, tokenSecret]),
-              returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
-                  this, Invocation.method(#getMe, [token, tokenSecret]))))
           as _i4.Future<_i2.Response>);
   @override
   bool logout() =>
@@ -101,16 +98,16 @@ class MockOAuth1Client extends _i1.Mock implements _i3.OAuth1Client {
                   this, Invocation.method(#getGeneralConfiguration, []))))
           as _i4.Future<_i2.Response>);
   @override
-  _i4.Future<_i2.Response> getUserConfiguration() =>
-      (super.noSuchMethod(Invocation.method(#getUserConfiguration, []),
+  _i4.Future<_i2.Response> getUserConfiguration(String? userId) =>
+      (super.noSuchMethod(Invocation.method(#getUserConfiguration, [userId]),
               returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
-                  this, Invocation.method(#getUserConfiguration, []))))
+                  this, Invocation.method(#getUserConfiguration, [userId]))))
           as _i4.Future<_i2.Response>);
   @override
-  _i4.Future<_i2.Response> updateUserConfig(String? body) =>
-      (super.noSuchMethod(Invocation.method(#updateUserConfig, [body]),
+  _i4.Future<_i2.Response> updateUserConfig(String? userId, String? body) =>
+      (super.noSuchMethod(Invocation.method(#updateUserConfig, [userId, body]),
               returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
-                  this, Invocation.method(#updateUserConfig, [body]))))
+                  this, Invocation.method(#updateUserConfig, [userId, body]))))
           as _i4.Future<_i2.Response>);
   @override
   _i4.Future<_i2.Response> getPrescription(String? hash) =>
@@ -119,10 +116,10 @@ class MockOAuth1Client extends _i1.Mock implements _i3.OAuth1Client {
                   this, Invocation.method(#getPrescription, [hash]))))
           as _i4.Future<_i2.Response>);
   @override
-  _i4.Future<_i2.Response> getDocuments() =>
-      (super.noSuchMethod(Invocation.method(#getDocuments, []),
-              returnValue: _i4.Future<_i2.Response>.value(
-                  _FakeResponse_0(this, Invocation.method(#getDocuments, []))))
+  _i4.Future<_i2.Response> getDocuments(String? userId) =>
+      (super.noSuchMethod(Invocation.method(#getDocuments, [userId]),
+              returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
+                  this, Invocation.method(#getDocuments, [userId]))))
           as _i4.Future<_i2.Response>);
   @override
   _i4.Future<_i2.Response> updateUserProfile(
@@ -133,30 +130,30 @@ class MockOAuth1Client extends _i1.Mock implements _i3.OAuth1Client {
                   Invocation.method(#updateUserProfile, [userId, updateData]))))
           as _i4.Future<_i2.Response>);
   @override
-  _i4.Future<_i2.Response> getMeasurements(bool? newestFirst) =>
-      (super.noSuchMethod(Invocation.method(#getMeasurements, [newestFirst]),
-              returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
-                  this, Invocation.method(#getMeasurements, [newestFirst]))))
+  _i4.Future<_i2.Response> getMeasurements(String? userId, bool? newestFirst) =>
+      (super.noSuchMethod(
+              Invocation.method(#getMeasurements, [userId, newestFirst]),
+              returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(this,
+                  Invocation.method(#getMeasurements, [userId, newestFirst]))))
           as _i4.Future<_i2.Response>);
   @override
   _i4.Future<_i2.Response> getNextMeasurements(
-          _i6.Page? page, bool? newestFirst) =>
+          String? userId, _i7.Page? page, bool? newestFirst) =>
       (super.noSuchMethod(
-              Invocation.method(#getNextMeasurements, [page, newestFirst]),
-              returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
-                  this,
-                  Invocation.method(
-                      #getNextMeasurements, [page, newestFirst]))))
-          as _i4.Future<_i2.Response>);
+          Invocation.method(#getNextMeasurements, [userId, page, newestFirst]),
+          returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
+              this,
+              Invocation.method(
+                  #getNextMeasurements, [userId, page, newestFirst])))) as _i4
+          .Future<_i2.Response>);
   @override
   _i4.Future<_i2.Response> getPreviousMeasurements(
-          _i6.Page? page, bool? newestFirst) =>
+          String? userId, _i7.Page? page, bool? newestFirst) =>
       (super.noSuchMethod(
-              Invocation.method(#getPreviousMeasurements, [page, newestFirst]),
-              returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
-                  this,
-                  Invocation.method(
-                      #getPreviousMeasurements, [page, newestFirst]))))
+              Invocation.method(
+                  #getPreviousMeasurements, [userId, page, newestFirst]),
+              returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(this,
+                  Invocation.method(#getPreviousMeasurements, [userId, page, newestFirst]))))
           as _i4.Future<_i2.Response>);
   @override
   _i4.Future<_i2.Response> getMeasurement(String? id) => (super.noSuchMethod(
@@ -165,21 +162,30 @@ class MockOAuth1Client extends _i1.Mock implements _i3.OAuth1Client {
               _FakeResponse_0(this, Invocation.method(#getMeasurement, [id]))))
       as _i4.Future<_i2.Response>);
   @override
-  _i4.Future<_i2.Response> postMeasurement(String? body) =>
-      (super.noSuchMethod(Invocation.method(#postMeasurement, [body]),
+  _i4.Future<_i2.Response> postMeasurement(
+          _i8.MeasurementCreationData? measurementCreationData) =>
+      (super.noSuchMethod(
+              Invocation.method(#postMeasurement, [measurementCreationData]),
               returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
-                  this, Invocation.method(#postMeasurement, [body]))))
+                  this,
+                  Invocation.method(
+                      #postMeasurement, [measurementCreationData]))))
           as _i4.Future<_i2.Response>);
   @override
-  _i4.Future<_i2.Response> upateMeasurementContext(
-          String? measurementId, String? body) =>
+  _i4.Future<_i2.Response> updateMeasurementContext(
+          String? measurementId, _i8.MeasurementContext? measurementContext) =>
       (super.noSuchMethod(
-          Invocation.method(#upateMeasurementContext, [measurementId, body]),
-          returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
-              this,
               Invocation.method(
-                  #upateMeasurementContext, [measurementId, body])))) as _i4
-          .Future<_i2.Response>);
+                  #updateMeasurementContext, [measurementId, measurementContext]),
+              returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(this,
+                  Invocation.method(#updateMeasurementContext, [measurementId, measurementContext]))))
+          as _i4.Future<_i2.Response>);
+  @override
+  _i4.Future<Uri> getPeriodicReportPdfUri(String? reportId) => (super
+          .noSuchMethod(Invocation.method(#getPeriodicReportPdfUri, [reportId]),
+              returnValue: _i4.Future<Uri>.value(_FakeUri_1(this,
+                  Invocation.method(#getPeriodicReportPdfUri, [reportId]))))
+      as _i4.Future<Uri>);
   @override
   _i4.Future<_i2.Response> getPeriodicReportPdf(String? reportId) =>
       (super.noSuchMethod(Invocation.method(#getPeriodicReportPdf, [reportId]),
@@ -187,31 +193,33 @@ class MockOAuth1Client extends _i1.Mock implements _i3.OAuth1Client {
                   this, Invocation.method(#getPeriodicReportPdf, [reportId]))))
           as _i4.Future<_i2.Response>);
   @override
-  _i4.Future<_i2.Response> getPeriodicReports(bool? newestFirst) =>
-      (super.noSuchMethod(Invocation.method(#getPeriodicReports, [newestFirst]),
-              returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
-                  this, Invocation.method(#getPeriodicReports, [newestFirst]))))
-          as _i4.Future<_i2.Response>);
-  @override
-  _i4.Future<_i2.Response> getNextPeriodicReports(
-          _i6.Page? page, bool? newestFirst) =>
+  _i4.Future<_i2.Response> getPeriodicReports(
+          String? userId, bool? newestFirst) =>
       (super.noSuchMethod(
-              Invocation.method(#getNextPeriodicReports, [page, newestFirst]),
+              Invocation.method(#getPeriodicReports, [userId, newestFirst]),
               returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
                   this,
                   Invocation.method(
-                      #getNextPeriodicReports, [page, newestFirst]))))
+                      #getPeriodicReports, [userId, newestFirst]))))
+          as _i4.Future<_i2.Response>);
+  @override
+  _i4.Future<_i2.Response> getNextPeriodicReports(
+          String? userId, _i7.Page? page, bool? newestFirst) =>
+      (super.noSuchMethod(
+              Invocation.method(
+                  #getNextPeriodicReports, [userId, page, newestFirst]),
+              returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(this,
+                  Invocation.method(#getNextPeriodicReports, [userId, page, newestFirst]))))
           as _i4.Future<_i2.Response>);
   @override
   _i4.Future<_i2.Response> getPreviousPeriodicReports(
-          _i6.Page? page, bool? newestFirst) =>
+          String? userId, _i7.Page? page, bool? newestFirst) =>
       (super.noSuchMethod(
-          Invocation.method(#getPreviousPeriodicReports, [page, newestFirst]),
-          returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
-              this,
               Invocation.method(
-                  #getPreviousPeriodicReports, [page, newestFirst])))) as _i4
-          .Future<_i2.Response>);
+                  #getPreviousPeriodicReports, [userId, page, newestFirst]),
+              returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(this,
+                  Invocation.method(#getPreviousPeriodicReports, [userId, page, newestFirst]))))
+          as _i4.Future<_i2.Response>);
   @override
   _i4.Future<_i2.Response> getMeasurementReportUrl(String? measurementId) =>
       (super.noSuchMethod(

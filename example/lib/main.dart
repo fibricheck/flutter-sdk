@@ -25,7 +25,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     _sdk = FLFibriCheckSdk.client(
-        "4fb27224d586ff38c06ad6e622725e5590d7951a", "f1c54ff53a86e2b79e11a345c999d2d77d91f72f",
+        "8076881385e4ef4c87b5ddb618de27c2938d128f", "08c969ea92caf22ca82df7ec065bbe4c9202f9a8",
         env: Env.dev);
   }
 

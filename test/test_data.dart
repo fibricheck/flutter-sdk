@@ -1,14 +1,17 @@
-import 'package:flutter_fibricheck_sdk/measurement.dart';
-import 'package:flutter_fibricheck_sdk/userdata.dart';
+import 'package:flutter_fibricheck_sdk/src/models/measurement/measurement.dart';
+import 'package:flutter_fibricheck_sdk/src/models/userdata/userdata.dart';
 
 UserRegisterData userData = UserRegisterData(
-  firstName: "John",
-  lastName: "Doe",
-  email: "john.doe@example.com",
-  password: "string",
-  phoneNumber: "7692837456",
-  language: "NL",
-);
+    firstName: "John",
+    lastName: "Doe",
+    email: "john.doe@example.com",
+    password: "string",
+    phoneNumber: "7692837456",
+    language: "NL",
+    birthday: "1970/01/01",
+    country: "NL",
+    gender: Gender.female,
+    region: "NL-GR");
 
 const String newUserData =
     '{"id": "5bfbfc3146e0fb321rsa4b28","first_name": "John","last_name": "Doe","email": "john.doe@example.com","activation": true,"phone_number": "213243546","profile_image": "string","language": "NL","time_zone": "Europe/Brussels","last_failed_timestamp": 1543240753194,"failed_count": 0,"creation_timestamp": 1497265621409,"update_timestamp": 1565954044301}';
@@ -23,6 +26,56 @@ const String privacyDocumentV2 =
     '{"data": { "documents": { "privacy_policy": { "version": "2.0.0", "url": "https://pages.dev.fibricheck.com/privacy-policy/1.5.0/" } }}}';
 
 const String affected1Record = '{ "affectedRecords": 1 }';
+
+const String generalConfigurationData = '''
+{
+  "id": "abcdef123456789abcdef123",
+  "data": {
+    "epicFeatureEnabled": true
+  },
+  "userConfiguration": {
+    "epicFeatureEnabled": true
+  },
+  "groupConfiguration": {
+    "epicFeatureEnabled": true
+  },
+  "staffConfiguration": {
+    "epicFeatureEnabled": true
+  },
+  "patientConfiguration": {
+    "epicFeatureEnabled": true
+  },
+  "updateTimestamp": "2018-04-24T11:57:44.525Z",
+  "creationTimestamp": "2018-04-24T11:57:44.525Z"
+}
+''';
+
+const String userConfigurationData = '''
+{
+  "id": "abcdef123456789abcdef123",
+  "data": {
+    "epicFeatureEnabled": true
+  },
+  "staffConfigurations": [
+    {
+      "groupId": "abcdef123456789abcdef123",
+      "data": {
+        "epicFeatureEnabled": true
+      }
+    }
+  ],
+  "patientConfigurations": [
+    {
+      "groupId": "abcdef123456789abcdef123",
+      "data": {
+        "epicFeatureEnabled": true
+      }
+    }
+  ],
+  "updateTimestamp": "2018-04-24T11:57:44.525Z",
+  "creationTimestamp": "2018-04-24T11:57:44.525Z"
+}
+''';
 
 MeasurementCreationData measurementCreationData = MeasurementCreationData(
   heartrate: 70,

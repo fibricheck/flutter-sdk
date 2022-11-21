@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_fibricheck_sdk/flutter_fibricheck_sdk.dart';
-import 'package:flutter_fibricheck_sdk/userdata.dart';
+import 'package:flutter_fibricheck_sdk/authentication_data.dart';
 import 'package:flutter_fibricheck_sdk_example/5_ui/register.dart';
 import 'package:flutter_fibricheck_sdk_example/5_ui/widgets/fc_primarybutton.dart';
 import 'package:flutter_fibricheck_sdk_example/5_ui/widgets/fc_textfield.dart';

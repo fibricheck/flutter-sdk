@@ -1,6 +1,6 @@
-import 'package:flutter_fibricheck_sdk/api/httpclient.dart';
-import 'package:flutter_fibricheck_sdk/flutter_fibricheck_sdk.dart';
-import 'package:flutter_fibricheck_sdk/userdata.dart';
+import 'package:flutter_fibricheck_sdk/src/api/httpclient.dart';
+import 'package:flutter_fibricheck_sdk/src/models/authentication_data/authentication_data.dart';
+import 'package:flutter_fibricheck_sdk/src/flutter_fibricheck_sdk.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
 import 'package:mockito/annotations.dart';
@@ -30,32 +30,30 @@ void main() {
     });
 
     test("should authenticate a user", () async {
-      var oautWithEmail = ParamsOauth1WithEmail(email: "email", password: "password");
-      when(mockClient.createOAuth1TokenWithEmail(oautWithEmail))
-          .thenAnswer((_) async => Response(authWithEmailResult, 200));
+      var oauthWithEmail = ParamsOauth1WithEmail(email: "email", password: "password");
+      when(mockClient.createOAuth1TokenWithEmail(oauthWithEmail)).thenAnswer((_) async => Response(authWithEmailResult, 200));
       when(mockClient.getGeneralConfiguration()).thenAnswer((_) async => Response(privacyDocumentV1, 200));
-      when(mockClient.getUserConfiguration()).thenAnswer((_) async => Response(privacyDocumentV1, 200));
+      when(mockClient.getUserConfiguration(any)).thenAnswer((_) async => Response(privacyDocumentV1, 200));
 
-      await sdk.authenticateWithEmail(oautWithEmail, (e) => {});
+      await sdk.authenticateWithEmail(oauthWithEmail, (e) => {});
 
       verify(mockClient.createOAuth1TokenWithEmail(any)).called(1);
     });
 
     test("should authenticate a user and update legal docs", () async {
-      var oautWithEmail = ParamsOauth1WithEmail(email: "email", password: "password");
-      when(mockClient.createOAuth1TokenWithEmail(oautWithEmail))
-          .thenAnswer((_) async => Response(authWithEmailResult, 200));
+      var oauthWithEmail = ParamsOauth1WithEmail(email: "email", password: "password");
+      when(mockClient.createOAuth1TokenWithEmail(oauthWithEmail)).thenAnswer((_) async => Response(authWithEmailResult, 200));
       when(mockClient.getGeneralConfiguration()).thenAnswer((_) async => Response(privacyDocumentV2, 200));
-      when(mockClient.getUserConfiguration()).thenAnswer((_) async => Response(privacyDocumentV1, 200));
-      when(mockClient.updateUserConfig(any)).thenAnswer((_) async => Response(affected1Record, 200));
+      when(mockClient.getUserConfiguration(any)).thenAnswer((_) async => Response(privacyDocumentV1, 200));
+      when(mockClient.updateUserConfig(any, any)).thenAnswer((_) async => Response(affected1Record, 200));
 
       await sdk.authenticateWithEmail(
-          oautWithEmail,
+          oauthWithEmail,
           (e) async => {
                 for (var document in e)
                   {
                     await sdk.giveConsent(document),
-                    verify(mockClient.updateUserConfig(any)).called(1),
+                    verify(mockClient.updateUserConfig(any, any)).called(1),
                   }
               });
 
@@ -63,12 +61,12 @@ void main() {
     });
 
     test("should update legal docs", () async {
-      when(mockClient.updateUserConfig(any)).thenAnswer((_) async => Response(affected1Record, 200));
+      when(mockClient.updateUserConfig(any, any)).thenAnswer((_) async => Response(affected1Record, 200));
       var document = Consent(legalDocumentKey: "legalDocumentKey", version: "version", url: "url");
 
       await sdk.giveConsent(document);
 
-      verify(mockClient.updateUserConfig(any)).called(1);
+      verify(mockClient.updateUserConfig(any, any)).called(1);
     });
   });
 }

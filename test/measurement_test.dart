@@ -1,11 +1,11 @@
-import 'package:flutter_fibricheck_sdk/api/httpclient.dart';
-import 'package:flutter_fibricheck_sdk/flutter_fibricheck_sdk.dart';
+import 'package:flutter_fibricheck_sdk/src/api/httpclient.dart';
+import 'package:flutter_fibricheck_sdk/src/flutter_fibricheck_sdk.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:flutter_fibricheck_sdk/sdk_errors.dart';
+import 'package:flutter_fibricheck_sdk/src/sdk_errors.dart';
 import 'measurement_test.mocks.dart';
 import 'test_data.dart';
 
@@ -20,14 +20,14 @@ void main() {
         buildNumber: "1",
         buildSignature: "buildSignature");
     var sdk = FLFibriCheckSdk(mockClient);
-    sdk.supressPlatformCheckError = true;
+    sdk.suppressPlatformCheckError = true;
     when(mockClient.consumerKey).thenReturn("key");
     when(mockClient.consumerSecret).thenReturn("secret");
     TestWidgetsFlutterBinding.ensureInitialized();
 
     test("should post a measurement", () async {
       when(mockClient.postMeasurement(any)).thenAnswer((_) async => Response(newUserData, 200));
-      when(mockClient.getDocuments()).thenAnswer((_) async => Response(canPerformMeasurement, 200));
+      when(mockClient.getDocuments(any)).thenAnswer((_) async => Response(canPerformMeasurement, 200));
 
       await sdk.postMeasurement(measurementCreationData, "cameraSdkVersion");
       verify(mockClient.postMeasurement(any)).called(1);
@@ -35,7 +35,7 @@ void main() {
 
     test("should not post a measurement", () async {
       when(mockClient.postMeasurement(any)).thenAnswer((_) async => Response(newUserData, 200));
-      when(mockClient.getDocuments()).thenAnswer((_) async => Response(cantPerformMeasurement, 200));
+      when(mockClient.getDocuments(any)).thenAnswer((_) async => Response(cantPerformMeasurement, 200));
 
       expect(() async => await sdk.postMeasurement(measurementCreationData, "cameraSdkVersion"),
           throwsA(const TypeMatcher<NoActivePrescriptionError>()));
@@ -50,12 +50,12 @@ void main() {
     });
 
     test("should fetch measurements", () async {
-      when(mockClient.getMeasurements(any))
+      when(mockClient.getMeasurements(any, any))
           .thenAnswer((_) async => Response('{ "page": { "limit":0, "offset":0, "total":0 }, "data": [{}]}', 200));
 
       await sdk.getMeasurements(true);
 
-      verify(mockClient.getMeasurements(any)).called(1);
+      verify(mockClient.getMeasurements(any, any)).called(1);
     });
   });
 }

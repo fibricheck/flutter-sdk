@@ -6,7 +6,7 @@ To get started with the FibriCheck SDK you'll need to install it, and then get c
 
 ## Installation
 
-In your project you can add the package below to the pubspec.yaml file. Replace {TOKEN} with your personal access token. You can get a new one at [here](https://github.com/settings/tokens/new). Make sure you enable the `read:packages` scope.
+In your project you can add the package below to the pubspec.yaml file. Replace {TOKEN} with your personal access token. You can get a new one at [here](https://github.com/settings/tokens/new). You'll need access to the private repository in order to use the package.
 
 ```
    flutter_fibricheck_sdk:

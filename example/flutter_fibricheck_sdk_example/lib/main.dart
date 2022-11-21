@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_fibricheck_sdk/flutter_fibricheck_sdk.dart';
+import 'package:flutter_fibricheck_sdk/authentication_data.dart';
 import 'package:flutter_fibricheck_sdk/measurement.dart';
 import 'package:flutter_fibricheck_sdk/profiledata.dart';
-import 'package:flutter_fibricheck_sdk/sdk_errors.dart';
 import 'package:flutter_fibricheck_sdk/userdata.dart';
+import 'package:flutter_fibricheck_sdk/sdk_errors.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -102,13 +103,16 @@ class _MyAppState extends State<MyApp> {
   Future<void> register() async {
     try {
       await _sdk.register(UserRegisterData(
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-        phoneNumber: "",
-        language: "",
-      ));
+          firstName: "",
+          lastName: "",
+          email: "",
+          password: "",
+          phoneNumber: "",
+          language: "",
+          birthday: "1970/01/01",
+          gender: Gender.notKnown,
+          country: "NL",
+          region: "NL-GR"));
     } on EmailUsedError {
       // -> show error to user
     }
@@ -216,7 +220,6 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> updateProfile() async {
     await _sdk.updateProfile(
-        "",
         ProfileData(
             addressLine1: "test lijn 1",
             addressLine2: "test lijn 2",
