@@ -272,7 +272,10 @@ class OAuth1Client {
 
       var report = await _executeCall(uri, HttpMethod.get, null, header);
       Map<String, dynamic> reportObj = jsonDecode(report.body);
-      if (reportObj[KeysFibricheckSDK.data][0][KeysFibricheckSDK.status] == KeysFibricheckSDK.valueRenderedReport) {
+      if (
+        reportObj[KeysFibricheckSDK.page][KeysFibricheckSDK.total] > 0
+        && reportObj[KeysFibricheckSDK.data][0][KeysFibricheckSDK.status] == KeysFibricheckSDK.valueRenderedReport
+        ) {
         return report;
       } else {
         await Future.delayed(const Duration(milliseconds: 2000));
