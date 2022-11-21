@@ -9,10 +9,10 @@ part of 'profiledata.dart';
 ProfileData _$ProfileDataFromJson(Map<String, dynamic> json) => ProfileData(
       country: json['country'] as String?,
       region: json['region'] as String?,
-      addressLine1: json['addressLine1'] as String?,
-      addressLine2: json['addressLine2'] as String?,
+      addressLine1: json['address_line1'] as String?,
+      addressLine2: json['address_line2'] as String?,
       city: json['city'] as String?,
-      postalCode: json['postalCode'] as String?,
+      postalCode: json['postal_code'] as String?,
       weight: json['weight'] as int?,
       length: json['length'] as int?,
       birthday: json['birthday'] as String?,
@@ -23,14 +23,14 @@ ProfileData _$ProfileDataFromJson(Map<String, dynamic> json) => ProfileData(
       physician: json['physician'] as String?,
       smoker: json['smoker'] as bool?,
       activity: $enumDecodeNullable(_$ProfileActivityEnumMap, json['activity']),
-      fibricheckInfo: json['fibricheckInfo'] == null
+      fibricheckInfo: json['fibricheck_info'] == null
           ? null
           : FibricheckInfo.fromJson(
-              json['fibricheckInfo'] as Map<String, dynamic>),
+              json['fibricheck_info'] as Map<String, dynamic>),
       impediments: (json['impediments'] as List<dynamic>?)
           ?.map((e) => $enumDecode(_$ImpedimentsEnumMap, e))
           .toList(),
-      customFields: (json['customFields'] as Map<String, dynamic>?)?.map(
+      customFields: (json['custom_fields'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(k, e as String),
       ),
       afHistory: json['afHistory'] as bool?,
@@ -40,22 +40,22 @@ ProfileData _$ProfileDataFromJson(Map<String, dynamic> json) => ProfileData(
       groups: (json['groups'] as List<dynamic>?)
           ?.map((e) => Group.fromJson(e as Map<String, dynamic>))
           .toList(),
-      creationTimestamp: json['creationTimestamp'] == null
+      creationTimestamp: json['creation_timestamp'] == null
           ? null
-          : DateTime.parse(json['creationTimestamp'] as String),
-      updateTimestamp: json['updateTimestamp'] == null
+          : DateTime.parse(json['creation_timestamp'] as String),
+      updateTimestamp: json['update_timestamp'] == null
           ? null
-          : DateTime.parse(json['updateTimestamp'] as String),
+          : DateTime.parse(json['update_timestamp'] as String),
     );
 
 Map<String, dynamic> _$ProfileDataToJson(ProfileData instance) =>
     <String, dynamic>{
       'country': instance.country,
       'region': instance.region,
-      'addressLine1': instance.addressLine1,
-      'addressLine2': instance.addressLine2,
+      'address_line1': instance.addressLine1,
+      'address_line2': instance.addressLine2,
       'city': instance.city,
-      'postalCode': instance.postalCode,
+      'postal_code': instance.postalCode,
       'weight': instance.weight,
       'length': instance.length,
       'birthday': instance.birthday,
@@ -66,15 +66,15 @@ Map<String, dynamic> _$ProfileDataToJson(ProfileData instance) =>
       'physician': instance.physician,
       'smoker': instance.smoker,
       'activity': _$ProfileActivityEnumMap[instance.activity],
-      'fibricheckInfo': instance.fibricheckInfo?.toJson(),
+      'fibricheck_info': instance.fibricheckInfo?.toJson(),
       'impediments':
           instance.impediments?.map((e) => _$ImpedimentsEnumMap[e]!).toList(),
-      'customFields': instance.customFields,
+      'custom_fields': instance.customFields,
       'afHistory': instance.afHistory,
       'medication': instance.medication?.map((e) => e.toJson()).toList(),
       'groups': instance.groups?.map((e) => e.toJson()).toList(),
-      'creationTimestamp': instance.creationTimestamp?.toIso8601String(),
-      'updateTimestamp': instance.updateTimestamp?.toIso8601String(),
+      'creation_timestamp': instance.creationTimestamp?.toIso8601String(),
+      'update_timestamp': instance.updateTimestamp?.toIso8601String(),
     };
 
 const _$ComorbiditiesEnumMap = {

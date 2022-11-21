@@ -20,12 +20,12 @@ part 'profiledata.g.dart';
 class ProfileData {
   final String? country;
   final String? region;
-  @JsonValue('address_line1')
+  @JsonKey(name: 'address_line1')
   final String? addressLine1;
-  @JsonValue('address_line2')
+  @JsonKey(name: 'address_line2')
   final String? addressLine2;
   final String? city;
-  @JsonValue('postal_code')
+  @JsonKey(name: 'postal_code')
   final String? postalCode;
   final int? weight;
   final int? length;
@@ -35,17 +35,17 @@ class ProfileData {
   final String? physician;
   final bool? smoker;
   final ProfileActivity? activity;
-  @JsonValue('fibricheck_info')
+  @JsonKey(name: 'fibricheck_info')
   final FibricheckInfo? fibricheckInfo;
   final List<Impediments>? impediments;
-  @JsonValue('custom_fields')
+  @JsonKey(name: 'custom_fields')
   final Map<String, String>? customFields;
   final bool? afHistory;
   final List<Medication>? medication;
   final List<Group>? groups;
-  @JsonValue('creation_timestamp')
+  @JsonKey(name: 'creation_timestamp')
   final DateTime? creationTimestamp;
-  @JsonValue('update_timestamp')
+  @JsonKey(name: 'update_timestamp')
   final DateTime? updateTimestamp;
 
   ProfileData({

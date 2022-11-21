@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_fibricheck_sdk/flutter_fibricheck_sdk.dart';
 import 'package:flutter_fibricheck_sdk/measurement.dart';
+import 'package:flutter_fibricheck_sdk/profiledata.dart';
 import 'package:flutter_fibricheck_sdk_example/5_ui/widgets/fc_primarybutton.dart';
 import 'package:intl/intl.dart';
 
@@ -99,6 +100,24 @@ class _DashBoardState extends State<DashBoard> {
 
   Future<List<Measurement>> _getMeasurements() async {
     var res = await widget.sdk.getMeasurements(true);
+
+    debugPrint("1 -> ${res.page.limit} - ${res.page.offset} - ${res.page.total}");
+    debugPrint(res.result.map((e) => (e.id)).join(", "));
+
+    await res.getNextMeasurements();
+
+    debugPrint("${res.page.limit} - ${res.page.offset} - ${res.page.total}");
+    debugPrint(res.result.map((e) => (e.id)).join(", "));
+
+    await res.getNextMeasurements();
+
+    debugPrint("2 -> ${res.page.limit} - ${res.page.offset} - ${res.page.total}");
+    debugPrint(res.result.map((e) => (e.id)).join(", "));
+
+    await widget.sdk.updateProfile(ProfileData(
+      customFields: { "drGoIntegrationPartnerKey": "051564" }
+    ));
+
     return res.result;
   }
 

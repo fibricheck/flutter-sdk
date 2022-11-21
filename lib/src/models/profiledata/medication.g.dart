@@ -10,7 +10,7 @@ Medication _$MedicationFromJson(Map<String, dynamic> json) => Medication(
       name: json['name'] as String,
       dosis: Dosis.fromJson(json['dosis'] as Map<String, dynamic>),
       medicationFrequency: $enumDecodeNullable(
-          _$MedicationFrequencyEnumMap, json['medicationFrequency']),
+          _$MedicationFrequencyEnumMap, json['medication_frequency']),
       count: json['count'] as int,
     );
 
@@ -18,7 +18,7 @@ Map<String, dynamic> _$MedicationToJson(Medication instance) =>
     <String, dynamic>{
       'name': instance.name,
       'dosis': instance.dosis.toJson(),
-      'medicationFrequency':
+      'medication_frequency':
           _$MedicationFrequencyEnumMap[instance.medicationFrequency],
       'count': instance.count,
     };

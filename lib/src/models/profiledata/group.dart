@@ -7,9 +7,9 @@ part 'group.g.dart';
 class Group {
   final String? groupId;
   final String? reason;
-  @JsonValue('patient_id')
+  @JsonKey(name: 'patient_id')
   final String? patientId;
-  @JsonValue('custom_fields')
+  @JsonKey(name: 'custom_fields')
   final Map<String, String>? customFields;
 
   Group({
