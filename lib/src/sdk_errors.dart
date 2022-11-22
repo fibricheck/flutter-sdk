@@ -52,6 +52,10 @@ class NotPaidError extends SdkError {
   NotPaidError();
 }
 
+class MeasurementReportRenderingTimeout extends SdkError {
+  MeasurementReportRenderingTimeout();
+}
+
 
 extension ErrorsFromResponseExtension on Response {
   void throwSDKErrorIfNeeded() {

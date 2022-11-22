@@ -401,28 +401,43 @@ class FLFibriCheckSdk {
   /// Returns a measurement report url for the given measurement id
   /// or creates one if it not yet exists.
   Future<String> getMeasurementReportUrl(String measurementId) async {
+    String generateUrl(String token) {
+      return "${_client.host}/files/v1/$token/file";
+    }
+
+    final Measurement measurement = await getMeasurement(measurementId);
     final result = await _client.getMeasurementReportUrl(measurementId);
     result.throwSDKErrorIfNeeded();
 
     Map<String, dynamic> resultObj = jsonDecode(result.body);
     final data = resultObj[KeysFibricheckSDK.data];
 
-    if (!data.isEmpty && data[0][KeysFibricheckSDK.status] == KeysFibricheckSDK.valueMeasurementReportStatusRendered) {
-      var readFileToken = data[0][KeysFibricheckSDK.data][KeysFibricheckSDK.readFileToken];
-      final url = "${_client.host}/files/v1/$readFileToken/file";
-      return url;
-    } else {
-      final response = await _client.createMeasurementReportUrl(measurementId);
-      response.throwSDKErrorIfNeeded();
+    final isReportExisted = !data.isEmpty;
 
-      final creationObj = jsonDecode(response.body);
-      final creationData = creationObj[KeysFibricheckSDK.data];
+    if (isReportExisted) {
+      final report = data[0];
 
-      final readFileToken = creationData[0]?[KeysFibricheckSDK.data][KeysFibricheckSDK.readFileToken];
-      final creationUrl = "${_client.host}/files/v1/$readFileToken/file";
+      // Check if the report is generated with the latest data of the measurement.
+      final isReportOutdated = report[KeysFibricheckSDK.data][KeysFibricheckSDK.forMeasurementUpdatedTimestamp] != measurement.updateTimestamp?.millisecondsSinceEpoch;
+      if (isReportOutdated) {
+        final reportDeletionResponse = await _client.deleteMeasurementReport(report[KeysFibricheckSDK.id]);
+        reportDeletionResponse.throwSDKErrorIfNeeded();
+      } else {
+        final reportReadFileToken = report[KeysFibricheckSDK.data][KeysFibricheckSDK.readFileToken];
 
-      return creationUrl;
+        return generateUrl(reportReadFileToken);
+      }
     }
+
+    final reportCreationResponse = await _client.createMeasurementReportUrl(measurementId);
+    reportCreationResponse.throwSDKErrorIfNeeded();
+
+
+    final createdReportResponse = jsonDecode(reportCreationResponse.body);
+    final createdReport = createdReportResponse[KeysFibricheckSDK.data][0];
+    final reportReadFileToken = createdReport[KeysFibricheckSDK.data][KeysFibricheckSDK.readFileToken];
+
+    return generateUrl(reportReadFileToken);
   }
 
   /// Return the general configuration as a [GeneralConfiguration].

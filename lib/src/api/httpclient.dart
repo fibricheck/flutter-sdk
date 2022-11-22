@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import '../../sdk_errors.dart';
 import '../constants/constants_api.dart';
 import '../constants/keys_fibricheck_sdk.dart';
 import '../models/measurement/measurement.dart';
@@ -18,6 +19,7 @@ enum HttpMethod {
   get,
   post,
   put,
+  delete,
 }
 
 class OAuth1Client {
@@ -244,6 +246,15 @@ class OAuth1Client {
     return res;
   }
 
+  Future<http.Response> deleteMeasurementReport(String measurementReportId) async {
+    final uri = _uriUtil.deleteMeasurementReport(measurementReportId);
+    final Map<String, String> headers = _getDefaultHeadersGet(uri);
+
+    final response = await _executeCall(uri, HttpMethod.delete, null, headers);
+
+    return response;
+  }
+
   Future<http.Response> createMeasurementReportUrl(String measurementId) async {
     Future<http.Response> createMeasurementReport(measurementId) async {
       var uri = _uriUtil.createMeasurementReportUri(measurementId);
@@ -261,29 +272,30 @@ class OAuth1Client {
       return result;
     }
 
-    var creationResult = await createMeasurementReport(measurementId);
-    Map<String, dynamic> creationResultObj = jsonDecode(creationResult.body);
-    String id = creationResultObj[KeysFibricheckSDK.id];
+    final creationResult = await createMeasurementReport(measurementId);
+    final Map<String, dynamic> creationResultObj = jsonDecode(creationResult.body);
+    final String id = creationResultObj[KeysFibricheckSDK.id];
 
     var tries = ConstantsApi.maxRetriesToFetchMeasurementReport;
     while (tries > 0) {
-      var uri = _uriUtil.getFetchMeasurementReportUri(id);
-      var header = _getDefaultHeadersGet(uri);
+      final uri = _uriUtil.getFetchMeasurementReportUri(id);
+      final header = _getDefaultHeadersGet(uri);
 
-      var report = await _executeCall(uri, HttpMethod.get, null, header);
-      Map<String, dynamic> reportObj = jsonDecode(report.body);
-      if (
-        reportObj[KeysFibricheckSDK.page][KeysFibricheckSDK.total] > 0
-        && reportObj[KeysFibricheckSDK.data][0][KeysFibricheckSDK.status] == KeysFibricheckSDK.valueRenderedReport
-        ) {
-        return report;
-      } else {
-        await Future.delayed(const Duration(milliseconds: 2000));
-        tries--;
+      final response = await _executeCall(uri, HttpMethod.get, null, header);
+      final Map<String, dynamic> responseObj = jsonDecode(response.body);
+
+      if (responseObj[KeysFibricheckSDK.page][KeysFibricheckSDK.total] > 0) {
+          final report = responseObj[KeysFibricheckSDK.data][0];
+
+          if (report[KeysFibricheckSDK.status] == KeysFibricheckSDK.valueRenderedReport) {
+            return response;
+          }
       }
+      await Future.delayed(const Duration(milliseconds: 2000));
+      tries--;
     }
 
-    return creationResult;
+    throw MeasurementReportRenderingTimeout();
   }
 
   Future<http.Response> activatePrescription(String hash) async {
@@ -339,6 +351,8 @@ class OAuth1Client {
       case HttpMethod.post:
         res = await http.post(uri, headers: headers, body: body);
         break;
+      case HttpMethod.delete:
+        res = await http.delete(uri, headers: headers);
     }
 
     debugPrintResult(res);
