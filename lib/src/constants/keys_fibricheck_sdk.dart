@@ -24,7 +24,8 @@ class KeysFibricheckSDK {
   static const String id = "id";
   static const String recordsAffected = "records_affected";
   static const String code = "code";
-  static const String readFileToken = 'readFileToken';
+  static const String readFileToken = "readFileToken";
+  static const String forMeasurementUpdatedTimestamp = "forMeasurementUpdatedTimestamp";
 
   static const String contentType = "Content-Type";
   static const String valueContentTypeApplicationJson = "application/json";

@@ -230,6 +230,16 @@ class MockOAuth1Client extends _i1.Mock implements _i3.OAuth1Client {
                       #getMeasurementReportUrl, [measurementId]))))
           as _i4.Future<_i2.Response>);
   @override
+  _i4.Future<_i2.Response> deleteMeasurementReport(
+          String? measurementReportId) =>
+      (super.noSuchMethod(
+          Invocation.method(#deleteMeasurementReport, [measurementReportId]),
+          returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
+              this,
+              Invocation.method(
+                  #deleteMeasurementReport, [measurementReportId])))) as _i4
+          .Future<_i2.Response>);
+  @override
   _i4.Future<_i2.Response> createMeasurementReportUrl(String? measurementId) =>
       (super.noSuchMethod(
               Invocation.method(#createMeasurementReportUrl, [measurementId]),
