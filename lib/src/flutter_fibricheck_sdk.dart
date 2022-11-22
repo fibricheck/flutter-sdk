@@ -412,9 +412,9 @@ class FLFibriCheckSdk {
     Map<String, dynamic> resultObj = jsonDecode(result.body);
     final data = resultObj[KeysFibricheckSDK.data];
 
-    final isReportExisted = !data.isEmpty;
+    final hasReportExisted = !data.isEmpty;
 
-    if (isReportExisted) {
+    if (hasReportExisted) {
       final report = data[0];
 
       // Check if the report is generated with the latest data of the measurement.
