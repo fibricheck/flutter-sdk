@@ -100,7 +100,7 @@ class UriUtil {
   }
 
   Uri getMeasurementReportUrlUri(String measurementId) {
-    return Uri.parse("$host/data/v1/measurement-reports/documents/?data.measurementId=$measurementId");
+    return Uri.parse("$host/data/v1/measurement-reports/documents/?data.measurementId=$measurementId&sort(-id)");
   }
 
   Uri createMeasurementReportUri(String measurementId) {
