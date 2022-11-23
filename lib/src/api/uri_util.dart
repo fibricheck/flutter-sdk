@@ -26,7 +26,8 @@ class UriUtil {
   }
 
   Uri getDocumentsUri(String userId) {
-    return Uri.parse("$host/data/v1/feature-algo/documents/?eq(data.userId,$userId)");
+    return Uri.parse(
+        "$host/data/v1/feature-algo/documents/?eq(data.userId,$userId)");
   }
 
   Uri updateUserProfileUri(String userId) {
@@ -38,11 +39,13 @@ class UriUtil {
   }
 
   Uri updateMeasurementContextUri(String measurementId) {
-    return Uri.parse("$host/data/v1/fibricheck-measurements/documents/$measurementId");
+    return Uri.parse(
+        "$host/data/v1/fibricheck-measurements/documents/$measurementId");
   }
 
   Uri getMeasurementsUri(String userId, bool newestFirst) {
-    var uriString = "$host/data/v1/fibricheck-measurements/documents?eq(creatorId,$userId)&limit(20,0)";
+    var uriString =
+        "$host/data/v1/fibricheck-measurements/documents?eq(creatorId,$userId)&limit(20,0)";
 
     if (newestFirst) uriString += "&sort(-id)";
 
@@ -50,8 +53,10 @@ class UriUtil {
     return uri;
   }
 
-  Uri getNextMeasurementsUri(String userId, paged_result.Page page, bool newestFirst) {
-    var uriString = "$host/data/v1/fibricheck-measurements/documents/?eq(creatorId,$userId)&limit(20,${page.offset + 20})";
+  Uri getNextMeasurementsUri(
+      String userId, paged_result.Page page, bool newestFirst) {
+    var uriString =
+        "$host/data/v1/fibricheck-measurements/documents/?eq(creatorId,$userId)&limit(20,${page.offset + 20})";
 
     if (newestFirst) uriString += "&sort(-id)";
 
@@ -59,8 +64,10 @@ class UriUtil {
     return uri;
   }
 
-  Uri getPreviousMeasurementsUri(String userId, paged_result.Page page, bool newestFirst) {
-    var uriString = "$host/data/v1/fibricheck-measurements/documents/?eq(creatorId,$userId)&limit(20,${page.offset - 20})";
+  Uri getPreviousMeasurementsUri(
+      String userId, paged_result.Page page, bool newestFirst) {
+    var uriString =
+        "$host/data/v1/fibricheck-measurements/documents/?eq(creatorId,$userId)&limit(20,${page.offset - 20})";
 
     if (newestFirst) uriString += "&sort(-id)";
 
@@ -68,12 +75,15 @@ class UriUtil {
     return uri;
   }
 
-  Uri getPeriodicReportPdfUri(String reportId, String language) {
-    return Uri.parse("$host/reports/v1/$reportId/pdf/$language");
+  Uri getPeriodicReportPdfUri(
+      String reportId, String language, String timezone) {
+    return Uri.parse(
+        "$host/reports/v1/$reportId/pdf/?language=$language&time_zone=$timezone");
   }
 
   Uri getPeriodicReportsUri(String userId, bool newestFirst) {
-    var uriString = "$host/reports/v1/?eq(user_id,$userId)&out(trigger,MANUAL)&eq(status,COMPLETE)&limit(20,0)";
+    var uriString =
+        "$host/reports/v1/?eq(user_id,$userId)&out(trigger,MANUAL)&eq(status,COMPLETE)&limit(20,0)";
 
     if (newestFirst) uriString += "&sort(-creation_timestamp)";
 
@@ -81,8 +91,10 @@ class UriUtil {
     return uri;
   }
 
-  Uri getNextPeriodicReportsUri(String userId, paged_result.Page page, bool newestFirst) {
-    var uriString = "$host/reports/v1/?eq(user_id,$userId)&out(trigger,MANUAL)&eq(status,COMPLETE)&limit(20,${page.offset + 20})";
+  Uri getNextPeriodicReportsUri(
+      String userId, paged_result.Page page, bool newestFirst) {
+    var uriString =
+        "$host/reports/v1/?eq(user_id,$userId)&out(trigger,MANUAL)&eq(status,COMPLETE)&limit(20,${page.offset + 20})";
 
     if (newestFirst) uriString += "&sort(-creation_timestamp)";
 
@@ -90,8 +102,10 @@ class UriUtil {
     return uri;
   }
 
-  Uri getPreviousPeriodicReportsUri(String userId, paged_result.Page page, bool newestFirst) {
-    var uriString = "$host/reports/v1/?eq(user_id,$userId)&out(trigger,MANUAL)&eq(status,COMPLETE)&limit(20,${page.offset - 20})";
+  Uri getPreviousPeriodicReportsUri(
+      String userId, paged_result.Page page, bool newestFirst) {
+    var uriString =
+        "$host/reports/v1/?eq(user_id,$userId)&out(trigger,MANUAL)&eq(status,COMPLETE)&limit(20,${page.offset - 20})";
 
     if (newestFirst) uriString += "&sort(-creation_timestamp)";
 
@@ -104,11 +118,13 @@ class UriUtil {
   }
 
   Uri createMeasurementReportUri(String measurementId) {
-    return Uri.parse("$host/data/v1/measurement-reports/documents/?data.measurementId=$measurementId");
+    return Uri.parse(
+        "$host/data/v1/measurement-reports/documents/?data.measurementId=$measurementId");
   }
 
   Uri deleteMeasurementReport(String measurementReportId) {
-    return Uri.parse("$host/data/v1/measurement-reports/documents/$measurementReportId");
+    return Uri.parse(
+        "$host/data/v1/measurement-reports/documents/$measurementReportId");
   }
 
   Uri activatePrescriptionUri(String hash) {

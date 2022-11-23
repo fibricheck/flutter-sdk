@@ -6,11 +6,13 @@ class KeysFibricheckSDK {
   static const String documents = "documents";
   static const String applicationId = "applicationId";
   static const String updateTimestampAuthenticateWithEmail = "updateTimestamp";
-  static const String creationTimestampAuthenticateWithEmail = "creationTimestamp";
+  static const String creationTimestampAuthenticateWithEmail =
+      "creationTimestamp";
   static const String version = "version";
   static const String url = "url";
   static const String updateTimestampAuthenticateWithToken = "update_timestamp";
-  static const String creationTimestampAuthenticateWithToken = "creation_timestamp";
+  static const String creationTimestampAuthenticateWithToken =
+      "creation_timestamp";
   static const String timestamp = "timestamp";
   static const String canPerformMeasurement = "canPerformMeasurement";
   static const String context = "context";
@@ -25,13 +27,15 @@ class KeysFibricheckSDK {
   static const String recordsAffected = "records_affected";
   static const String code = "code";
   static const String readFileToken = "readFileToken";
-  static const String forMeasurementUpdatedTimestamp = "forMeasurementUpdatedTimestamp";
+  static const String forMeasurementUpdatedTimestamp =
+      "forMeasurementUpdatedTimestamp";
 
   static const String contentType = "Content-Type";
   static const String valueContentTypeApplicationJson = "application/json";
   static const String authorization = "Authorization";
   static const String valueRenderedReport = "rendered";
   static const String language = "language";
+  static const String timeZone = "time_zone";
   static const String measurementId = "measurementId";
   static const String responseType = "responseType";
   static const String valueResponseTypePeriodicReportPdf = "arraybuffer";

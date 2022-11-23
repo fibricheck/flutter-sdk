@@ -49,14 +49,16 @@ class OAuth1Client {
     var headers = <String, String>{
       KeysFibricheckSDK.consumerKey: consumerKey,
       KeysFibricheckSDK.consumerSecret: consumerSecret,
-      KeysFibricheckSDK.contentType: KeysFibricheckSDK.valueContentTypeApplicationJson,
+      KeysFibricheckSDK.contentType:
+          KeysFibricheckSDK.valueContentTypeApplicationJson,
     };
 
     var res = await _executeCall(uri, HttpMethod.post, jsonBody, headers);
     return res;
   }
 
-  Future<http.Response> createOAuth1TokenWithEmail(ParamsOauth1WithEmail body) async {
+  Future<http.Response> createOAuth1TokenWithEmail(
+      ParamsOauth1WithEmail body) async {
     var uri = _uriUtil.getOAuth1TokenWithEmailUri();
     var jsonBody = jsonEncode(body);
 
@@ -120,7 +122,8 @@ class OAuth1Client {
     return res;
   }
 
-  Future<http.Response> updateUserProfile(String userId, String updateData) async {
+  Future<http.Response> updateUserProfile(
+      String userId, String updateData) async {
     var uri = _uriUtil.updateUserProfileUri(userId);
 
     var header = _getDefaultHeadersPut(uri);
@@ -137,14 +140,16 @@ class OAuth1Client {
     return res;
   }
 
-  Future<http.Response> getNextMeasurements(String userId, paged_result.Page page, bool newestFirst) async {
+  Future<http.Response> getNextMeasurements(
+      String userId, paged_result.Page page, bool newestFirst) async {
     Uri uri = _uriUtil.getNextMeasurementsUri(userId, page, newestFirst);
     Map<String, String> header = _getDefaultHeadersGet(uri);
     var res = await _executeCall(uri, HttpMethod.get, null, header);
     return res;
   }
 
-  Future<http.Response> getPreviousMeasurements(String userId, paged_result.Page page, bool newestFirst) async {
+  Future<http.Response> getPreviousMeasurements(
+      String userId, paged_result.Page page, bool newestFirst) async {
     Uri uri = _uriUtil.getPreviousMeasurementsUri(userId, page, newestFirst);
     Map<String, String> header = _getDefaultHeadersGet(uri);
     var res = await _executeCall(uri, HttpMethod.get, null, header);
@@ -160,7 +165,8 @@ class OAuth1Client {
     return res;
   }
 
-  Future<http.Response> postMeasurement(MeasurementCreationData measurementCreationData) async {
+  Future<http.Response> postMeasurement(
+      MeasurementCreationData measurementCreationData) async {
     var uri = _uriUtil.postMeasurementsUri();
 
     var header = _getDefaultHeadersPost(uri);
@@ -170,7 +176,8 @@ class OAuth1Client {
     return res;
   }
 
-  Future<http.Response> updateMeasurementContext(String measurementId, MeasurementContext measurementContext) async {
+  Future<http.Response> updateMeasurementContext(
+      String measurementId, MeasurementContext measurementContext) async {
     var map = <String, dynamic>{
       KeysFibricheckSDK.context: measurementContext.toJson(),
     };
@@ -195,33 +202,40 @@ class OAuth1Client {
 
   Future<Uri> getPeriodicReportPdfUri(String reportId) async {
     final language = await _getLanguage();
-    final uri = _uriUtil.getPeriodicReportPdfUri(reportId, language);
+    final timeZone = await _getTimeZone();
+    final uri = _uriUtil.getPeriodicReportPdfUri(reportId, language, timeZone);
 
     return uri;
   }
 
   Future<http.Response> getPeriodicReportPdf(String reportId) async {
     final language = await _getLanguage();
-    var uri = _uriUtil.getPeriodicReportPdfUri(reportId, language);
+    final timeZone = await _getTimeZone();
+
+    var uri = _uriUtil.getPeriodicReportPdfUri(reportId, language, timeZone);
 
     var header = _getDefaultHeadersGet(uri);
     header.addAll(<String, String>{
-      KeysFibricheckSDK.responseType: KeysFibricheckSDK.valueResponseTypePeriodicReportPdf,
+      KeysFibricheckSDK.responseType:
+          KeysFibricheckSDK.valueResponseTypePeriodicReportPdf,
     });
 
     var res = await _executeCall(uri, HttpMethod.get, null, header);
     return res;
   }
 
-  Future<http.Response> getPeriodicReports(String userId, bool newestFirst) async {
+  Future<http.Response> getPeriodicReports(
+      String userId, bool newestFirst) async {
     Uri uri = _uriUtil.getPeriodicReportsUri(userId, newestFirst);
+
     var header = _getDefaultHeadersGet(uri);
 
     var res = await _executeCall(uri, HttpMethod.get, null, header);
     return res;
   }
 
-  Future<http.Response> getNextPeriodicReports(String userId, paged_result.Page page, bool newestFirst) async {
+  Future<http.Response> getNextPeriodicReports(
+      String userId, paged_result.Page page, bool newestFirst) async {
     Uri uri = _uriUtil.getNextPeriodicReportsUri(userId, page, newestFirst);
     var header = _getDefaultHeadersGet(uri);
 
@@ -229,7 +243,8 @@ class OAuth1Client {
     return res;
   }
 
-  Future<http.Response> getPreviousPeriodicReports(String userId, paged_result.Page page, bool newestFirst) async {
+  Future<http.Response> getPreviousPeriodicReports(
+      String userId, paged_result.Page page, bool newestFirst) async {
     Uri uri = _uriUtil.getPreviousPeriodicReportsUri(userId, page, newestFirst);
     var header = _getDefaultHeadersGet(uri);
 
@@ -246,7 +261,8 @@ class OAuth1Client {
     return res;
   }
 
-  Future<http.Response> deleteMeasurementReport(String measurementReportId) async {
+  Future<http.Response> deleteMeasurementReport(
+      String measurementReportId) async {
     final uri = _uriUtil.deleteMeasurementReport(measurementReportId);
     final Map<String, String> headers = _getDefaultHeadersDelete(uri);
 
@@ -267,13 +283,15 @@ class OAuth1Client {
         KeysFibricheckSDK.language: language,
       };
 
-      var result = await _executeCall(uri, HttpMethod.post, jsonEncode(body), header);
+      var result =
+          await _executeCall(uri, HttpMethod.post, jsonEncode(body), header);
 
       return result;
     }
 
     final creationResult = await createMeasurementReport(measurementId);
-    final Map<String, dynamic> creationResultObj = jsonDecode(creationResult.body);
+    final Map<String, dynamic> creationResultObj =
+        jsonDecode(creationResult.body);
     final String id = creationResultObj[KeysFibricheckSDK.id];
 
     var tries = ConstantsApi.maxRetriesToFetchMeasurementReport;
@@ -285,11 +303,12 @@ class OAuth1Client {
       final Map<String, dynamic> responseObj = jsonDecode(response.body);
 
       if (responseObj[KeysFibricheckSDK.page][KeysFibricheckSDK.total] > 0) {
-          final report = responseObj[KeysFibricheckSDK.data][0];
+        final report = responseObj[KeysFibricheckSDK.data][0];
 
-          if (report[KeysFibricheckSDK.status] == KeysFibricheckSDK.valueRenderedReport) {
-            return response;
-          }
+        if (report[KeysFibricheckSDK.status] ==
+            KeysFibricheckSDK.valueRenderedReport) {
+          return response;
+        }
       }
       await Future.delayed(const Duration(milliseconds: 2000));
       tries--;
@@ -314,8 +333,10 @@ class OAuth1Client {
     return res;
   }
 
-  Future<http.Response> _executeCall(Uri uri, HttpMethod method, Object? body, Map<String, String>? headers) async {
-    void debugPrintRequest(HttpMethod method, Uri uri, Object? body, Map<String, String>? headers) {
+  Future<http.Response> _executeCall(Uri uri, HttpMethod method, Object? body,
+      Map<String, String>? headers) async {
+    void debugPrintRequest(HttpMethod method, Uri uri, Object? body,
+        Map<String, String>? headers) {
       debugPrint("----- Executing webcall -----");
       debugPrint("Executing $method with url $uri");
       if (headers != null) {
@@ -363,7 +384,8 @@ class OAuth1Client {
   Future<http.Response> _getMe(String token, String tokenSecret) async {
     var uri = _uriUtil.getMeUri();
 
-    var header = _getDefaultHeaders(uri, HttpMethod.get, Credentials(token, tokenSecret));
+    var header = _getDefaultHeaders(
+        uri, HttpMethod.get, Credentials(token, tokenSecret));
 
     return await _executeCall(uri, HttpMethod.get, null, header);
   }
@@ -375,23 +397,34 @@ class OAuth1Client {
     return meObj[KeysFibricheckSDK.language];
   }
 
+  Future<String> _getTimeZone() async {
+    var me = await _getMe(oAuthToken!, oAuthTokenSecret!);
+
+    var meObj = jsonDecode(me.body);
+    return meObj[KeysFibricheckSDK.timeZone];
+  }
+  
   Map<String, String> _getDefaultHeadersDelete(Uri uri) {
     return _getDefaultHeaders(uri, HttpMethod.delete, Credentials(oAuthToken!, oAuthTokenSecret!));
   }
 
   Map<String, String> _getDefaultHeadersGet(Uri uri) {
-    return _getDefaultHeaders(uri, HttpMethod.get, Credentials(oAuthToken!, oAuthTokenSecret!));
+    return _getDefaultHeaders(
+        uri, HttpMethod.get, Credentials(oAuthToken!, oAuthTokenSecret!));
   }
 
   Map<String, String> _getDefaultHeadersPost(Uri uri) {
-    return _getDefaultHeaders(uri, HttpMethod.post, Credentials(oAuthToken!, oAuthTokenSecret!));
+    return _getDefaultHeaders(
+        uri, HttpMethod.post, Credentials(oAuthToken!, oAuthTokenSecret!));
   }
 
   Map<String, String> _getDefaultHeadersPut(Uri uri) {
-    return _getDefaultHeaders(uri, HttpMethod.put, Credentials(oAuthToken!, oAuthTokenSecret!));
+    return _getDefaultHeaders(
+        uri, HttpMethod.put, Credentials(oAuthToken!, oAuthTokenSecret!));
   }
 
-  Map<String, String> _getDefaultHeaders(Uri uri, HttpMethod method, Credentials? credentials) {
+  Map<String, String> _getDefaultHeaders(
+      Uri uri, HttpMethod method, Credentials? credentials) {
     var authHeader = AuthorizationHeader(
       SignatureMethods.hmacSha1,
       ClientCredentials(consumerKey, consumerSecret),
@@ -402,7 +435,8 @@ class OAuth1Client {
     );
 
     var header = <String, String>{
-      KeysFibricheckSDK.contentType: KeysFibricheckSDK.valueContentTypeApplicationJson,
+      KeysFibricheckSDK.contentType:
+          KeysFibricheckSDK.valueContentTypeApplicationJson,
       KeysFibricheckSDK.authorization: authHeader.toString(),
     };
 
