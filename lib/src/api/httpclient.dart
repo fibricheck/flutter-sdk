@@ -264,7 +264,7 @@ class OAuth1Client {
   Future<http.Response> deleteMeasurementReport(
       String measurementReportId) async {
     final uri = _uriUtil.deleteMeasurementReport(measurementReportId);
-    final Map<String, String> headers = _getDefaultHeadersGet(uri);
+    final Map<String, String> headers = _getDefaultHeadersDelete(uri);
 
     final response = await _executeCall(uri, HttpMethod.delete, null, headers);
 
@@ -402,6 +402,10 @@ class OAuth1Client {
 
     var meObj = jsonDecode(me.body);
     return meObj[KeysFibricheckSDK.timeZone];
+  }
+  
+  Map<String, String> _getDefaultHeadersDelete(Uri uri) {
+    return _getDefaultHeaders(uri, HttpMethod.delete, Credentials(oAuthToken!, oAuthTokenSecret!));
   }
 
   Map<String, String> _getDefaultHeadersGet(Uri uri) {
