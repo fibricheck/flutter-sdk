@@ -195,14 +195,17 @@ class OAuth1Client {
 
   Future<Uri> getPeriodicReportPdfUri(String reportId) async {
     final language = await _getLanguage();
-    final uri = _uriUtil.getPeriodicReportPdfUri(reportId, language);
+    final timeZone = await _getTimeZone();
+    final uri = _uriUtil.getPeriodicReportPdfUri(reportId, language, timeZone);
 
     return uri;
   }
 
   Future<http.Response> getPeriodicReportPdf(String reportId) async {
     final language = await _getLanguage();
-    var uri = _uriUtil.getPeriodicReportPdfUri(reportId, language);
+    final timeZone = await _getTimeZone();
+
+    var uri = _uriUtil.getPeriodicReportPdfUri(reportId, language, timeZone);
 
     var header = _getDefaultHeadersGet(uri);
     header.addAll(<String, String>{
@@ -215,6 +218,7 @@ class OAuth1Client {
 
   Future<http.Response> getPeriodicReports(String userId, bool newestFirst) async {
     Uri uri = _uriUtil.getPeriodicReportsUri(userId, newestFirst);
+
     var header = _getDefaultHeadersGet(uri);
 
     var res = await _executeCall(uri, HttpMethod.get, null, header);
@@ -373,6 +377,13 @@ class OAuth1Client {
 
     var meObj = jsonDecode(me.body);
     return meObj[KeysFibricheckSDK.language];
+  }
+
+  Future<String> _getTimeZone() async {
+    var me = await _getMe(oAuthToken!, oAuthTokenSecret!);
+
+    var meObj = jsonDecode(me.body);
+    return meObj[KeysFibricheckSDK.timeZone];
   }
 
   Map<String, String> _getDefaultHeadersDelete(Uri uri) {
