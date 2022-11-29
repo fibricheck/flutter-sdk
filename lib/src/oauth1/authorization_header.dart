@@ -1,6 +1,7 @@
 import 'signature_method.dart';
 import 'client_credentials.dart';
 import 'credentials.dart';
+import 'dart:math';
 
 class AuthorizationHeader {
   static const String keyOAuthNonce = 'oauth_nonce';
@@ -32,7 +33,7 @@ class AuthorizationHeader {
   String toString() {
     Map<String, String> params = {};
 
-    params[keyOAuthNonce] = DateTime.now().millisecondsSinceEpoch.toString();
+    params[keyOAuthNonce] = DateTime.now().millisecondsSinceEpoch.toString() + Random().nextInt(1000000).toString();
     params[keyOAuthSignatureMethod] = _signatureMethod.name;
     params[keyOAuthTimestamp] = (DateTime.now().millisecondsSinceEpoch / 1000).floor().toString();
     params[keyOAuthConsumerKey] = _clientCredentials.token;
