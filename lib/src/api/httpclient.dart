@@ -257,15 +257,15 @@ class OAuth1Client {
 
   Future<http.Response> createMeasurementReportUrl(String measurementId) async {
     Future<http.Response> createMeasurementReport(measurementId) async {
-      var uri = _uriUtil.createMeasurementReportUri(measurementId);
-      var header = _getDefaultHeadersPost(uri);
-
       var language = await _getLanguage();
 
       var body = <String, dynamic>{
         KeysFibricheckSDK.measurementId: measurementId,
         KeysFibricheckSDK.language: language,
       };
+
+      var uri = _uriUtil.createMeasurementReportUri();
+      var header = _getDefaultHeadersPost(uri);
 
       var result = await _executeCall(uri, HttpMethod.post, jsonEncode(body), header);
 
@@ -285,11 +285,11 @@ class OAuth1Client {
       final Map<String, dynamic> responseObj = jsonDecode(response.body);
 
       if (responseObj[KeysFibricheckSDK.page][KeysFibricheckSDK.total] > 0) {
-          final report = responseObj[KeysFibricheckSDK.data][0];
+        final report = responseObj[KeysFibricheckSDK.data][0];
 
-          if (report[KeysFibricheckSDK.status] == KeysFibricheckSDK.valueRenderedReport) {
-            return response;
-          }
+        if (report[KeysFibricheckSDK.status] == KeysFibricheckSDK.valueRenderedReport) {
+          return response;
+        }
       }
       await Future.delayed(const Duration(milliseconds: 2000));
       tries--;

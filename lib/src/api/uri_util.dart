@@ -103,8 +103,8 @@ class UriUtil {
     return Uri.parse("$host/data/v1/measurement-reports/documents/?data.measurementId=$measurementId&sort(-id)");
   }
 
-  Uri createMeasurementReportUri(String measurementId) {
-    return Uri.parse("$host/data/v1/measurement-reports/documents/?data.measurementId=$measurementId");
+  Uri createMeasurementReportUri() {
+    return Uri.parse("$host/data/v1/measurement-reports/documents");
   }
 
   Uri deleteMeasurementReport(String measurementReportId) {
