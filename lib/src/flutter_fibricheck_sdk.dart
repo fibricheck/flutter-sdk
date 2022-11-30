@@ -418,7 +418,8 @@ class FLFibriCheckSdk {
       final report = data[0];
 
       // Check if the report is generated with the latest data of the measurement.
-      final isReportOutdated = report[KeysFibricheckSDK.data][KeysFibricheckSDK.forMeasurementUpdatedTimestamp] != measurement.updateTimestamp?.millisecondsSinceEpoch;
+      final isReportOutdated =
+          report[KeysFibricheckSDK.data][KeysFibricheckSDK.forMeasurementUpdatedTimestamp] != measurement.updateTimestamp?.millisecondsSinceEpoch;
       if (!isReportOutdated) {
         final reportReadFileToken = report[KeysFibricheckSDK.data][KeysFibricheckSDK.readFileToken];
 
@@ -428,7 +429,6 @@ class FLFibriCheckSdk {
 
     final reportCreationResponse = await _client.createMeasurementReportUrl(measurementId);
     reportCreationResponse.throwSDKErrorIfNeeded();
-
 
     final createdReportResponse = jsonDecode(reportCreationResponse.body);
     final createdReport = createdReportResponse[KeysFibricheckSDK.data][0];

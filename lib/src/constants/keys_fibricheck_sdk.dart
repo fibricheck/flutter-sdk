@@ -32,6 +32,7 @@ class KeysFibricheckSDK {
   static const String authorization = "Authorization";
   static const String valueRenderedReport = "rendered";
   static const String language = "language";
+  static const String timeZone = "time_zone";
   static const String measurementId = "measurementId";
   static const String responseType = "responseType";
   static const String valueResponseTypePeriodicReportPdf = "arraybuffer";
