@@ -153,7 +153,7 @@ class _DashBoardState extends State<DashBoard> {
             builder: (context) => Detail(
                   sdk: widget.sdk,
                   measurement: measurement,
-                ))).whenComplete(() => {setState(() {})});
+                ))).whenComplete(() => setState(() {}));
   }
 
   Text _mapStatusToStatusText(MeasurementStatus? status) {
