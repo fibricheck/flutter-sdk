@@ -1,0 +1,13 @@
+{
+  "id": "8ZXMR",
+  "name": "Method getPeriodicReports provides functionality to retrieve periodic reports",
+  "description": "",
+  "type": "specification",
+  "origin": "user_need",
+  "keyValues": [],
+  "attachments": [],
+  "testIds": [
+    "F0WFH"
+  ],
+  "updatedTime": 1697102618486
+}

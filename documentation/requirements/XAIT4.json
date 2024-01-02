@@ -1,0 +1,11 @@
+{
+  "id": "XAIT4",
+  "name": "Upload a measurement to FibriCheck Cloud",
+  "description": "The SDK exposes the functionality for the host application to upload the output of a measurement performed with the FibriCheck Camera SDK to the FibriCheck Cloud.",
+  "type": "requirement",
+  "origin": "user_need",
+  "keyValues": [],
+  "attachments": [],
+  "testIds": [],
+  "updatedTime": 1696595213732
+}

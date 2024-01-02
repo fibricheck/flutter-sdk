@@ -1,0 +1,20 @@
+{
+  "id": "6LJ5Y",
+  "name": "Authentication using token/tokenSecret combination is successful",
+  "type": "manual",
+  "tier": "None",
+  "planStatus": "Planned",
+  "motivation": "",
+  "testSteps": [
+    "Execute the following code snippet with working values for `consumerKey`, `consumerSecret`, `token` and `tokenSecret`: \n\n```\nimport 'package:flutter_fibricheck_sdk/flutter_fibricheck_sdk.dart';\n\nvar _sdk = FLFibriCheckSdk.client(\n        \"<consumerKey>\", \"<consumerSecret>\",\n        env: Env.dev);\n  }\n\nawait _sdk.authenticateWithToken(\n        ParamsOauth1WithToken(\n          token: \"<token>\",\n          tokenSecret: \"<tokenSecret>\",\n        ),\n        (consent) {});\n\n```"
+  ],
+  "expectedResult": "The `authenticate()` function returns without an error, meaning the user was successfully authenticated using the OAuth1.0 mechanism with a `token` and `tokenSecret`",
+  "requiredTestEnvironmentIds": [],
+  "keyValues": [],
+  "parentNames": [
+    "Authentication",
+    "Authenticate against FibriCheck Cloud",
+    "Authenticate using token/tokenSecret combination"
+  ],
+  "updatedTime": 1704188042447
+}

@@ -1,0 +1,11 @@
+{
+  "keyValues": [],
+  "testIds": [],
+  "origin": "user_need",
+  "updatedTime": 1697098466965,
+  "name": "Register and update a new user",
+  "attachments": [],
+  "type": "user_need",
+  "id": "0YTHH",
+  "description": "The host application must be able to register a new user in FibriCheck and update information on that user."
+}

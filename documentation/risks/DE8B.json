@@ -1,0 +1,19 @@
+{
+  "keyValues": [],
+  "detectionMitigation": 0,
+  "detection": 10,
+  "origin": "Device mobile or portable",
+  "name": "27.05 Processor of device is overloaded",
+  "potentialCause": "Processor of device is overloaded",
+  "detectionMethods": "None",
+  "potentialEffect": "No cloud communication possible",
+  "occurrenceMitigation": 0,
+  "occurrence": 3,
+  "riskDetails": [],
+  "remarks": "",
+  "mitigationMethods": [],
+  "alap": "Currently no method is known to reduce this risk",
+  "id": "DE8B",
+  "severity": 1,
+  "potentialFailureMode": "Hardware error"
+}

@@ -12,7 +12,6 @@ export 'enums/abnormalities.dart';
 export 'enums/activity.dart';
 export 'enums/algo_analysis.dart';
 export 'enums/measurement_diagnosis.dart';
-export 'enums/measurement_diagnosis.dart';
 export 'enums/review_type.dart';
 export 'enums/symptoms.dart';
 export 'enums/symptom_severity.dart';

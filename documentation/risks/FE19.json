@@ -1,0 +1,25 @@
+{
+  "keyValues": [],
+  "detectionMitigation": 1,
+  "detection": 10,
+  "origin": "Software",
+  "name": "16.03 The SDK does not perform the indicated function",
+  "potentialCause": "The SDK does not perform the indicated function",
+  "detectionMethods": "None",
+  "potentialEffect": "No measurement possible",
+  "occurrenceMitigation": 1,
+  "occurrence": 3,
+  "riskDetails": [
+    "protective_measures_in_the_manufacturing_process"
+  ],
+  "remarks": "",
+  "mitigationMethods": [
+    {
+      "method": "Software testing"
+    }
+  ],
+  "alap": "Currently no other method is known to reduce this risk",
+  "id": "FE19",
+  "severity": 1,
+  "potentialFailureMode": "Software error preventing correct use of device"
+}

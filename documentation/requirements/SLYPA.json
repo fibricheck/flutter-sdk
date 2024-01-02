@@ -1,0 +1,13 @@
+{
+  "id": "SLYPA",
+  "name": "Method to update a user profile",
+  "description": "The `updateProfile(properties)` method updates the profile associated with the **authenticated user**.\nThe `properties` object contains the following information: \n```\nProfileData(\n            addressLine1: \"test lijn 1\",\n            addressLine2: \"test lijn 2\",\n            weight: 65,\n            length: 170,\n            smoker: false,\n            activity: ProfileActivity.moderatelyActive,\n            fibricheckInfo: FibricheckInfo(\n              app: App(version: \"1.0.0\"),\n              device: Device(\n                manufacturer: \"Apple\",\n                type: \"ios\",\n                model: \"iPhone 13 Pro\",\n                os: \"15.5\",\n              ),\n            )));\n```",
+  "type": "specification",
+  "origin": "user_need",
+  "keyValues": [],
+  "attachments": [],
+  "testIds": [
+    "G92MK"
+  ],
+  "updatedTime": 1704188220191
+}

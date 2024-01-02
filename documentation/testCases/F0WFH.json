@@ -1,0 +1,21 @@
+{
+  "id": "F0WFH",
+  "name": "getPeriodicReports successfully returns a list of periodic reports",
+  "type": "manual",
+  "tier": "Acceptance",
+  "planStatus": "Planned",
+  "motivation": "",
+  "testSteps": [
+    "Initialize a Flutter environment with the following properties: \n- SDK imported\n- User authenticated\n- User has periodic reports",
+    "Execute the `getPeriodicReports` function"
+  ],
+  "expectedResult": "The method returns an iterator to retrieve the reports. The iterator successfully returns the periodic report ID's",
+  "requiredTestEnvironmentIds": [],
+  "keyValues": [],
+  "parentNames": [
+    "Fetch reports",
+    "Fetch list of periodic reports",
+    "Method getPeriodicReports provides functionality to retrieve periodic reports"
+  ],
+  "updatedTime": 1704188696938
+}

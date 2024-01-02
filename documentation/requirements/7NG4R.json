@@ -1,0 +1,13 @@
+{
+  "keyValues": [],
+  "testIds": [
+    "VAWFX"
+  ],
+  "origin": "user_need",
+  "updatedTime": 1704188616540,
+  "name": "Method `postMeasurement` uploads a measurement to FibriCheck Cloud",
+  "attachments": [],
+  "type": "specification",
+  "id": "7NG4R",
+  "description": "The method `postMeasurement(measurementCreationData, cameraSdkVersion)` allows to upload a measurement to FibriCheck Cloud. \n\nThe `cameraData` object should contain the JSON output of the FibriCheck Camera SDK and can be augmented with context information.\n"
+}

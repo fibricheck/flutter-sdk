@@ -1,0 +1,11 @@
+{
+  "id": "TRZ0T",
+  "name": "Authentication",
+  "description": "The host application must be able to authenticate against FibriCheck Cloud to perform actions.",
+  "type": "user_need",
+  "origin": "user_need",
+  "keyValues": [],
+  "attachments": [],
+  "testIds": [],
+  "updatedTime": 1697099357779
+}

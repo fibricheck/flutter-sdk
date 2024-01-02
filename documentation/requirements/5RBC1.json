@@ -1,0 +1,11 @@
+{
+  "id": "5RBC1",
+  "name": "Upload a measurement to the FibriCheck cloud for analysis",
+  "description": "The application developer must be able to use the FibriCheck Flutter SDK to upload the measurement output from the Camera SDK to the FibriCheck Cloud.",
+  "type": "user_need",
+  "origin": "user_need",
+  "keyValues": [],
+  "attachments": [],
+  "testIds": [],
+  "updatedTime": 1704188388204
+}

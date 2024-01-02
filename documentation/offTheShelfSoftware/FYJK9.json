@@ -1,0 +1,12 @@
+{
+  "id": "FYJK9",
+  "name": "crypto",
+  "manufacturer": "dart.dev",
+  "version": "3.0.2",
+  "releaseDate": "27-04-2022",
+  "description": "A set of cryptographic hashing functions for Dart.",
+  "keyValues": [],
+  "otherLibraryLinks": [],
+  "purpose": "",
+  "limitations": ""
+}

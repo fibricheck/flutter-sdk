@@ -1,0 +1,22 @@
+{
+  "id": "G92MK",
+  "name": "sdk.updateProfile method correctly updates user profile",
+  "type": "manual",
+  "tier": "Acceptance",
+  "planStatus": "Planned",
+  "motivation": "",
+  "testSteps": [
+    "Initialize a Flutter project where the SDK is imported",
+    "Authenticate against the backend using a regular user",
+    "Update the user's profile using the `updateProfile` method."
+  ],
+  "expectedResult": "The user profile is correctly updated with the changed information.",
+  "requiredTestEnvironmentIds": [],
+  "keyValues": [],
+  "parentNames": [
+    "Register and update a new user",
+    "Ability to update a user profile",
+    "Method to update a user profile"
+  ],
+  "updatedTime": 1704188104277
+}

@@ -1,0 +1,22 @@
+{
+  "id": "H4XA5",
+  "name": "Importing the SDK library produces executable code",
+  "type": "manual",
+  "tier": "Smoke",
+  "planStatus": "Planned",
+  "motivation": "",
+  "testSteps": [
+    "Import the SDK using the following code: \n```\nimport 'package:flutter_fibricheck_sdk/flutter_fibricheck_sdk.dart';\n```\n",
+    "Call an SDK method to verify that the SDK is imported correctly: \n```\nawait _sdk.authenticateWithEmail(\n      ParamsOauth1WithEmail(email: \"email\", password: \"password\"),\n      (consents) {\n        _onConsentNeeded(consents);\n      },\n    );\n```",
+    "Execute the script"
+  ],
+  "expectedResult": "The script runs successfully without errors",
+  "requiredTestEnvironmentIds": [],
+  "keyValues": [],
+  "parentNames": [
+    "Include the SDK in a 3rd party application",
+    "Ability to import SDK in a code environment",
+    "The SDK is exposed as a Flutter package that can be imported"
+  ],
+  "updatedTime": 1703794156203
+}

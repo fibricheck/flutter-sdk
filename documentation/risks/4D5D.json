@@ -1,0 +1,25 @@
+{
+  "keyValues": [],
+  "detectionMitigation": 1,
+  "detection": 10,
+  "origin": "Software",
+  "name": "16.10 Insufficient testing coverage",
+  "potentialCause": "Insufficient testing coverage",
+  "detectionMethods": "None",
+  "potentialEffect": "No communication possible",
+  "occurrenceMitigation": 1,
+  "occurrence": 1,
+  "riskDetails": [
+    "protective_measures_in_the_manufacturing_process"
+  ],
+  "remarks": "",
+  "mitigationMethods": [
+    {
+      "method": "Independent software testing"
+    }
+  ],
+  "alap": "Currently no other method is known to reduce this risk",
+  "id": "4D5D",
+  "severity": 1,
+  "potentialFailureMode": "Software error preventing correct use of device"
+}

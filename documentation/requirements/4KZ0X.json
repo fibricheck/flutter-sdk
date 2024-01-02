@@ -1,0 +1,11 @@
+{
+  "id": "4KZ0X",
+  "name": "Include the SDK in a 3rd party application",
+  "description": "The developer that uses the SDK must be able to include the Flutter SDK library in their own application.\n",
+  "type": "user_need",
+  "origin": "user_need",
+  "keyValues": [],
+  "attachments": [],
+  "testIds": [],
+  "updatedTime": 1704186601438
+}

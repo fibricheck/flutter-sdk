@@ -1,0 +1,11 @@
+{
+  "id": "GR3YE",
+  "name": "Ability to import SDK in a code environment",
+  "description": "The host application must be able to include the SDK in their development environment",
+  "type": "requirement",
+  "origin": "user_need",
+  "keyValues": [],
+  "attachments": [],
+  "testIds": [],
+  "updatedTime": 1697096282351
+}

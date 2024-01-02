@@ -1,0 +1,11 @@
+{
+  "id": "M4G4M",
+  "name": "Activate a new prescription",
+  "description": "The host application must be able to activate a FibriCheck prescription to allow authenticated users to have measurements analyzed.",
+  "type": "user_need",
+  "origin": "user_need",
+  "keyValues": [],
+  "attachments": [],
+  "testIds": [],
+  "updatedTime": 1697098318562
+}

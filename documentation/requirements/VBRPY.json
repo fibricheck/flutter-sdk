@@ -1,0 +1,13 @@
+{
+  "keyValues": [],
+  "testIds": [
+    "ZHCMC"
+  ],
+  "origin": "user_need",
+  "updatedTime": 1697102349869,
+  "name": "Method getPeriodicReportPdf returns the PDF content of a specific periodic report",
+  "attachments": [],
+  "type": "specification",
+  "id": "VBRPY",
+  "description": "The method `getPeriodicReportPdf(<reportId>)` takes a `reportId` string as input and returns an object with the PDF report in base64 encoding in the `data` property of the result."
+}

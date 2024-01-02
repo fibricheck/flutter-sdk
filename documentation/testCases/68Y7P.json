@@ -1,0 +1,22 @@
+{
+  "id": "68Y7P",
+  "name": "Unpaid prescription hash throws NotPaidError",
+  "type": "manual",
+  "tier": "Acceptance",
+  "planStatus": "Planned",
+  "motivation": "",
+  "testSteps": [
+    "Setup a Flutter project that has the SDK as a dependency",
+    "Correctly authenticate against FibriCheck Cloud",
+    "Try to activate **unpaid** prescription hash using the `activatePrescription()` method "
+  ],
+  "expectedResult": "An `NotPaidError` is returned",
+  "requiredTestEnvironmentIds": [],
+  "keyValues": [],
+  "parentNames": [
+    "Activate a new prescription",
+    "Ability to activate a prescription through the SDK",
+    "Method activatePrescription to activate a prescription"
+  ],
+  "updatedTime": 1704188379045
+}

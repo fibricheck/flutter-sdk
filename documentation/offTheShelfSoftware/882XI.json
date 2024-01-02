@@ -1,0 +1,12 @@
+{
+  "id": "882XI",
+  "name": "http",
+  "manufacturer": "dart.dev",
+  "version": "0.13.4",
+  "releaseDate": "01-10-2012",
+  "description": "A composable, Future-based library for making HTTP requests.",
+  "keyValues": [],
+  "otherLibraryLinks": [],
+  "purpose": "",
+  "limitations": ""
+}

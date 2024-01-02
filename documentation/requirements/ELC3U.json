@@ -1,0 +1,13 @@
+{
+  "id": "ELC3U",
+  "name": "Method getMeasurementReportUrl to retrieve the URL where the PDF report is hosted",
+  "description": "The `getMeasurementReportUrl(<measurementId>)` method accepts a measurementId and handles the creation and fetching of the report.\nThe method returns an URL where the report can be downloaded in a PDF format.",
+  "type": "specification",
+  "origin": "user_need",
+  "keyValues": [],
+  "attachments": [],
+  "testIds": [
+    "QB3CS"
+  ],
+  "updatedTime": 1697100934883
+}

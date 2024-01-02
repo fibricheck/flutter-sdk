@@ -1,0 +1,11 @@
+{
+  "id": "A28WH",
+  "name": "Fetch reports",
+  "description": "The host application must be able to retrieve the different reports that are generated for a FibriCheck user.",
+  "type": "user_need",
+  "origin": "user_need",
+  "keyValues": [],
+  "attachments": [],
+  "testIds": [],
+  "updatedTime": 1697100762102
+}
