@@ -1,0 +1,12 @@
+{
+  "id": "0TLQX",
+  "name": "build_runner",
+  "manufacturer": "tools.dart.dev",
+  "version": "2.4.0",
+  "releaseDate": "28-11-2023",
+  "description": "The build_runner package provides a concrete way of generating files using Dart code. Files are always generated directly on disk, and rebuilds are incremental.",
+  "keyValues": [],
+  "otherLibraryLinks": [],
+  "purpose": "",
+  "limitations": ""
+}

@@ -1,0 +1,12 @@
+{
+  "id": "MLL0K",
+  "name": "json_serializable",
+  "manufacturer": "google.dev",
+  "version": "6.3.1",
+  "releaseDate": "07-07-2022",
+  "description": "Provides Dart Build System builders for handling JSON.",
+  "keyValues": [],
+  "otherLibraryLinks": [],
+  "purpose": "",
+  "limitations": ""
+}

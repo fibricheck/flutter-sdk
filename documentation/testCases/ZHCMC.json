@@ -6,7 +6,7 @@
   "planStatus": "Planned",
   "motivation": "",
   "testSteps": [
-    "Initialize a JavaScript environment with the following properties: \n- SDK imported\n- User authenticated\n- User has periodic reports",
+    "Initialize a Flutter environment with the following properties: \n- SDK imported\n- User authenticated\n- User has periodic reports",
     "Fetch a periodic report through the `getPeriodicReportPdf`"
   ],
   "expectedResult": "The method returns a PDF report in `base64` encoding",
