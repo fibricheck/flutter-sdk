@@ -1,0 +1,72 @@
+{
+  "createdTime": 1696591922881,
+  "updatedTime": 1696591922881,
+  "initiatingDate": "2023-10-06T11:32:02.881Z",
+  "projectTeam": {},
+  "initialRiskAnalysis": {},
+  "validationPlanning": {
+    "gf130": {
+      "isPresent": false
+    },
+    "gf120": {
+      "isPresent": false
+    },
+    "performanceTesting": {
+      "isPresent": false
+    }
+  },
+  "gf161": {
+    "isPresent": false
+  },
+  "gl016": {
+    "isPresent": false
+  },
+  "gf164": {
+    "isPresent": false
+  },
+  "gf165": {
+    "isPresent": false
+  },
+  "gf166": {
+    "isPresent": false
+  },
+  "gf172": {
+    "isPresent": false
+  },
+  "gf173": {
+    "isPresent": false
+  },
+  "gf168": {
+    "isPresent": false
+  },
+  "gf1612": {
+    "isPresent": false
+  },
+  "gf182": {
+    "isPresent": false
+  },
+  "gf183": {
+    "isPresent": false
+  },
+  "gf250": {
+    "isPresent": false
+  },
+  "instructionsForUse": {
+    "isPresent": false
+  },
+  "gf131": {
+    "isPresent": false
+  },
+  "gf121": {
+    "isPresent": false
+  },
+  "performanceTesting": {
+    "isPresent": false
+  },
+  "gf169": {
+    "isPresent": false
+  },
+  "gf167": {
+    "isPresent": false
+  }
+}

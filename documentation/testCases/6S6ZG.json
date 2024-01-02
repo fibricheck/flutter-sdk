@@ -1,0 +1,22 @@
+{
+  "id": "6S6ZG",
+  "name": "Already activated prescription hash throws AlreadyActivatedError",
+  "type": "manual",
+  "tier": "Acceptance",
+  "planStatus": "Planned",
+  "motivation": "",
+  "testSteps": [
+    "Setup a Flutter project that has the SDK as a dependency",
+    "Correctly authenticate against FibriCheck Cloud",
+    "Try to activate **an already activated** prescription hash using the `activatePrescription()` method "
+  ],
+  "expectedResult": "An `AlreadyActivatedError` is returned",
+  "requiredTestEnvironmentIds": [],
+  "keyValues": [],
+  "parentNames": [
+    "Activate a new prescription",
+    "Ability to activate a prescription through the SDK",
+    "Method activatePrescription to activate a prescription"
+  ],
+  "updatedTime": 1704188375826
+}

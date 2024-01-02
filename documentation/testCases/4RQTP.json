@@ -1,0 +1,21 @@
+{
+  "id": "4RQTP",
+  "name": "The sdk.register() method successfully creates a user in FC Cloud",
+  "type": "manual",
+  "tier": "Acceptance",
+  "planStatus": "Planned",
+  "motivation": "",
+  "testSteps": [
+    "Setup a small Flutter project and import the SDK",
+    "Register a new user using the `sdk.register()` method: \n\n```\nconst user = await sdk.register({\n  firstName: 'John',\n  lastName: 'Doe',\n  email: 'john.doe@example.com',\n  password: 'Strong!987',\n  phoneNumber: '000000',\n  birthday: '1970/01/01',\n  gender: 0, // 0 = Not known; 1 = Male; 2 = Female; 9 = Not applicable\n  country: 'JO',\n  language: 'AR',\n  // It has to be a time zone that is compatible w/\n  // (https://docs.oracle.com/javase/8/docs/api/java/time/ZoneId.html#of-java.lang.String-)\n  // This library will fetch the correct time zones:\n  // https://github.com/zoontek/react-native-localize#gettimezone\n  // The time zone will be used to render the correct times in the measurement reports\n  timeZone: \"Europe/Brussels\"\n});\n```\n"
+  ],
+  "expectedResult": "The user is correctly registered in FC Cloud",
+  "requiredTestEnvironmentIds": [],
+  "keyValues": [],
+  "parentNames": [
+    "Register and update a new user",
+    "Method to register a new user",
+    "Method to register a new user"
+  ],
+  "updatedTime": 1703794483614
+}

@@ -1,0 +1,11 @@
+{
+  "id": "NJ8UN",
+  "name": "Fetch list of periodic reports",
+  "description": "The host application should be able to fetch a list of periodic reports for the authenticated user.",
+  "type": "requirement",
+  "origin": "user_need",
+  "keyValues": [],
+  "attachments": [],
+  "testIds": [],
+  "updatedTime": 1697101480643
+}

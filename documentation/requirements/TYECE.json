@@ -1,0 +1,14 @@
+{
+  "id": "K1K9L",
+  "name": "Method updateMeasurementContext to update the measurement context of a measurement",
+  "description": "The SDK exposes a method `updateMeasurementContext(<measurementId>, <context>)` that takes a `measurementId` string and `context` object as input. \nAfter executing the method, the measurement context is updated. \n\nThe `context` object has the following properties:\n```\n{\n    \"context\": {\n        \"activity\": \"sitting\",\n        \"symptoms\": [\"fatigue\"],\n        \"symptomSeverity\": \"2a\"\n    }\n}\n```",
+  "type": "specification",
+  "origin": "user_need",
+  "keyValues": [],
+  "attachments": [],
+  "testIds": [
+    "TYECE",
+    "7J0VU"
+  ],
+  "updatedTime": 1697100562850
+}

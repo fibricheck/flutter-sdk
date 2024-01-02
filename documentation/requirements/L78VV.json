@@ -1,0 +1,13 @@
+{
+  "id": "L78VV",
+  "name": "Authenticate using email/password combination",
+  "description": "Host application is able to authenticate the user against FibriCheck cloud using a email/password combination.",
+  "type": "specification",
+  "origin": "user_need",
+  "keyValues": [],
+  "attachments": [],
+  "testIds": [
+    "Y0IT6"
+  ],
+  "updatedTime": 1696596566661
+}

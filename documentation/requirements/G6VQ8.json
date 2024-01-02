@@ -1,0 +1,11 @@
+{
+  "id": "G6VQ8",
+  "name": "Update the measurement context of an uploaded measurement",
+  "description": "The host application must be able to update the measurement context of an already uploaded measurement",
+  "type": "requirement",
+  "origin": "user_need",
+  "keyValues": [],
+  "attachments": [],
+  "testIds": [],
+  "updatedTime": 1697099505058
+}

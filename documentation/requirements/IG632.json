@@ -1,0 +1,11 @@
+{
+  "id": "IG632",
+  "name": "Ability to update a user profile",
+  "description": "The SDK must offer a method to update the user's profile after user creation.\n",
+  "type": "requirement",
+  "origin": "user_need",
+  "keyValues": [],
+  "attachments": [],
+  "testIds": [],
+  "updatedTime": 1697097084323
+}

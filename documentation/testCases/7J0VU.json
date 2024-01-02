@@ -1,0 +1,23 @@
+{
+  "id": "7J0VU",
+  "name": "Successfully update the measurement context of a measurement",
+  "type": "manual",
+  "tier": "Acceptance",
+  "planStatus": "Planned",
+  "motivation": "",
+  "testSteps": [
+    "Setup a Flutter project that has the SDK as a dependency",
+    "Correctly authenticate against FibriCheck Cloud and make sure the user has an active prescription.",
+    "Perform a measurement using the FibriCheck Camera SDK and upload the measurement to FibriCheck Cloud.",
+    "Update the measurement context using `updateMeasurementContext` for the performed measurement with the following context: \n```\n{\n    \"context\": {\n        \"activity\": \"sitting\",\n        \"symptoms\": [\"fatigue\"],\n        \"symptomSeverity\": \"2a\"\n    }\n}\n```"
+  ],
+  "expectedResult": "The measurement context is successfully added to the measurement",
+  "requiredTestEnvironmentIds": [],
+  "keyValues": [],
+  "parentNames": [
+    "Upload a measurement to the FibriCheck cloud for analysis",
+    "Upload a measurement to FibriCheck Cloud",
+    "Method `postMeasurement` uploads a measurement to FibriCheck Cloud"
+  ],
+  "updatedTime": 1704188643455
+}

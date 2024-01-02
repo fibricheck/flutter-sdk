@@ -1,0 +1,20 @@
+{
+  "id": "Y0IT6",
+  "name": "Authentication using email-password combination is successful",
+  "type": "manual",
+  "tier": "None",
+  "planStatus": "Planned",
+  "motivation": "",
+  "testSteps": [
+    "Execute the following code snippet with working values for `clientId`, `clientSecret`, `email` and `password`: \n\n```\nimport 'package:flutter_fibricheck_sdk/flutter_fibricheck_sdk.dart';\n\nvar _sdk = FLFibriCheckSdk.client(\n        \"<consumerKey>\", \"<consumerSecret>\",\n        env: Env.dev);\n  }\n\nawait _sdk.authenticateWithEmail(\n      ParamsOauth1WithEmail(email: \"<email>\", password: \"<password>\"),\n      (consents) {\n        _onConsentNeeded(consents);\n      },\n    );\n\n```"
+  ],
+  "expectedResult": "The `authenticateWithEmail()` function returns without an error, meaning the user was successfully authenticated using the OAuth1.0 mechanism.",
+  "requiredTestEnvironmentIds": [],
+  "keyValues": [],
+  "parentNames": [
+    "Authentication",
+    "Authenticate against FibriCheck Cloud",
+    "Authenticate using email/password combination"
+  ],
+  "updatedTime": 1704187935447
+}

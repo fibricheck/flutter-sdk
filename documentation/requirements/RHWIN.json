@@ -1,0 +1,11 @@
+{
+  "id": "RHWIN",
+  "name": "Ability to activate a prescription through the SDK",
+  "description": "The host application must be able to use the SDK to activate a user prescription, given a prescription hash. \nThat prescription hash typically originates from scanning a QR code.",
+  "type": "requirement",
+  "origin": "user_need",
+  "keyValues": [],
+  "attachments": [],
+  "testIds": [],
+  "updatedTime": 1697098593782
+}

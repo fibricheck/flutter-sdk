@@ -1,0 +1,11 @@
+{
+  "id": "80GT6",
+  "name": "Fetch measurement report",
+  "description": "For every successfully uploaded and analyzed measurement, the host application should be able to fetch the associated PDF report.",
+  "type": "requirement",
+  "origin": "user_need",
+  "keyValues": [],
+  "attachments": [],
+  "testIds": [],
+  "updatedTime": 1697100800974
+}
