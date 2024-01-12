@@ -2,7 +2,7 @@ publish_to: none
 
 name: flutter_fibricheck_sdk
 description: This package serves as a Flutter wrapper around all FibriCheck cloud services.
-version: 2.2.0
+version: 2.2.1
 homepage: https://docs.fibricheck.com/
 
 environment:
