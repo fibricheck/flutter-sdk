@@ -1,0 +1,21 @@
+{
+  "id": "ZHCMC",
+  "name": "getPeriodicReportPdf successfully returns PDF report in base64",
+  "type": "manual",
+  "tier": "Acceptance",
+  "planStatus": "Planned",
+  "motivation": "",
+  "testSteps": [
+    "Initialize a Flutter environment with the following properties: \n- SDK imported\n- User authenticated\n- User has periodic reports",
+    "Fetch a periodic report through the `getPeriodicReportPdf`"
+  ],
+  "expectedResult": "The method returns a PDF report in `base64` encoding",
+  "requiredTestEnvironmentIds": [],
+  "keyValues": [],
+  "parentNames": [
+    "Fetch reports",
+    "Fetch list of periodic reports",
+    "Method getPeriodicReportPdf returns the PDF content of a specific periodic report"
+  ],
+  "updatedTime": 1697102731597
+}

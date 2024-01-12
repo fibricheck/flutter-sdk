@@ -1,0 +1,15 @@
+{
+  "keyValues": [],
+  "testIds": [
+    "VJOLU",
+    "6S6ZG",
+    "68Y7P"
+  ],
+  "origin": "user_need",
+  "updatedTime": 1697102607381,
+  "name": "Method activatePrescription to activate a prescription",
+  "attachments": [],
+  "type": "specification",
+  "id": "8H92X",
+  "description": "The `activatePrescription(<prescriptionHash>)` method in the SDK scans the prescription, links it to the authenticated user, and activates it in FibriCheck Cloud.  \nThis method takes the prescription hash as a parameter. The prescription hash is can be obtained by:\n- scanning a QR code that has been shared with the user out-of-band.\n- fetching a hash through FibriCheck Cloud API methods.\n\nThis function can throw 2 errors: \n- `NotPaidError`: A paying prescription has not yet been paid.\n- `AlreadyActivatedError`: The prescription has already been used."
+}

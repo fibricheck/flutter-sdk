@@ -1,0 +1,29 @@
+{
+  "logoFileName": null,
+  "routes": {
+    "Project Info": {
+      "isVisible": true
+    },
+    "Specifications": {
+      "isVisible": true
+    },
+    "PAL": {
+      "isVisible": true
+    },
+    "OTS": {
+      "isVisible": true
+    },
+    "Risks": {
+      "isVisible": true
+    },
+    "Test Environments": {
+      "isVisible": true
+    },
+    "Regulatory": {
+      "isVisible": true
+    },
+    "Design and Development Plan": {
+      "isVisible": true
+    }
+  }
+}

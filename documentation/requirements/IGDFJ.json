@@ -1,0 +1,11 @@
+{
+  "id": "IGDFJ",
+  "name": "Method to register a new user",
+  "description": "The SDK must offer a method to register a new user in FibriCheck cloud.",
+  "type": "requirement",
+  "origin": "user_need",
+  "keyValues": [],
+  "attachments": [],
+  "testIds": [],
+  "updatedTime": 1697096773723
+}

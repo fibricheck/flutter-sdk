@@ -1,0 +1,19 @@
+{
+  "keyValues": [],
+  "detectionMitigation": 0,
+  "detection": 10,
+  "origin": "Device mobile or portable",
+  "name": "27.06 Inadequate disclosure of limitations",
+  "potentialCause": "Inadequate disclosure of limitations",
+  "detectionMethods": "None",
+  "potentialEffect": "No cloud communication possible",
+  "occurrenceMitigation": 0,
+  "occurrence": 3,
+  "riskDetails": [],
+  "remarks": "Contractual agreements with 3rd parties.",
+  "mitigationMethods": [],
+  "alap": "Currently no method is known to reduce this risk",
+  "id": "A026",
+  "severity": 1,
+  "potentialFailureMode": "Hardware error"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "G52CZ",
+  "name": "platform",
+  "manufacturer": "flutter.dev",
+  "version": "3.1.0",
+  "releaseDate": "02-12-2021",
+  "description": "A pluggable, mockable platform information abstraction for Dart.",
+  "keyValues": [],
+  "otherLibraryLinks": [],
+  "purpose": "",
+  "limitations": ""
+}

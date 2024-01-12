@@ -1,0 +1,13 @@
+{
+  "id": "B3NC9",
+  "name": "The SDK is exposed as a Flutter package that can be imported",
+  "description": "The SDK is exposed as a Flutter package that can be imported using `import` statements",
+  "type": "specification",
+  "origin": "user_need",
+  "keyValues": [],
+  "attachments": [],
+  "testIds": [
+    "H4XA5"
+  ],
+  "updatedTime": 1703794113691
+}

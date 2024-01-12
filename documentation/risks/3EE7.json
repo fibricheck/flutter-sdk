@@ -1,0 +1,19 @@
+{
+  "keyValues": [],
+  "detectionMitigation": 0,
+  "detection": 10,
+  "origin": "User",
+  "name": "1.03 Misinterpretations of the product claims",
+  "potentialCause": "Misinterpretations of the product claims",
+  "detectionMethods": "None",
+  "potentialEffect": "No cloud communication possible",
+  "occurrenceMitigation": 0,
+  "occurrence": 3,
+  "riskDetails": [],
+  "remarks": "Contractual agreements with 3rd parties, if necessary.",
+  "mitigationMethods": [],
+  "alap": "Currently no method is known to further reduce this risk",
+  "id": "3EE7",
+  "severity": 1,
+  "potentialFailureMode": "Misinterpretation of intended use"
+}

@@ -1,0 +1,19 @@
+{
+  "keyValues": [],
+  "detectionMitigation": 0,
+  "detection": 10,
+  "origin": "Device mobile or portable",
+  "name": "27.01 Device failure",
+  "potentialCause": "Device failure",
+  "detectionMethods": "None",
+  "potentialEffect": "No cloud communication possible",
+  "occurrenceMitigation": 0,
+  "occurrence": 1,
+  "riskDetails": [],
+  "remarks": "",
+  "mitigationMethods": [],
+  "alap": "Currently no method is known to reduce this risk",
+  "id": "019F",
+  "severity": 1,
+  "potentialFailureMode": "Hardware error"
+}

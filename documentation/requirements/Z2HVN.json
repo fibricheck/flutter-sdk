@@ -1,0 +1,11 @@
+{
+  "id": "Z2HVN",
+  "name": "Authenticate against FibriCheck Cloud",
+  "description": "The SDK exposes the functionality for the host application to authenticate against the FibriCheck SDK.",
+  "type": "requirement",
+  "origin": "user_need",
+  "keyValues": [],
+  "attachments": [],
+  "testIds": [],
+  "updatedTime": 1696594103205
+}

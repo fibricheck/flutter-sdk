@@ -1,0 +1,13 @@
+{
+  "id": "OY8SJ",
+  "name": "Authenticate using token/tokenSecret combination",
+  "description": "Host application is able to authenticate the user against FibriCheck cloud using a token/tokenSecret combination.",
+  "type": "specification",
+  "origin": "user_need",
+  "keyValues": [],
+  "attachments": [],
+  "testIds": [
+    "6LJ5Y"
+  ],
+  "updatedTime": 1696596602985
+}

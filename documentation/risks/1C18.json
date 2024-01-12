@@ -1,0 +1,23 @@
+{
+  "keyValues": [],
+  "detectionMitigation": 0,
+  "detection": 10,
+  "origin": "Measurement",
+  "name": "9.10 No communication possible due to hardware related problems",
+  "potentialCause": "No communication possible due to hardware related problems",
+  "detectionMethods": "None",
+  "potentialEffect": "No cloud communication possible",
+  "occurrenceMitigation": 0,
+  "occurrence": 3,
+  "riskDetails": [],
+  "remarks": "",
+  "mitigationMethods": [
+    {
+      "method": ""
+    }
+  ],
+  "alap": "Currently no method is known to reduce this risk",
+  "id": "1C18",
+  "severity": 1,
+  "potentialFailureMode": "Hardware error"
+}

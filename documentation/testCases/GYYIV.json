@@ -1,0 +1,20 @@
+{
+  "id": "GYYIV",
+  "name": "Create a SDK Client with `consumerKey` and `consumerSecret` values",
+  "type": "manual",
+  "tier": "Feature/Change",
+  "planStatus": "Planned",
+  "motivation": "",
+  "testSteps": [
+    "Execute the following code snippet with working values for `consumerKey`: \n\n```\nimport 'package:flutter_fibricheck_sdk/flutter_fibricheck_sdk.dart';\n\nvar _sdk = FLFibriCheckSdk.client(\n        \"<consumerKey>\", \"<consumerSecret>\",\n        env: Env.dev);\n  }\n\n```"
+  ],
+  "expectedResult": "The `client()` function returns without an error, meaning the client was successfully created",
+  "requiredTestEnvironmentIds": [],
+  "keyValues": [],
+  "parentNames": [
+    "Authentication",
+    "Authenticate against FibriCheck Cloud",
+    "Expose OAuth 1.0 authentication client"
+  ],
+  "updatedTime": 1704187877618
+}

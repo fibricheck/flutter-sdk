@@ -1,0 +1,25 @@
+{
+  "keyValues": [],
+  "detectionMitigation": 1,
+  "detection": 10,
+  "origin": "Shelf-life",
+  "name": "17.01 Software is outdated",
+  "potentialCause": "User did not update app",
+  "detectionMethods": "None",
+  "potentialEffect": "Risk of issues with cloud communication or security issues",
+  "occurrenceMitigation": 1,
+  "occurrence": 1,
+  "riskDetails": [
+    "protective_measures_in_the_manufacturing_process"
+  ],
+  "remarks": "Contractual agreements with 3rd parties.",
+  "mitigationMethods": [
+    {
+      "method": "Software maintenance"
+    }
+  ],
+  "alap": "Currently no other method is known to reduce this risk",
+  "id": "4555",
+  "severity": 5,
+  "potentialFailureMode": "User error"
+}

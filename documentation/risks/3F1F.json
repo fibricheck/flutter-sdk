@@ -1,0 +1,19 @@
+{
+  "keyValues": [],
+  "detectionMitigation": 0,
+  "detection": 10,
+  "origin": "Software",
+  "name": "16.13 Memory failure",
+  "potentialCause": "Memory failure",
+  "detectionMethods": "None",
+  "potentialEffect": "No measurement possible",
+  "occurrenceMitigation": 0,
+  "occurrence": 3,
+  "riskDetails": [],
+  "remarks": "",
+  "mitigationMethods": [],
+  "alap": "Currently no method is known to reduce this risk",
+  "id": "3F1F",
+  "severity": 1,
+  "potentialFailureMode": "Software error preventing correct use of device"
+}

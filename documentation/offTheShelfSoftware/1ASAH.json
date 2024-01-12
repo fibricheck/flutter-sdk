@@ -1,0 +1,12 @@
+{
+  "id": "1ASAH",
+  "name": "mockito",
+  "manufacturer": "dart.dev",
+  "version": "5.3.0",
+  "releaseDate": "28-07-2022",
+  "description": "A mock framework inspired by Mockito with APIs for Fakes, Mocks, behavior verification, and stubbing.",
+  "keyValues": [],
+  "otherLibraryLinks": [],
+  "purpose": "",
+  "limitations": ""
+}

@@ -1,0 +1,12 @@
+{
+  "id": "E9XYC",
+  "name": "uuid",
+  "manufacturer": "yuli.dev",
+  "version": "4.2.0",
+  "releaseDate": "6-11-2023",
+  "description": "Simple, fast generation of RFC4122 UUIDs.\n",
+  "keyValues": [],
+  "otherLibraryLinks": [],
+  "purpose": "",
+  "limitations": ""
+}

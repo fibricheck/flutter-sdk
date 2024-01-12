@@ -1,0 +1,12 @@
+{
+  "id": "6T97E",
+  "name": "package_info_plus",
+  "manufacturer": "fluttercommunity.dev",
+  "version": "1.0.6",
+  "releaseDate": "24-08-2021",
+  "description": "This Flutter plugin provides an API for querying information about an application package.",
+  "keyValues": [],
+  "otherLibraryLinks": [],
+  "purpose": "",
+  "limitations": ""
+}

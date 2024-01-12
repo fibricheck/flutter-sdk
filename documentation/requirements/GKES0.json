@@ -1,0 +1,13 @@
+{
+  "id": "GKES0",
+  "name": "Expose OAuth 1.0 authentication client",
+  "description": "The SDK exposes a method `client` that takes an object containing a `consumerKey` and `consumerSecret` as input.\nThe return value of this method is an SDK client that uses OAuth1.0 as a authentication mechanism to communicate with the FibriCheck backend.",
+  "type": "specification",
+  "origin": "user_need",
+  "keyValues": [],
+  "attachments": [],
+  "testIds": [
+    "GYYIV"
+  ],
+  "updatedTime": 1696595679818
+}
