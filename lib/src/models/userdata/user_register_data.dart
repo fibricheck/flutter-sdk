@@ -1,5 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages
 
+import 'package:flutter_fibricheck_sdk/src/models/userdata/enums/activation_mode.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'userdata.dart';
@@ -23,6 +24,8 @@ class UserRegisterData {
   final String language;
   @JsonKey(name: 'time_zone')
   final String? timeZone;
+  @JsonKey(name: 'activation_mode')
+  ActivationMode? activationMode;
 
   UserRegisterData({
     required this.firstName,
@@ -36,9 +39,11 @@ class UserRegisterData {
     this.country,
     this.gender,
     this.region,
+    this.activationMode,
   });
 
-  factory UserRegisterData.fromJson(Map<String, dynamic> json) => _$UserRegisterDataFromJson(json);
+  factory UserRegisterData.fromJson(Map<String, dynamic> json) =>
+      _$UserRegisterDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserRegisterDataToJson(this);
 }

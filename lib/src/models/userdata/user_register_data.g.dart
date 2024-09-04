@@ -19,6 +19,8 @@ UserRegisterData _$UserRegisterDataFromJson(Map<String, dynamic> json) =>
       country: json['country'] as String?,
       gender: $enumDecodeNullable(_$GenderEnumMap, json['gender']),
       region: json['region'] as String?,
+      activationMode:
+          $enumDecodeNullable(_$ActivationModeEnumMap, json['activation_mode']),
     );
 
 Map<String, dynamic> _$UserRegisterDataToJson(UserRegisterData instance) =>
@@ -34,6 +36,7 @@ Map<String, dynamic> _$UserRegisterDataToJson(UserRegisterData instance) =>
       'region': instance.region,
       'language': instance.language,
       'time_zone': instance.timeZone,
+      'activation_mode': _$ActivationModeEnumMap[instance.activationMode],
     };
 
 const _$GenderEnumMap = {
@@ -41,4 +44,10 @@ const _$GenderEnumMap = {
   Gender.male: '1',
   Gender.female: '2',
   Gender.notApplicable: '9',
+};
+
+const _$ActivationModeEnumMap = {
+  ActivationMode.hash: 'hash',
+  ActivationMode.pinCode: 'pin_code',
+  ActivationMode.manual: 'manual',
 };
