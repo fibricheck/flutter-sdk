@@ -7,7 +7,6 @@ import '../constants/constants_api.dart';
 import '../constants/keys_fibricheck_sdk.dart';
 import '../models/measurement/measurement.dart';
 import '../models/authentication_data/authentication_data.dart';
-import '../models/userdata/enums/activation_mode.dart';
 import '../oauth1/authorization_header.dart';
 import '../oauth1/client_credentials.dart';
 import '../oauth1/credentials.dart';

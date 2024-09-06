@@ -1,6 +1,5 @@
 // ignore_for_file: depend_on_referenced_packages
 
-import 'package:flutter_fibricheck_sdk/src/models/userdata/enums/activation_mode.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'userdata.dart';
