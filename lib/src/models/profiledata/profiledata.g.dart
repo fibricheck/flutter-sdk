@@ -13,7 +13,7 @@ ProfileData _$ProfileDataFromJson(Map<String, dynamic> json) => ProfileData(
       addressLine2: json['address_line2'] as String?,
       city: json['city'] as String?,
       postalCode: json['postal_code'] as String?,
-      weight: json['weight'] as int?,
+      weight: json['weight'] as num?,
       length: json['length'] as int?,
       birthday: json['birthday'] as String?,
       gender: json['gender'] as int?,

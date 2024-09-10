@@ -27,7 +27,7 @@ class ProfileData {
   final String? city;
   @JsonKey(name: 'postal_code')
   final String? postalCode;
-  final int? weight;
+  final num? weight;
   final int? length;
   final String? birthday;
   final int? gender;

@@ -154,6 +154,7 @@ class Register extends StatelessWidget {
       password: passwordController.text,
       phoneNumber: phoneNumberController.text,
       language: languageController.text,
+      activationMode : ActivationMode.manual
     );
 
     await sdk.register(userData);

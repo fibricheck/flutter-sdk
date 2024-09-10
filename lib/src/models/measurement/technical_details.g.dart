@@ -8,9 +8,9 @@ part of 'technical_details.dart';
 
 TechnicalDetails _$TechnicalDetailsFromJson(Map<String, dynamic> json) =>
     TechnicalDetails(
-      cameraExposureTime: json['camera_exposure_time'] as int?,
+      cameraExposureTime: json['camera_exposure_time'] as num?,
       cameraHardwareLevel: json['camera_hardware_level'] as String?,
-      cameraIso: json['camera_iso'] as int?,
+      cameraIso: json['camera_iso'] as num?,
       cameraResolution: json['camera_resolution'] as String?,
     );
 

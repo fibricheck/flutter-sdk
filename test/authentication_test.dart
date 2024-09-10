@@ -49,13 +49,12 @@ void main() {
 
       await sdk.authenticateWithEmail(
           oauthWithEmail,
-          (e) async => {
-                for (var document in e)
-                  {
-                    await sdk.giveConsent(document),
-                    verify(mockClient.updateUserConfig(any, any)).called(1),
-                  }
-              });
+          (e) async {
+            for (var document in e) {
+              await sdk.giveConsent(document);
+              verify(mockClient.updateUserConfig(any, any)).called(1);
+            }
+          });
 
       verify(mockClient.createOAuth1TokenWithEmail(any)).called(1);
     });

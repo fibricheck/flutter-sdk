@@ -23,6 +23,8 @@ class UserRegisterData {
   final String language;
   @JsonKey(name: 'time_zone')
   final String? timeZone;
+  @JsonKey(name: 'activation_mode')
+  ActivationMode? activationMode;
 
   UserRegisterData({
     required this.firstName,
@@ -36,9 +38,11 @@ class UserRegisterData {
     this.country,
     this.gender,
     this.region,
+    this.activationMode,
   });
 
-  factory UserRegisterData.fromJson(Map<String, dynamic> json) => _$UserRegisterDataFromJson(json);
+  factory UserRegisterData.fromJson(Map<String, dynamic> json) =>
+      _$UserRegisterDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserRegisterDataToJson(this);
 }
